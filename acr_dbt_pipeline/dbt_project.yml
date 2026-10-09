@@ -18,13 +18,6 @@ on-run-start:
 - "{{ assert_enabled_snapshots_configured() }}"
 
 vars:
-  # Comma-separated logical snapshot names to build. Anything not listed is
-  # disabled, so the project still parses and runs while a snapshot is
-  # awaiting DUOS approval or has not been published. Set TDR_ENABLED_SNAPSHOTS
-  # in the workspace .env, or override for one invocation with:
-  #   dbt run --vars '{"enabled_snapshots": "cmg_yale_gru,cmg_yale_hmb"}'
-  enabled_snapshots: "{{ env_var('TDR_ENABLED_SNAPSHOTS', 'cmg_yale_gru') }}"
-
   enabled_srcs:
     - cmg_yale_consent_2
     - cmg_bh_consent_2

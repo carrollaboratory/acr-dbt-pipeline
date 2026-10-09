@@ -1,10 +1,9 @@
 version: 2
 
 # Every CMG Yale consent group is declared here, but each one is enabled only
-# when its logical name appears in `vars.enabled_snapshots` (driven by
-# TDR_ENABLED_SNAPSHOTS in the workspace .env). Declaring a snapshot costs
-# nothing while it is disabled, so sources never need to be commented out when
-# access has not been granted yet.
+# when its `TDR_<NAME>_ENABLED` environment variable is true. Declaring a
+# snapshot costs nothing while it is disabled, so sources never need to be
+# commented out when access has not been granted yet.
 #
 # `schema` falls back to an empty string so a disabled snapshot with no
 # environment variables still renders. The on-run-start hook in
@@ -16,14 +15,14 @@ sources:
     database: "{{ var('tdr_snapshots')['cmg_yale_ds_bpeakd']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_DS_BPEAKD_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ 'cmg_yale_ds_bpeakd' in var('enabled_snapshots').split(',') | map('trim') | list }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_DS_BPEAKD_ENABLED', 'false') | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_Yale_DS_BPEAKD
         consent_code: DS-BPEAKD
         snapshot_id_env_var: TDR_CMG_YALE_DS_BPEAKD_SNAPSHOT_ID
         project_env_var: TDR_CMG_YALE_DS_BPEAKD_BQ_PROJECT
         dataset_env_var: TDR_CMG_YALE_DS_BPEAKD_BQ_DATASET
-    tables: &cmg_yale_tables
+    tables:
       - name: sample
         description: Raw sample records from the CMG Yale TDR snapshot.
       - name: subject
@@ -42,109 +41,163 @@ sources:
     database: "{{ var('tdr_snapshots')['cmg_yale_ds_mc']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_DS_MC_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ 'cmg_yale_ds_mc' in var('enabled_snapshots').split(',') | map('trim') | list }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_DS_MC_ENABLED', 'false') | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_YALE_DS_MC
         consent_code: DS-MC
         snapshot_id_env_var: TDR_CMG_YALE_DS_MC_SNAPSHOT_ID
         project_env_var: TDR_CMG_YALE_DS_MC_BQ_PROJECT
         dataset_env_var: TDR_CMG_YALE_DS_MC_BQ_DATASET
-    tables: *cmg_yale_tables
+    tables:
+      - name: sample
+      - name: subject
+      - name: anvil_dataset
+      - name: sequencing
+      - name: family
+      - name: file_inventory
 
   - name: cmg_yale_ds_rared
     description: Raw CMG Yale DS-RARED tables exposed by a TDR snapshot in BigQuery.
     database: "{{ var('tdr_snapshots')['cmg_yale_ds_rared']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_DS_RARED_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ 'cmg_yale_ds_rared' in var('enabled_snapshots').split(',') | map('trim') | list }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_DS_RARED_ENABLED', 'false') | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_YALE_DS_RARED
         consent_code: DS-RARED
         snapshot_id_env_var: TDR_CMG_YALE_DS_RARED_SNAPSHOT_ID
         project_env_var: TDR_CMG_YALE_DS_RARED_BQ_PROJECT
         dataset_env_var: TDR_CMG_YALE_DS_RARED_BQ_DATASET
-    tables: *cmg_yale_tables
+    tables:
+      - name: sample
+      - name: subject
+      - name: anvil_dataset
+      - name: sequencing
+      - name: family
+      - name: file_inventory
 
   - name: cmg_yale_ds_rd
     description: Raw CMG Yale DS-RD tables exposed by a TDR snapshot in BigQuery.
     database: "{{ var('tdr_snapshots')['cmg_yale_ds_rd']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_DS_RD_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ 'cmg_yale_ds_rd' in var('enabled_snapshots').split(',') | map('trim') | list }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_DS_RD_ENABLED', 'false') | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_Yale_DS_RD
         consent_code: DS-RD
         snapshot_id_env_var: TDR_CMG_YALE_DS_RD_SNAPSHOT_ID
         project_env_var: TDR_CMG_YALE_DS_RD_BQ_PROJECT
         dataset_env_var: TDR_CMG_YALE_DS_RD_BQ_DATASET
-    tables: *cmg_yale_tables
+    tables:
+      - name: sample
+      - name: subject
+      - name: anvil_dataset
+      - name: sequencing
+      - name: family
+      - name: file_inventory
 
   - name: cmg_yale_ds_thal_irb
     description: Raw CMG Yale DS-THAL-IRB tables exposed by a TDR snapshot in BigQuery.
     database: "{{ var('tdr_snapshots')['cmg_yale_ds_thal_irb']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_DS_THAL_IRB_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ 'cmg_yale_ds_thal_irb' in var('enabled_snapshots').split(',') | map('trim') | list }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_DS_THAL_IRB_ENABLED', 'false') | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_Yale_DS_THAL_IRB
         consent_code: DS-THAL-IRB
         snapshot_id_env_var: TDR_CMG_YALE_DS_THAL_IRB_SNAPSHOT_ID
         project_env_var: TDR_CMG_YALE_DS_THAL_IRB_BQ_PROJECT
         dataset_env_var: TDR_CMG_YALE_DS_THAL_IRB_BQ_DATASET
-    tables: *cmg_yale_tables
+    tables:
+      - name: sample
+      - name: subject
+      - name: anvil_dataset
+      - name: sequencing
+      - name: family
+      - name: file_inventory
 
   - name: cmg_yale_gru
     description: Raw CMG Yale GRU tables exposed by a TDR snapshot in BigQuery.
     database: "{{ var('tdr_snapshots')['cmg_yale_gru']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_GRU_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ 'cmg_yale_gru' in var('enabled_snapshots').split(',') | map('trim') | list }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_GRU_ENABLED', 'true') | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_Yale_GRU
         consent_code: GRU
         snapshot_id_env_var: TDR_CMG_YALE_GRU_SNAPSHOT_ID
         project_env_var: TDR_CMG_YALE_GRU_BQ_PROJECT
         dataset_env_var: TDR_CMG_YALE_GRU_BQ_DATASET
-    tables: *cmg_yale_tables
+    tables:
+      - name: sample
+        description: Raw sample records from the CMG Yale GRU snapshot.
+      - name: subject
+        description: Raw subject records from the CMG Yale GRU snapshot.
+      - name: anvil_dataset
+        description: Raw dataset and consent records from the CMG Yale GRU snapshot.
+      - name: sequencing
+        description: Raw sequencing records from the CMG Yale GRU snapshot.
+      - name: family
+        description: Raw family records from the CMG Yale GRU snapshot.
+      - name: file_inventory
+        description: Raw file inventory records from the CMG Yale GRU snapshot.
 
   - name: cmg_yale_hmb
     description: Raw CMG Yale HMB tables exposed by a TDR snapshot in BigQuery.
     database: "{{ var('tdr_snapshots')['cmg_yale_hmb']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_HMB_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ 'cmg_yale_hmb' in var('enabled_snapshots').split(',') | map('trim') | list }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_HMB_ENABLED', 'false') | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_Yale_HMB
         consent_code: HMB
         snapshot_id_env_var: TDR_CMG_YALE_HMB_SNAPSHOT_ID
         project_env_var: TDR_CMG_YALE_HMB_BQ_PROJECT
         dataset_env_var: TDR_CMG_YALE_HMB_BQ_DATASET
-    tables: *cmg_yale_tables
+    tables:
+      - name: sample
+      - name: subject
+      - name: anvil_dataset
+      - name: sequencing
+      - name: family
+      - name: file_inventory
 
   - name: cmg_yale_hmb_gso
     description: Raw CMG Yale HMB-GSO tables exposed by a TDR snapshot in BigQuery.
     database: "{{ var('tdr_snapshots')['cmg_yale_hmb_gso']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_HMB_GSO_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ 'cmg_yale_hmb_gso' in var('enabled_snapshots').split(',') | map('trim') | list }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_HMB_GSO_ENABLED', 'false') | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_Yale_HMB_GSO
         consent_code: HMB-GSO
         snapshot_id_env_var: TDR_CMG_YALE_HMB_GSO_SNAPSHOT_ID
         project_env_var: TDR_CMG_YALE_HMB_GSO_BQ_PROJECT
         dataset_env_var: TDR_CMG_YALE_HMB_GSO_BQ_DATASET
-    tables: *cmg_yale_tables
+    tables:
+      - name: sample
+      - name: subject
+      - name: anvil_dataset
+      - name: sequencing
+      - name: family
+      - name: file_inventory
 
   - name: cmg_yale_hmb_irb
     description: Raw CMG Yale HMB-IRB tables exposed by a TDR snapshot in BigQuery.
     database: "{{ var('tdr_snapshots')['cmg_yale_hmb_irb']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_HMB_IRB_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ 'cmg_yale_hmb_irb' in var('enabled_snapshots').split(',') | map('trim') | list }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_HMB_IRB_ENABLED', 'false') | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_Yale_HMB_IRB
         consent_code: HMB-IRB
         snapshot_id_env_var: TDR_CMG_YALE_HMB_IRB_SNAPSHOT_ID
         project_env_var: TDR_CMG_YALE_HMB_IRB_BQ_PROJECT
         dataset_env_var: TDR_CMG_YALE_HMB_IRB_BQ_DATASET
-    tables: *cmg_yale_tables
+    tables:
+      - name: sample
+      - name: subject
+      - name: anvil_dataset
+      - name: sequencing
+      - name: family
+      - name: file_inventory

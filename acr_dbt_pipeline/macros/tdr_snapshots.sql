@@ -3,20 +3,15 @@
 
   Access to a TDR snapshot depends on DUOS approvals and on whether the
   snapshot has been published at all, so the project has to parse and run
-  when only a subset of the declared snapshots is usable. The enabled set is
-  a single comma-separated list, `vars.enabled_snapshots`, which defaults to
-  the `TDR_ENABLED_SNAPSHOTS` environment variable in the workspace .env.
+  when only a subset of the declared snapshots is usable. Each snapshot has
+  an independent TDR_<NAME>_ENABLED environment variable.
 #}
 
 {% macro tdr_enabled_snapshots() %}
-  {% set raw = var('enabled_snapshots', '') %}
-  {% set names = raw.split(',') if raw is string else raw %}
-
   {% set enabled = [] %}
-  {% for name in names %}
-    {% set cleaned = name | trim | lower %}
-    {% if cleaned != '' and cleaned not in enabled %}
-      {% do enabled.append(cleaned) %}
+  {% for name in var('tdr_snapshots', {}).keys() %}
+    {% if tdr_snapshot_enabled(name) %}
+      {% do enabled.append(name) %}
     {% endif %}
   {% endfor %}
 
@@ -25,7 +20,17 @@
 
 
 {% macro tdr_snapshot_enabled(name) %}
-  {{ return(name | lower in tdr_enabled_snapshots()) }}
+  {% set variable = 'TDR_' ~ (name | upper) ~ '_ENABLED' %}
+  {% set default = 'true' if name | lower == 'cmg_yale_gru' else 'false' %}
+  {% set value = env_var(variable, default) | trim | lower %}
+
+  {% if value not in ['true', 'false'] %}
+    {{ exceptions.raise_compiler_error(
+      variable ~ " must be either 'true' or 'false', got '" ~ value ~ "'"
+    ) }}
+  {% endif %}
+
+  {{ return(value == 'true') }}
 {% endmacro %}
 
 
