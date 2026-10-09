@@ -1,6 +1,0 @@
-anvil_duckdb:  
-  target: dev  
-  outputs:
-    dev:
-      type: duckdb
-      path: /tmp/dbt.duckdb  # Data storage location

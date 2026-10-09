@@ -9,49 +9,65 @@ anvil_duckdb:
       extensions:
         - name: bigquery
           repo: community
+
+      # One read-only catalog per TDR snapshot, which is what lets the
+      # snapshots live in different GCP projects. dbt renders profiles.yml one
+      # value at a time, so this list cannot be generated from
+      # `vars.enabled_snapshots` -- keep exactly the snapshots you can actually
+      # read uncommented here. Every env_var below must resolve and every
+      # ATTACH runs at connection time, so leaving a block enabled for a
+      # snapshot you lack access to breaks every model, including the ones you
+      # can read. The active GRU block has a known-project fallback so
+      # `dbt parse` works before workspace variables are loaded. The
+      # on-run-start check still requires explicit project, dataset, and
+      # snapshot-ID variables before `dbt run`.
+      #
+      # To turn a snapshot on:
+      #   1. add its three TDR_* values to the workspace .env
+      #   2. add its name to TDR_ENABLED_SNAPSHOTS
+      #   3. uncomment its attach block below
       attach:
-        - path: "project={{ env_var('TDR_CMG_YALE_DS_BPEAKD_BQ_PROJECT') }}"
-          alias: cmg_yale_ds_bpeakd_bq
-          options:
-            type: bigquery
-            read_only: true
-        - path: "project={{ env_var('TDR_CMG_YALE_DS_MC_BQ_PROJECT') }}"
-          alias: cmg_yale_ds_mc_bq
-          options:
-            type: bigquery
-            read_only: true
-        - path: "project={{ env_var('TDR_CMG_YALE_DS_RARED_BQ_PROJECT') }}"
-          alias: cmg_yale_ds_rared_bq
-          options:
-            type: bigquery
-            read_only: true
-        - path: "project={{ env_var('TDR_CMG_YALE_DS_RD_BQ_PROJECT') }}"
-          alias: cmg_yale_ds_rd_bq
-          options:
-            type: bigquery
-            read_only: true
-        - path: "project={{ env_var('TDR_CMG_YALE_DS_THAL_IRB_BQ_PROJECT') }}"
-          alias: cmg_yale_ds_thal_irb_bq
-          options:
-            type: bigquery
-            read_only: true
-        - path: "project={{ env_var('TDR_CMG_YALE_GRU_BQ_PROJECT') }}"
+        - path: "project={{ env_var('TDR_CMG_YALE_GRU_BQ_PROJECT', 'datarepo-2b98851b') }}"
           alias: cmg_yale_gru_bq
-          options:
-            type: bigquery
-            read_only: true
-        - path: "project={{ env_var('TDR_CMG_YALE_HMB_BQ_PROJECT') }}"
-          alias: cmg_yale_hmb_bq
-          options:
-            type: bigquery
-            read_only: true
-        - path: "project={{ env_var('TDR_CMG_YALE_HMB_GSO_BQ_PROJECT') }}"
-          alias: cmg_yale_hmb_gso_bq
-          options:
-            type: bigquery
-            read_only: true
-        - path: "project={{ env_var('TDR_CMG_YALE_HMB_IRB_BQ_PROJECT') }}"
-          alias: cmg_yale_hmb_irb_bq
-          options:
-            type: bigquery
-            read_only: true
+          type: bigquery
+          read_only: true
+
+        # - path: "project={{ env_var('TDR_CMG_YALE_DS_BPEAKD_BQ_PROJECT') }}"
+        #   alias: cmg_yale_ds_bpeakd_bq
+        #   type: bigquery
+        #   read_only: true
+
+        # - path: "project={{ env_var('TDR_CMG_YALE_DS_MC_BQ_PROJECT') }}"
+        #   alias: cmg_yale_ds_mc_bq
+        #   type: bigquery
+        #   read_only: true
+
+        # - path: "project={{ env_var('TDR_CMG_YALE_DS_RARED_BQ_PROJECT') }}"
+        #   alias: cmg_yale_ds_rared_bq
+        #   type: bigquery
+        #   read_only: true
+
+        # - path: "project={{ env_var('TDR_CMG_YALE_DS_RD_BQ_PROJECT') }}"
+        #   alias: cmg_yale_ds_rd_bq
+        #   type: bigquery
+        #   read_only: true
+
+        # - path: "project={{ env_var('TDR_CMG_YALE_DS_THAL_IRB_BQ_PROJECT') }}"
+        #   alias: cmg_yale_ds_thal_irb_bq
+        #   type: bigquery
+        #   read_only: true
+
+        # - path: "project={{ env_var('TDR_CMG_YALE_HMB_BQ_PROJECT') }}"
+        #   alias: cmg_yale_hmb_bq
+        #   type: bigquery
+        #   read_only: true
+
+        # - path: "project={{ env_var('TDR_CMG_YALE_HMB_GSO_BQ_PROJECT') }}"
+        #   alias: cmg_yale_hmb_gso_bq
+        #   type: bigquery
+        #   read_only: true
+
+        # - path: "project={{ env_var('TDR_CMG_YALE_HMB_IRB_BQ_PROJECT') }}"
+        #   alias: cmg_yale_hmb_irb_bq
+        #   type: bigquery
+        #   read_only: true
