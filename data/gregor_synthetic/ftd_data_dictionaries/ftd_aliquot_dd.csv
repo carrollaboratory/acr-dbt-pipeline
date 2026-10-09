@@ -1,9 +1,0 @@
-variable_name,description,data_type,min,max,units,enumerations,comment,tests,src_variable_name,variable_description
-availablity_status,Can this Sample be requested for further analysis?,enumeration,,,,available;unavailable,,accepted_values,availablity_status,Can this Sample be requested for further analysis?
-quantity_number,The total quantity of the specimen,number,,,,,,,quantity_number,The total quantity of the specimen
-quantity_units,The structured term defining the units of the quantity.,string,,,,,,,quantity_units,The structured term defining the units of the quantity.
-concentration_number,What is the concentration of the analyte in the Aliquot?,number,,,,,,,concentration_number,What is the concentration of the analyte in the Aliquot?
-concentration_unit,"Units associated with the concentration of the analyte in the Aliquot? UCUM coding preferred (with curie, UCUM)",string,,,,,,,concentration_unit,"Units associated with the concentration of the analyte in the Aliquot? UCUM coding preferred (with curie, UCUM)"
-has_access_policy,Which access policy applies to this element?,string,,,,,Foreign Key: AccessPolicy.id,,has_access_policy,Which access policy applies to this element?
-id,ID associated with a class,string,,,,,,not_null,id,ID associated with a class
-Sample_id,Autocreated FK slot,string,,,,,Foreign Key: Sample.id,,Sample_id,Autocreated FK slot

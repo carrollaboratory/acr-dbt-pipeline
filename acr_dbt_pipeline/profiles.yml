@@ -1,0 +1,57 @@
+anvil_duckdb:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('DBT_DUCKDB_PATH', '/home/rstudio/data/acr_dbt_pipeline.duckdb') }}"
+      schema: main
+      threads: 4
+      extensions:
+        - name: bigquery
+          repo: community
+      attach:
+        - path: "project={{ env_var('TDR_CMG_YALE_DS_BPEAKD_BQ_PROJECT') }}"
+          alias: cmg_yale_ds_bpeakd_bq
+          options:
+            type: bigquery
+            read_only: true
+        - path: "project={{ env_var('TDR_CMG_YALE_DS_MC_BQ_PROJECT') }}"
+          alias: cmg_yale_ds_mc_bq
+          options:
+            type: bigquery
+            read_only: true
+        - path: "project={{ env_var('TDR_CMG_YALE_DS_RARED_BQ_PROJECT') }}"
+          alias: cmg_yale_ds_rared_bq
+          options:
+            type: bigquery
+            read_only: true
+        - path: "project={{ env_var('TDR_CMG_YALE_DS_RD_BQ_PROJECT') }}"
+          alias: cmg_yale_ds_rd_bq
+          options:
+            type: bigquery
+            read_only: true
+        - path: "project={{ env_var('TDR_CMG_YALE_DS_THAL_IRB_BQ_PROJECT') }}"
+          alias: cmg_yale_ds_thal_irb_bq
+          options:
+            type: bigquery
+            read_only: true
+        - path: "project={{ env_var('TDR_CMG_YALE_GRU_BQ_PROJECT') }}"
+          alias: cmg_yale_gru_bq
+          options:
+            type: bigquery
+            read_only: true
+        - path: "project={{ env_var('TDR_CMG_YALE_HMB_BQ_PROJECT') }}"
+          alias: cmg_yale_hmb_bq
+          options:
+            type: bigquery
+            read_only: true
+        - path: "project={{ env_var('TDR_CMG_YALE_HMB_GSO_BQ_PROJECT') }}"
+          alias: cmg_yale_hmb_gso_bq
+          options:
+            type: bigquery
+            read_only: true
+        - path: "project={{ env_var('TDR_CMG_YALE_HMB_IRB_BQ_PROJECT') }}"
+          alias: cmg_yale_hmb_irb_bq
+          options:
+            type: bigquery
+            read_only: true

@@ -1,4 +1,0 @@
-variable_name,variable_description,data_type,enumerated_values,units,min,max
-Study Code,Unique identifier for the study,String,,,,
-Participant Global ID,Unique global identifier for the participant,String,,,,
-Participant External ID,Study-specific participant identifier,String,,,,

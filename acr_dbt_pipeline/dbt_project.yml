@@ -1,0 +1,112 @@
+name: acr_dbt_pipeline
+version: 1.0.0
+config-version: 2
+profile: anvil_duckdb
+model-paths:
+- models
+macro-paths:
+- macros
+seed-paths:
+- seeds
+snapshot-paths:
+- snapshots
+clean-targets:
+- target
+- dbt_packages
+
+vars:
+  enabled_srcs:
+    - cmg_yale_consent_2
+    - cmg_bh_consent_2
+
+  enabled_stbs:
+    - cmg_stb
+
+  # Logical TDR snapshot name -> where its BigQuery data lives.
+  # `catalog` must match an `attach` alias in profiles.yml; the *_env_var
+  # entries name the environment variables that carry the snapshot metadata.
+  tdr_snapshots:
+    cmg_yale_ds_bpeakd:
+      catalog: cmg_yale_ds_bpeakd_bq
+      snapshot_id_env_var: TDR_CMG_YALE_DS_BPEAKD_SNAPSHOT_ID
+      project_env_var: TDR_CMG_YALE_DS_BPEAKD_BQ_PROJECT
+      dataset_env_var: TDR_CMG_YALE_DS_BPEAKD_BQ_DATASET
+    cmg_yale_ds_mc:
+      catalog: cmg_yale_ds_mc_bq
+      snapshot_id_env_var: TDR_CMG_YALE_DS_MC_SNAPSHOT_ID
+      project_env_var: TDR_CMG_YALE_DS_MC_BQ_PROJECT
+      dataset_env_var: TDR_CMG_YALE_DS_MC_BQ_DATASET
+    cmg_yale_ds_rared:
+      catalog: cmg_yale_ds_rared_bq
+      snapshot_id_env_var: TDR_CMG_YALE_DS_RARED_SNAPSHOT_ID
+      project_env_var: TDR_CMG_YALE_DS_RARED_BQ_PROJECT
+      dataset_env_var: TDR_CMG_YALE_DS_RARED_BQ_DATASET
+    cmg_yale_ds_rd:
+      catalog: cmg_yale_ds_rd_bq
+      snapshot_id_env_var: TDR_CMG_YALE_DS_RD_SNAPSHOT_ID
+      project_env_var: TDR_CMG_YALE_DS_RD_BQ_PROJECT
+      dataset_env_var: TDR_CMG_YALE_DS_RD_BQ_DATASET
+    cmg_yale_ds_thal_irb:
+      catalog: cmg_yale_ds_thal_irb_bq
+      snapshot_id_env_var: TDR_CMG_YALE_DS_THAL_IRB_SNAPSHOT_ID
+      project_env_var: TDR_CMG_YALE_DS_THAL_IRB_BQ_PROJECT
+      dataset_env_var: TDR_CMG_YALE_DS_THAL_IRB_BQ_DATASET
+    cmg_yale_gru:
+      catalog: cmg_yale_gru_bq
+      snapshot_id_env_var: TDR_CMG_YALE_GRU_SNAPSHOT_ID
+      project_env_var: TDR_CMG_YALE_GRU_BQ_PROJECT
+      dataset_env_var: TDR_CMG_YALE_GRU_BQ_DATASET
+    cmg_yale_hmb:
+      catalog: cmg_yale_hmb_bq
+      snapshot_id_env_var: TDR_CMG_YALE_HMB_SNAPSHOT_ID
+      project_env_var: TDR_CMG_YALE_HMB_BQ_PROJECT
+      dataset_env_var: TDR_CMG_YALE_HMB_BQ_DATASET
+    cmg_yale_hmb_gso:
+      catalog: cmg_yale_hmb_gso_bq
+      snapshot_id_env_var: TDR_CMG_YALE_HMB_GSO_SNAPSHOT_ID
+      project_env_var: TDR_CMG_YALE_HMB_GSO_BQ_PROJECT
+      dataset_env_var: TDR_CMG_YALE_HMB_GSO_BQ_DATASET
+    cmg_yale_hmb_irb:
+      catalog: cmg_yale_hmb_irb_bq
+      snapshot_id_env_var: TDR_CMG_YALE_HMB_IRB_SNAPSHOT_ID
+      project_env_var: TDR_CMG_YALE_HMB_IRB_BQ_PROJECT
+      dataset_env_var: TDR_CMG_YALE_HMB_IRB_BQ_DATASET
+
+  # Quoted so YAML does not coerce "null"/"none" into a null value.
+  source_null_sentinels:
+    - "na"
+    - "n/a"
+    - "null"
+    - "none"
+
+models:
+  acr_dbt_pipeline:
+    cmg:
+      +tags: ["cmg"]
+      src:
+        +materialized: table
+      cmg_yale:
+        cmg_yale_consent_1:
+          +tags: ["consent_1"]
+        cmg_yale_consent_2:
+          +tags: ["consent_2"]
+      cmg_bh:
+        +tags: ["cmg"]
+        cmg_bh_consent_2:
+          +tags: ["consent_2"]
+        cmg_bh_consent_3:
+          +tags: ["consent_3"]
+      all_cmg:
+    cmg_int:
+    cmg_stb:
+
+    common_access:
+      access_participant:
+      access_measurement:
+
+    acr_access:
+      acr_participant:
+      acr_measurement:
+
+flags:
+  require_generic_test_arguments_property: true

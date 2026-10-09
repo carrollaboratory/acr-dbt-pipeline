@@ -11,9 +11,11 @@ manifest.json
 run_results.json
 sources.json
 package-lock.yml
+*.duckdb
+*.duckdb.wal
+.env*
 
 # User-specific configuration
-profiles.yml
 user.yml
 # IDE and editor files
 idea/

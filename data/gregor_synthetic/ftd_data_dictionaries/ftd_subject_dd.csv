@@ -1,6 +1,0 @@
-variable_name,description,data_type,min,max,units,enumerations,comment,tests,src_variable_name,variable_description
-subject_type,Type of entity this record represents,enumeration,,,,participant;non_participant;cell_line;animal_model;group;other,,not_null|accepted_values,subject_type,Type of entity this record represents
-organism_type,Organism Type Label,string,,,,,,,organism_type,Organism Type Label
-has_access_policy,Which access policy applies to this element?,string,,,,,Foreign Key: AccessPolicy.id,,has_access_policy,Which access policy applies to this element?
-id,ID associated with a class,string,,,,,,not_null,id,ID associated with a class
-has_demographics_id,A demographic summary of the participant.,string,,,,,Foreign Key: Demographics.id,,has_demographics_id,A demographic summary of the participant.
