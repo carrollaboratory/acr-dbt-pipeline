@@ -72,12 +72,11 @@ them directly in the Terra workspace or keep a shared `.env` in the workspace
 bucket at `${WORKSPACE_BUCKET}/config/acr_dbt_pipeline.env`. The startup script
 does not manage or source that file.
 
-Use the version-controlled [`.env.example`](../../../.env.example) as the
-template. If you choose the workspace-bucket approach, publish and load it
-explicitly:
+Use [`.env.cmg`](../../../.env.cmg) as a local template. If you choose the
+workspace-bucket approach, publish and load a copy explicitly:
 
 ```bash
-cp .env.example .env     # then edit .env
+cp .env.cmg .env         # then edit .env
 gcloud storage cp .env "${WORKSPACE_BUCKET}/config/acr_dbt_pipeline.env"
 gcloud storage cp \
   "${WORKSPACE_BUCKET}/config/acr_dbt_pipeline.env" \
@@ -97,10 +96,12 @@ because the profile has a non-secret project-ID fallback, but the run-start
 validation intentionally requires all three GRU variables before querying
 BigQuery.
 
-Each snapshot contributes three variables, and the naming convention is
+Each snapshot contributes an enable flag plus three metadata variables. The
+naming convention is
 load-bearing - the suffix after `TDR_` is the uppercased logical source name:
 
 ```bash
+TDR_CMG_YALE_GRU_ENABLED=true
 TDR_CMG_YALE_GRU_BQ_PROJECT=datarepo-2b98851b
 TDR_CMG_YALE_GRU_BQ_DATASET=ANVIL_CMG_Yale_GRU_20221020_ANV5_202507091800
 TDR_CMG_YALE_GRU_SNAPSHOT_ID=d3caa579-e6f0-458e-859b-008d89af0b48
@@ -132,25 +133,22 @@ different GCP project.
 
 Access depends on DUOS approvals, and not every consent group has a published
 snapshot, so the project has to build cleanly with only a subset available.
-All nine sources are declared at all times, but each is enabled only when its
-logical name appears in `TDR_ENABLED_SNAPSHOTS`:
+All nine sources are declared at all times, but each has an independent
+Boolean enable flag:
 
 ```bash
-TDR_ENABLED_SNAPSHOTS=cmg_yale_gru
+TDR_CMG_YALE_GRU_ENABLED=true
+TDR_CMG_YALE_HMB_ENABLED=false
 ```
 
 A disabled source and its `src` models are excluded from the manifest
-entirely, so dbt never tries to resolve their dataset names. Override the list
-for a single invocation without touching the `.env`:
-
-```bash
-dbt run --vars '{"enabled_snapshots": "cmg_yale_gru,cmg_yale_hmb"}'
-```
+entirely, so dbt never tries to resolve their dataset names. GRU defaults to
+enabled for the initial test; every other snapshot defaults to disabled.
 
 Enabling a snapshot takes three steps:
 
-1. add its three `TDR_*` values to the workspace `.env`;
-2. add its logical name to `TDR_ENABLED_SNAPSHOTS`;
+1. add its three metadata values to the workspace `.env`;
+2. set its `TDR_<NAME>_ENABLED` variable to `true`;
 3. uncomment its `attach` block in `profiles.yml`.
 
 Step 3 is separate because dbt renders `profiles.yml` one value at a time and

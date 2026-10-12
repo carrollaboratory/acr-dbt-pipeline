@@ -15,7 +15,7 @@ sources:
     database: "{{ var('tdr_snapshots')['cmg_yale_ds_bpeakd']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_DS_BPEAKD_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ env_var('TDR_CMG_YALE_DS_BPEAKD_ENABLED', 'false') | as_bool }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_DS_BPEAKD_ENABLED', 'false') | capitalize | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_Yale_DS_BPEAKD
         consent_code: DS-BPEAKD
@@ -41,7 +41,7 @@ sources:
     database: "{{ var('tdr_snapshots')['cmg_yale_ds_mc']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_DS_MC_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ env_var('TDR_CMG_YALE_DS_MC_ENABLED', 'false') | as_bool }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_DS_MC_ENABLED', 'false') | capitalize | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_YALE_DS_MC
         consent_code: DS-MC
@@ -61,7 +61,7 @@ sources:
     database: "{{ var('tdr_snapshots')['cmg_yale_ds_rared']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_DS_RARED_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ env_var('TDR_CMG_YALE_DS_RARED_ENABLED', 'false') | as_bool }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_DS_RARED_ENABLED', 'false') | capitalize | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_YALE_DS_RARED
         consent_code: DS-RARED
@@ -81,7 +81,7 @@ sources:
     database: "{{ var('tdr_snapshots')['cmg_yale_ds_rd']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_DS_RD_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ env_var('TDR_CMG_YALE_DS_RD_ENABLED', 'false') | as_bool }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_DS_RD_ENABLED', 'false') | capitalize | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_Yale_DS_RD
         consent_code: DS-RD
@@ -101,7 +101,7 @@ sources:
     database: "{{ var('tdr_snapshots')['cmg_yale_ds_thal_irb']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_DS_THAL_IRB_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ env_var('TDR_CMG_YALE_DS_THAL_IRB_ENABLED', 'false') | as_bool }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_DS_THAL_IRB_ENABLED', 'false') | capitalize | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_Yale_DS_THAL_IRB
         consent_code: DS-THAL-IRB
@@ -121,7 +121,7 @@ sources:
     database: "{{ var('tdr_snapshots')['cmg_yale_gru']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_GRU_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ env_var('TDR_CMG_YALE_GRU_ENABLED', 'true') | as_bool }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_GRU_ENABLED', 'true') | capitalize | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_Yale_GRU
         consent_code: GRU
@@ -147,7 +147,7 @@ sources:
     database: "{{ var('tdr_snapshots')['cmg_yale_hmb']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_HMB_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ env_var('TDR_CMG_YALE_HMB_ENABLED', 'false') | as_bool }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_HMB_ENABLED', 'false') | capitalize | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_Yale_HMB
         consent_code: HMB
@@ -167,7 +167,7 @@ sources:
     database: "{{ var('tdr_snapshots')['cmg_yale_hmb_gso']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_HMB_GSO_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ env_var('TDR_CMG_YALE_HMB_GSO_ENABLED', 'false') | as_bool }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_HMB_GSO_ENABLED', 'false') | capitalize | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_Yale_HMB_GSO
         consent_code: HMB-GSO
@@ -187,7 +187,7 @@ sources:
     database: "{{ var('tdr_snapshots')['cmg_yale_hmb_irb']['catalog'] }}"
     schema: "{{ env_var('TDR_CMG_YALE_HMB_IRB_BQ_DATASET', '') }}"
     config:
-      enabled: "{{ env_var('TDR_CMG_YALE_HMB_IRB_ENABLED', 'false') | as_bool }}"
+      enabled: "{{ env_var('TDR_CMG_YALE_HMB_IRB_ENABLED', 'false') | capitalize | as_bool }}"
       meta:
         snapshot_name: ANVIL_CMG_Yale_HMB_IRB
         consent_code: HMB-IRB
