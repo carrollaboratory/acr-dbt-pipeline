@@ -1,5 +1,4 @@
-{% set raw_path = tdr_snapshot_path('cmg_yale_gru', 'anvil_dataset') %}
-
+{%- set raw_path = tdr_snapshot_path('cmg_yale_gru', 'anvil_dataset') -%}
 select
   {{ normalize_parquet_columns(raw_path, 'raw') }},
   cast('cmg_yale_gru' as varchar) as source_snapshot,

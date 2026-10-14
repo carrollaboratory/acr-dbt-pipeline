@@ -15,13 +15,6 @@ clean-targets:
   - dbt_packages
 
 vars:
-  enabled_srcs:
-    - cmg_yale_consent_2
-    - cmg_bh_consent_2
-
-  enabled_stbs:
-    - cmg_stb
-
   # Local directory containing the exported Parquet files.
   tdr_parquet_root: "/home/rstudio/pipelines/data/cmg_harmonization_2026"
 
