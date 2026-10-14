@@ -26,13 +26,34 @@
     The macro generates the following list
         ['subject_id','other_col_1', 'other_col_2',...]
 
-## register_external_sources.sql
-    Will create a database table, then import the data from a csv into the table.
-    Use this when not importing directly into the database via dbt models.
+## normalize_parquet_columns
 
-## run_sql
-    Required by pipeline_utils import script. That script can be used, but for the 
-    most part it isn't used anymore. Currently importing csv data into duckdb via the
-    first model run. 
-    
+    Builds the src-layer select list for a Parquet file glob. It introspects the
+    file with `describe select * from read_parquet(...)` and emits:
 
+    - one `acr_clean_text(COLUMNS([...]))` expression covering every VARCHAR
+      column, so the compiled SQL does not grow with column count
+    - one `COLUMNS([...])` expression passing every non-VARCHAR column through
+      untouched, so no varchar round-trip is introduced and the stored Parquet
+      value and type are carried through unchanged
+    - explicit `expr as "name"` entries only for columns that need renaming
+
+    Applying a function to a `COLUMNS` expression keeps each column's original
+    name, so the first two forms need no alias.
+
+    Pass `rename_map` to map a lowercased source name to a different output name.
+
+## create_text_cleaner / text_cleaner_name
+
+    `create_text_cleaner()` returns DDL that installs the `acr_clean_text(v)`
+    macro into the DuckDB database. It is run by the `on-run-start` hook in
+    dbt_project.yml, so the cleaning rule is defined once instead of being
+    repeated for every column of every model.
+
+    `acr_clean_text` trims a text value and returns NULL when the trimmed,
+    lowercased result is empty or matches `vars.source_null_sentinels`.
+
+## sql_name_list
+
+    Converts a list of column names into a DuckDB list literal for use inside a
+    `COLUMNS([...])` expression.

@@ -14,9 +14,12 @@ clean-targets:
   - target
   - dbt_packages
 
+on-run-start:
+  - "{{ create_text_cleaner() }}"
+
 vars:
   # Local directory containing the exported Parquet files.
-  tdr_parquet_root: "/home/rstudio/pipelines/data/cmg_harmonization_2026"
+  tdr_parquet_root: "/home/rstudio/pipelines/data"
 
   tdr_parquet_sources:
     cmg_yale_gru:
