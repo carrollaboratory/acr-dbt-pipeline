@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: cmg_yale_src_anvil_dataset
-    description: Normalized CMG Yale dataset and consent records read directly from the TDR BigQuery snapshot.
+    description: Normalized CMG Yale dataset and consent records read from the TDR Parquet export.
     columns:
       - name: consent_group
         description: Consent group assigned to the dataset.

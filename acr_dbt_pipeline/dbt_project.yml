@@ -3,19 +3,16 @@ version: 1.0.0
 config-version: 2
 profile: anvil_duckdb
 model-paths:
-- models
+  - models
 macro-paths:
-- macros
+  - macros
 seed-paths:
-- seeds
+  - seeds
 snapshot-paths:
-- snapshots
+  - snapshots
 clean-targets:
-- target
-- dbt_packages
-
-on-run-start:
-- "{{ assert_enabled_snapshots_configured() }}"
+  - target
+  - dbt_packages
 
 vars:
   enabled_srcs:
@@ -25,57 +22,69 @@ vars:
   enabled_stbs:
     - cmg_stb
 
-  # Logical TDR snapshot name -> where its BigQuery data lives.
-  # `catalog` must match an `attach` alias in profiles.yml; the *_env_var
-  # entries name the environment variables that carry the snapshot metadata.
-  tdr_snapshots:
-    cmg_yale_ds_bpeakd:
-      catalog: cmg_yale_ds_bpeakd_bq
-      snapshot_id_env_var: TDR_CMG_YALE_DS_BPEAKD_SNAPSHOT_ID
-      project_env_var: TDR_CMG_YALE_DS_BPEAKD_BQ_PROJECT
-      dataset_env_var: TDR_CMG_YALE_DS_BPEAKD_BQ_DATASET
-    cmg_yale_ds_mc:
-      catalog: cmg_yale_ds_mc_bq
-      snapshot_id_env_var: TDR_CMG_YALE_DS_MC_SNAPSHOT_ID
-      project_env_var: TDR_CMG_YALE_DS_MC_BQ_PROJECT
-      dataset_env_var: TDR_CMG_YALE_DS_MC_BQ_DATASET
-    cmg_yale_ds_rared:
-      catalog: cmg_yale_ds_rared_bq
-      snapshot_id_env_var: TDR_CMG_YALE_DS_RARED_SNAPSHOT_ID
-      project_env_var: TDR_CMG_YALE_DS_RARED_BQ_PROJECT
-      dataset_env_var: TDR_CMG_YALE_DS_RARED_BQ_DATASET
-    cmg_yale_ds_rd:
-      catalog: cmg_yale_ds_rd_bq
-      snapshot_id_env_var: TDR_CMG_YALE_DS_RD_SNAPSHOT_ID
-      project_env_var: TDR_CMG_YALE_DS_RD_BQ_PROJECT
-      dataset_env_var: TDR_CMG_YALE_DS_RD_BQ_DATASET
-    cmg_yale_ds_thal_irb:
-      catalog: cmg_yale_ds_thal_irb_bq
-      snapshot_id_env_var: TDR_CMG_YALE_DS_THAL_IRB_SNAPSHOT_ID
-      project_env_var: TDR_CMG_YALE_DS_THAL_IRB_BQ_PROJECT
-      dataset_env_var: TDR_CMG_YALE_DS_THAL_IRB_BQ_DATASET
-    cmg_yale_gru:
-      catalog: cmg_yale_gru_bq
-      snapshot_id_env_var: TDR_CMG_YALE_GRU_SNAPSHOT_ID
-      project_env_var: TDR_CMG_YALE_GRU_BQ_PROJECT
-      dataset_env_var: TDR_CMG_YALE_GRU_BQ_DATASET
-    cmg_yale_hmb:
-      catalog: cmg_yale_hmb_bq
-      snapshot_id_env_var: TDR_CMG_YALE_HMB_SNAPSHOT_ID
-      project_env_var: TDR_CMG_YALE_HMB_BQ_PROJECT
-      dataset_env_var: TDR_CMG_YALE_HMB_BQ_DATASET
-    cmg_yale_hmb_gso:
-      catalog: cmg_yale_hmb_gso_bq
-      snapshot_id_env_var: TDR_CMG_YALE_HMB_GSO_SNAPSHOT_ID
-      project_env_var: TDR_CMG_YALE_HMB_GSO_BQ_PROJECT
-      dataset_env_var: TDR_CMG_YALE_HMB_GSO_BQ_DATASET
-    cmg_yale_hmb_irb:
-      catalog: cmg_yale_hmb_irb_bq
-      snapshot_id_env_var: TDR_CMG_YALE_HMB_IRB_SNAPSHOT_ID
-      project_env_var: TDR_CMG_YALE_HMB_IRB_BQ_PROJECT
-      dataset_env_var: TDR_CMG_YALE_HMB_IRB_BQ_DATASET
+  # Local directory containing the exported Parquet files.
+  tdr_parquet_root: "/home/rstudio/pipelines/data/cmg_harmonization_2026"
 
-  # Quoted so YAML does not coerce "null"/"none" into a null value.
+  tdr_parquet_sources:
+    cmg_yale_gru:
+      path: "yale/_GRU__{table}-*.parquet"
+      snapshot_id: "d3caa579-e6f0-458e-859b-008d89af0b48"
+    cmg_yale_hmb:
+      path: "yale/_HMB__{table}-*.parquet"
+      snapshot_id: "55d26ed5-f046-414f-8c8b-bdc941fa58aa"
+    cmg_yale_hmb_gso:
+      path: "yale/_HMB-GSO__{table}-*.parquet"
+      snapshot_id: "5ee23a8c-e9d7-49b9-b23e-ecf1c1cf51a1"
+    cmg_yale_hmb_irb:
+      path: "yale/_HMB-IRB__{table}-*.parquet"
+      snapshot_id: "39fd1d5b-2e6f-4035-beb3-05322174dd4b"
+    cmg_yale_ds_mc:
+      path: "yale/_DS-MC__{table}-*.parquet"
+      snapshot_id: "c720c477-dfe2-45e0-805f-94ed11d006b4"
+    cmg_yale_ds_rd:
+      path: "yale/_DS-RD__{table}-*.parquet"
+      snapshot_id: "2df015fc-06f8-46aa-a9ac-e12bc608b2f3"
+    cmg_yale_ds_rared:
+      path: "yale/_DS-RARED__{table}-*.parquet"
+      snapshot_id: "e4bc2365-282a-4c51-afe3-971899f61f74"
+    cmg_yale_ds_bpeakd:
+      path: "yale/_DS-BPEAKD__{table}-*.parquet"
+      snapshot_id: "9e210e43-61b5-4a85-8d1a-0abc111f60db"
+    cmg_yale_ds_thal_irb:
+      path: "yale/_DS-THAL-IRB__{table}-*.parquet"
+      snapshot_id: "c68d1d19-aac9-4042-ab62-5f40837fe10d"
+
+    cmg_uwash_gru:
+      path: "uwash/_GRU__{table}-*.parquet"
+      snapshot_id: "db0c9cff-f3f9-4315-addb-6b6c9088b124"
+    cmg_uwash_gru_irb:
+      path: "uwash/_GRU-IRB__{table}-*.parquet"
+      snapshot_id: "3c279159-bd0e-4df9-bcea-9640e49a694b"
+    cmg_uwash_hmb:
+      path: "uwash/_HMB__{table}-*.parquet"
+      snapshot_id: "1cd2be27-fc8b-4779-9398-d06979ce43c3"
+    cmg_uwash_hmb_irb:
+      path: "uwash/_HMB-IRB__{table}-*.parquet"
+      snapshot_id: "08568995-f347-4c5a-bd55-d9cc44441e07"
+    cmg_uwash_ds_ep:
+      path: "uwash/_DS-EP__{table}-*.parquet"
+      snapshot_id: "f71051be-17e3-42bf-b534-5af0e3740937"
+    cmg_uwash_ds_hfa:
+      path: "uwash/_DS-HFA__{table}-*.parquet"
+      snapshot_id: "98a13ebb-0a91-427e-bdd5-8f5833036d81"
+    cmg_uwash_ds_bdis:
+      path: "uwash/_DS-BDIS__{table}-*.parquet"
+      snapshot_id: "4312ca34-388a-4d28-baa3-b64ec6eaf7af"
+    cmg_uwash_ds_nbia:
+      path: "uwash/_DS-NBIA__{table}-*.parquet"
+      snapshot_id: "4a815323-5dc1-4a0c-93c0-1c2333345c4d"
+    cmg_uwash_ds_chdef:
+      path: "uwash/_DS-CHDEF__{table}-*.parquet"
+      snapshot_id: "10e413c2-729c-4802-a387-6763a7798d8f"
+    cmg_uwash_ds_bav_irb_pub_rd:
+      path: "uwash/_DS-BAV-IRB-PUB-RD__{table}-*.parquet"
+      snapshot_id: "b48a3a5c-9d3f-4228-8a24-19f315890f7b"
+
   source_null_sentinels:
     - "na"
     - "n/a"
@@ -89,32 +98,6 @@ models:
       src:
         +materialized: table
         +tags: ["src"]
-
-      # Directories from the legacy pipeline that have not been ported yet.
-      # dbt warns about config paths that match no resources, so keep these
-      # commented until the matching model directories exist.
-      #
-      # cmg_yale:
-      #   cmg_yale_consent_1:
-      #     +tags: ["consent_1"]
-      #   cmg_yale_consent_2:
-      #     +tags: ["consent_2"]
-      # cmg_bh:
-      #   cmg_bh_consent_2:
-      #     +tags: ["consent_2"]
-      #   cmg_bh_consent_3:
-      #     +tags: ["consent_3"]
-      # all_cmg:
-    # cmg_int:
-    # cmg_stb:
-    #
-    # common_access:
-    #   access_participant:
-    #   access_measurement:
-    #
-    # acr_access:
-    #   acr_participant:
-    #   acr_measurement:
 
 flags:
   require_generic_test_arguments_property: true
