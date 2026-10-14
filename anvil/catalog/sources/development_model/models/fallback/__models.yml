@@ -1,8 +1,0 @@
-version: 2
-models:
-- name: fallback_table
-  description: This source model is a development patch to allow for a tgt model, target_schema fallback, which dbt needs to compile.
-  columns:
-  - name: participant_id
-    description: ''
-    data_type: string
