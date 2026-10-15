@@ -1,33 +1,27 @@
 version: 2
 
 models:
-  - name: cmg_yale_src_anvil_dataset
-    description: Normalized CMG Yale dataset and consent records read from the TDR Parquet export.
+  - name: cmg_yale_src_gru_anvil_dataset
+    description: >
+      CMG Yale GRU anvil_dataset rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until cmg_int_anvil_dataset.
     columns:
-      - name: consent_group
-        description: Consent group assigned to the dataset.
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
         data_type: varchar
-      - name: data_use_permission
-        description: Data-use permission associated with the dataset.
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
         data_type: varchar
-      - name: owner
-        description: Dataset owner.
-        data_type: varchar
-      - name: principal_investigator
-        description: Principal investigator associated with the dataset.
-        data_type: varchar
-      - name: registered_identifier
-        description: Registered identifier for the dataset.
-        data_type: varchar
-      - name: title
-        description: Dataset title.
-        data_type: varchar
-      - name: data_modality
-        description: Data modality represented by the dataset.
-        data_type: varchar
-      - name: source_datarepo_row_ids
-        description: Source Data Repository row identifiers.
-        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_gru_anvil_dataset
+    description: >
+      CMG UWash GRU anvil_dataset rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until cmg_int_anvil_dataset.
+    columns:
       - name: source_snapshot
         description: Logical TDR snapshot name from which the row was read.
         data_type: varchar

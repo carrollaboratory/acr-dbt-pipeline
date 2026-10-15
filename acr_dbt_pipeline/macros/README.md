@@ -1,59 +1,39 @@
-# macros
+# Macros
 
-## generate_global_id
+Macros are separated by ownership so study-specific harmonization changes do
+not accidentally alter pipeline-wide behavior.
 
-    This macro generates the sql required to create a primary or foreign key
-    by the md5 on a composite string method.
+## `pipeline/`
 
-    Example usage - lacking double brackets:
-        generate_md5_composite_key("p", ['id','dob'])
-    generates the following sql
-        'p' || '_' || md5(studyid || CAST(coalesce(id, '') AS TEXT) || '|' || CAST(coalesce(dob, '') AS TEXT))
-    results in an id with the following format
-        p_a32b29ffb1a85590c4a6d4cbeec18636
+Shared architecture macros. Harmonizers may call and configure these macros but
+should not modify, copy, or override them for one dataset.
 
+See [pipeline/README.md](pipeline/README.md) for responsibilities, ownership,
+and change requirements.
 
-## get_columns
+The core CMG flow is:
 
-    This macro generates a list of column names from the table(reference) specified
-    in the argument `from`. The list will exclude columns listed in the argument `except`.
+1. `pipeline/raw_source_ingestion/` resolves local Parquet inputs.
+2. `pipeline/source_selection/` selects snapshots and derives tags/model names.
+3. `pipeline/main_stage/` unions source models with normalized column names.
+4. `pipeline/int_stage/` applies shared value cleaning once after the union.
 
-    Example usage, ignore the variable names, this is more specific:
-    {% set relation = ref('{study}_stg_{table}') %}
-    {% set constant_columns = ['subject_id'] %}
-    {% set condition_columns = get_columns(relation=relation, exclude=constant_columns) %}
+## `data_cleaning/`
 
-    The macro generates the following list
-        ['subject_id','other_col_1', 'other_col_2',...]
+Harmonizer-facing reusable cleaning expressions that are not required by the
+pipeline architecture. Add narrowly scoped, reusable data-cleaning macros here.
 
-## normalize_parquet_columns
+## `ad_hoc/`
 
-    Builds the src-layer select list for a Parquet file glob. It introspects the
-    file with `describe select * from read_parquet(...)` and emits:
+Operational and one-off utilities that are not part of model execution
+architecture. Models should not depend on these unless the utility is promoted
+to an explicitly owned area.
 
-    - one `acr_clean_text(COLUMNS([...]))` expression covering every VARCHAR
-      column, so the compiled SQL does not grow with column count
-    - one `COLUMNS([...])` expression passing every non-VARCHAR column through
-      untouched, so no varchar round-trip is introduced and the stored Parquet
-      value and type are carried through unchanged
-    - explicit `expr as "name"` entries only for columns that need renaming
+## Adding a macro
 
-    Applying a function to a `COLUMNS` expression keeps each column's original
-    name, so the first two forms need no alias.
-
-    Pass `rename_map` to map a lowercased source name to a different output name.
-
-## create_text_cleaner / text_cleaner_name
-
-    `create_text_cleaner()` returns DDL that installs the `acr_clean_text(v)`
-    macro into the DuckDB database. It is run by the `on-run-start` hook in
-    dbt_project.yml, so the cleaning rule is defined once instead of being
-    repeated for every column of every model.
-
-    `acr_clean_text` trims a text value and returns NULL when the trimmed,
-    lowercased result is empty or matches `vars.source_null_sentinels`.
-
-## sql_name_list
-
-    Converts a list of column names into a DuckDB list literal for use inside a
-    `COLUMNS([...])` expression.
+- Put study-specific SQL in a model first.
+- Extract a macro only when the behavior is genuinely reusable.
+- Use one public macro per file.
+- Put it under `pipeline/` only when the pipeline itself depends on it.
+- Do not give a new macro the same name as an existing macro; dbt macro names
+  are global even when files live in different directories.

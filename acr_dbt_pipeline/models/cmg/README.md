@@ -60,5 +60,42 @@ The first source model is
 `cmg_yale_gru` Parquet path with DuckDB `read_parquet`, normalizes column names
 and values, and records the configured snapshot ID as provenance.
 
+## Column normalization
+
+`normalize_parquet_columns` introspects the Parquet file and emits a compact
+select list instead of one `CASE` block per column:
+
+```sql
+select
+  acr_clean_text(COLUMNS(['consent_group', 'title', ...])),
+  COLUMNS(['some_numeric_column']),
+  ...
+```
+
+Only `VARCHAR` columns are passed through `acr_clean_text`, which trims the
+value and returns `NULL` when the result is empty or matches
+`vars.source_null_sentinels`.
+
+Every non-text column is selected as-is, so this layer never introduces a
+`varchar` round-trip that could reformat a number.
+
+That is a *no-added-loss* guarantee, not an exactness guarantee. What survives
+depends on how the column was typed when the Parquet file was written:
+
+| Parquet type | What is preserved |
+| --- | --- |
+| `DECIMAL(p,s)` | the exact decimal value |
+| `VARCHAR` | the exact original text, including trailing zeros |
+| `DOUBLE` / `FLOAT` | the stored binary value, which is only an approximation of a decimal |
+
+`DOUBLE` is binary floating point, so a value such as `0.1` is already
+approximate in the file itself, and formatting such as `1.50` is already gone.
+No SQL in this project can recover that — if a column must be exact, it has to
+be exported as `DECIMAL(p,s)` (or kept as text) at the BigQuery `EXPORT DATA`
+step, not fixed downstream.
+
+`acr_clean_text` is installed into the DuckDB database by the `on-run-start`
+hook, so the cleaning rule is defined once rather than repeated per column.
+
 To add another snapshot, add another entry under `tdr_parquet_sources` and
 create a model that calls `tdr_snapshot_path('<name>', '<table>')`.

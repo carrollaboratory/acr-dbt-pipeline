@@ -1,3 +1,4 @@
+{# Pipeline-level identifier generation. #}
 {%- macro generate_global_id(prefix='', descriptor=[], study_id='') -%}
     {%- set formatted_columns = [] -%}
     {%- for col in descriptor -%}

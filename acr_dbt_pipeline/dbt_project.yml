@@ -18,68 +18,115 @@ on-run-start:
   - "{{ create_text_cleaner() }}"
 
 vars:
+  # Snapshots that flow through the pipeline. Everything downstream unions
+  # exactly this list, so change it to run a different consent or site set:
+  # dbt run --vars '{"enabled_srcs": ["cmg_yale_hmb", "cmg_uwash_hmb"]}'
+  enabled_srcs:
+    - cmg_yale_gru
+    - cmg_uwash_gru
+
   # Local directory containing the exported Parquet files.
   tdr_parquet_root: "/home/rstudio/pipelines/data"
 
+  # site and consent become model tags, so a run can be narrowed with
+  # --select tag:gru+ or --select tag:cmg_yale,tag:gru
   tdr_parquet_sources:
     cmg_yale_gru:
       path: "yale/_GRU__{table}-*.parquet"
       snapshot_id: "d3caa579-e6f0-458e-859b-008d89af0b48"
+      site: cmg_yale
+      consent: gru
     cmg_yale_hmb:
       path: "yale/_HMB__{table}-*.parquet"
       snapshot_id: "55d26ed5-f046-414f-8c8b-bdc941fa58aa"
+      site: cmg_yale
+      consent: hmb
     cmg_yale_hmb_gso:
       path: "yale/_HMB-GSO__{table}-*.parquet"
       snapshot_id: "5ee23a8c-e9d7-49b9-b23e-ecf1c1cf51a1"
+      site: cmg_yale
+      consent: hmb_gso
     cmg_yale_hmb_irb:
       path: "yale/_HMB-IRB__{table}-*.parquet"
       snapshot_id: "39fd1d5b-2e6f-4035-beb3-05322174dd4b"
+      site: cmg_yale
+      consent: hmb_irb
     cmg_yale_ds_mc:
       path: "yale/_DS-MC__{table}-*.parquet"
       snapshot_id: "c720c477-dfe2-45e0-805f-94ed11d006b4"
+      site: cmg_yale
+      consent: ds_mc
     cmg_yale_ds_rd:
       path: "yale/_DS-RD__{table}-*.parquet"
       snapshot_id: "2df015fc-06f8-46aa-a9ac-e12bc608b2f3"
+      site: cmg_yale
+      consent: ds_rd
     cmg_yale_ds_rared:
       path: "yale/_DS-RARED__{table}-*.parquet"
       snapshot_id: "e4bc2365-282a-4c51-afe3-971899f61f74"
+      site: cmg_yale
+      consent: ds_rared
     cmg_yale_ds_bpeakd:
       path: "yale/_DS-BPEAKD__{table}-*.parquet"
       snapshot_id: "9e210e43-61b5-4a85-8d1a-0abc111f60db"
+      site: cmg_yale
+      consent: ds_bpeakd
     cmg_yale_ds_thal_irb:
       path: "yale/_DS-THAL-IRB__{table}-*.parquet"
       snapshot_id: "c68d1d19-aac9-4042-ab62-5f40837fe10d"
+      site: cmg_yale
+      consent: ds_thal_irb
 
     cmg_uwash_gru:
       path: "uwash/_GRU__{table}-*.parquet"
       snapshot_id: "db0c9cff-f3f9-4315-addb-6b6c9088b124"
+      site: cmg_uwash
+      consent: gru
     cmg_uwash_gru_irb:
       path: "uwash/_GRU-IRB__{table}-*.parquet"
       snapshot_id: "3c279159-bd0e-4df9-bcea-9640e49a694b"
+      site: cmg_uwash
+      consent: gru_irb
     cmg_uwash_hmb:
       path: "uwash/_HMB__{table}-*.parquet"
       snapshot_id: "1cd2be27-fc8b-4779-9398-d06979ce43c3"
+      site: cmg_uwash
+      consent: hmb
     cmg_uwash_hmb_irb:
       path: "uwash/_HMB-IRB__{table}-*.parquet"
       snapshot_id: "08568995-f347-4c5a-bd55-d9cc44441e07"
+      site: cmg_uwash
+      consent: hmb_irb
     cmg_uwash_ds_ep:
       path: "uwash/_DS-EP__{table}-*.parquet"
       snapshot_id: "f71051be-17e3-42bf-b534-5af0e3740937"
+      site: cmg_uwash
+      consent: ds_ep
     cmg_uwash_ds_hfa:
       path: "uwash/_DS-HFA__{table}-*.parquet"
       snapshot_id: "98a13ebb-0a91-427e-bdd5-8f5833036d81"
+      site: cmg_uwash
+      consent: ds_hfa
     cmg_uwash_ds_bdis:
       path: "uwash/_DS-BDIS__{table}-*.parquet"
       snapshot_id: "4312ca34-388a-4d28-baa3-b64ec6eaf7af"
+      site: cmg_uwash
+      consent: ds_bdis
     cmg_uwash_ds_nbia:
       path: "uwash/_DS-NBIA__{table}-*.parquet"
       snapshot_id: "4a815323-5dc1-4a0c-93c0-1c2333345c4d"
+      site: cmg_uwash
+      consent: ds_nbia
     cmg_uwash_ds_chdef:
       path: "uwash/_DS-CHDEF__{table}-*.parquet"
       snapshot_id: "10e413c2-729c-4802-a387-6763a7798d8f"
+      site: cmg_uwash
+      consent: ds_chdef
     cmg_uwash_ds_bav_irb_pub_rd:
       path: "uwash/_DS-BAV-IRB-PUB-RD__{table}-*.parquet"
       snapshot_id: "b48a3a5c-9d3f-4228-8a24-19f315890f7b"
+      site: cmg_uwash
+      consent: ds_bav_irb_pub_rd
 
   source_null_sentinels:
     - "na"
@@ -94,6 +141,12 @@ models:
       src:
         +materialized: table
         +tags: ["src"]
+      main:
+        +materialized: table
+        +tags: ["main"]
+      int:
+        +materialized: table
+        +tags: ["int"]
 
 flags:
   require_generic_test_arguments_property: true
