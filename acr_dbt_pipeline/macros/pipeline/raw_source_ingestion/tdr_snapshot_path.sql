@@ -22,6 +22,6 @@
       "Parquet path for snapshot '" ~ name ~ "' must be local, not a URL: " ~ path
     ) -}}
   {%- endif -%}
-  {%- set path = tdr_parquet_root() ~ '/' ~ path.lstrip('/') -%}
+  {%- set path = tdr_parquet_root(snapshot.get('root', '')) ~ '/' ~ path.lstrip('/') -%}
   {{- return(path | replace('{table}', table_name)) -}}
 {%- endmacro -%}

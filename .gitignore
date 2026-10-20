@@ -1,3 +1,9 @@
+# Harmonization
+.vscode
+.user.yml
+.R*
+*.Rproj
+
 # Jupyter stuff
 .ipynb_checkpoints
 

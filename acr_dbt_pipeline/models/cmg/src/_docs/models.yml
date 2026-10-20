@@ -17,10 +17,1114 @@ models:
         data_tests:
           - not_null
 
+  - name: cmg_uwash_src_ds_bav_irb_pub_rd_anvil_dataset
+    description: >
+      CMG UWash DS-BAV-IRB-PUB-RD anvil_dataset rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_bav_irb_pub_rd_family
+    description: >
+      CMG UWash DS-BAV-IRB-PUB-RD family rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_bav_irb_pub_rd_file_inventory
+    description: >
+      CMG UWash DS-BAV-IRB-PUB-RD file_inventory rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_bav_irb_pub_rd_sample
+    description: >
+      CMG UWash DS-BAV-IRB-PUB-RD sample rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_bav_irb_pub_rd_sequencing
+    description: >
+      CMG UWash DS-BAV-IRB-PUB-RD sequencing rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_bav_irb_pub_rd_subject
+    description: >
+      CMG UWash DS-BAV-IRB-PUB-RD subject rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_bav_irb_pub_rd_workspace_attributes
+    description: >
+      CMG UWash DS-BAV-IRB-PUB-RD workspace_attributes rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_bdis_anvil_dataset
+    description: >
+      CMG UWash DS-BDIS anvil_dataset rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_bdis_family
+    description: >
+      CMG UWash DS-BDIS family rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_bdis_file_inventory
+    description: >
+      CMG UWash DS-BDIS file_inventory rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_bdis_sample
+    description: >
+      CMG UWash DS-BDIS sample rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_bdis_sequencing
+    description: >
+      CMG UWash DS-BDIS sequencing rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_bdis_subject
+    description: >
+      CMG UWash DS-BDIS subject rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_bdis_workspace_attributes
+    description: >
+      CMG UWash DS-BDIS workspace_attributes rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_chdef_anvil_dataset
+    description: >
+      CMG UWash DS-CHDEF anvil_dataset rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_chdef_family
+    description: >
+      CMG UWash DS-CHDEF family rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_chdef_file_inventory
+    description: >
+      CMG UWash DS-CHDEF file_inventory rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_chdef_sample
+    description: >
+      CMG UWash DS-CHDEF sample rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_chdef_sequencing
+    description: >
+      CMG UWash DS-CHDEF sequencing rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_chdef_subject
+    description: >
+      CMG UWash DS-CHDEF subject rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_chdef_workspace_attributes
+    description: >
+      CMG UWash DS-CHDEF workspace_attributes rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_ep_anvil_dataset
+    description: >
+      CMG UWash DS-EP anvil_dataset rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_ep_family
+    description: >
+      CMG UWash DS-EP family rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_ep_file_inventory
+    description: >
+      CMG UWash DS-EP file_inventory rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_ep_sample
+    description: >
+      CMG UWash DS-EP sample rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_ep_sequencing
+    description: >
+      CMG UWash DS-EP sequencing rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_ep_subject
+    description: >
+      CMG UWash DS-EP subject rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_ep_workspace_attributes
+    description: >
+      CMG UWash DS-EP workspace_attributes rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_hfa_anvil_dataset
+    description: >
+      CMG UWash DS-HFA anvil_dataset rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_hfa_family
+    description: >
+      CMG UWash DS-HFA family rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_hfa_file_inventory
+    description: >
+      CMG UWash DS-HFA file_inventory rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_hfa_sample
+    description: >
+      CMG UWash DS-HFA sample rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_hfa_sequencing
+    description: >
+      CMG UWash DS-HFA sequencing rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_hfa_subject
+    description: >
+      CMG UWash DS-HFA subject rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_hfa_workspace_attributes
+    description: >
+      CMG UWash DS-HFA workspace_attributes rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_nbia_anvil_dataset
+    description: >
+      CMG UWash DS-NBIA anvil_dataset rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_nbia_family
+    description: >
+      CMG UWash DS-NBIA family rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_nbia_file_inventory
+    description: >
+      CMG UWash DS-NBIA file_inventory rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_nbia_sample
+    description: >
+      CMG UWash DS-NBIA sample rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_nbia_sequencing
+    description: >
+      CMG UWash DS-NBIA sequencing rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_nbia_subject
+    description: >
+      CMG UWash DS-NBIA subject rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_ds_nbia_workspace_attributes
+    description: >
+      CMG UWash DS-NBIA workspace_attributes rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
   - name: cmg_uwash_src_gru_anvil_dataset
     description: >
       CMG UWash GRU anvil_dataset rows read from the local TDR Parquet export.
-      Column names are aligned here; values are not cleaned until cmg_int_anvil_dataset.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_gru_family
+    description: >
+      CMG UWash GRU family rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_gru_file_inventory
+    description: >
+      CMG UWash GRU file_inventory rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_gru_sample
+    description: >
+      CMG UWash GRU sample rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_gru_sequencing
+    description: >
+      CMG UWash GRU sequencing rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_gru_subject
+    description: >
+      CMG UWash GRU subject rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_gru_workspace_attributes
+    description: >
+      CMG UWash GRU workspace_attributes rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_gru_irb_anvil_dataset
+    description: >
+      CMG UWash GRU-IRB anvil_dataset rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_gru_irb_family
+    description: >
+      CMG UWash GRU-IRB family rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_gru_irb_file_inventory
+    description: >
+      CMG UWash GRU-IRB file_inventory rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_gru_irb_sample
+    description: >
+      CMG UWash GRU-IRB sample rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_gru_irb_sequencing
+    description: >
+      CMG UWash GRU-IRB sequencing rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_gru_irb_subject
+    description: >
+      CMG UWash GRU-IRB subject rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_gru_irb_workspace_attributes
+    description: >
+      CMG UWash GRU-IRB workspace_attributes rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_hmb_anvil_dataset
+    description: >
+      CMG UWash HMB anvil_dataset rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_hmb_family
+    description: >
+      CMG UWash HMB family rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_hmb_file_inventory
+    description: >
+      CMG UWash HMB file_inventory rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_hmb_sample
+    description: >
+      CMG UWash HMB sample rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_hmb_sequencing
+    description: >
+      CMG UWash HMB sequencing rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_hmb_subject
+    description: >
+      CMG UWash HMB subject rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_hmb_workspace_attributes
+    description: >
+      CMG UWash HMB workspace_attributes rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_hmb_irb_anvil_dataset
+    description: >
+      CMG UWash HMB-IRB anvil_dataset rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_hmb_irb_family
+    description: >
+      CMG UWash HMB-IRB family rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_hmb_irb_file_inventory
+    description: >
+      CMG UWash HMB-IRB file_inventory rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_hmb_irb_sample
+    description: >
+      CMG UWash HMB-IRB sample rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_hmb_irb_sequencing
+    description: >
+      CMG UWash HMB-IRB sequencing rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_hmb_irb_subject
+    description: >
+      CMG UWash HMB-IRB subject rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
+    columns:
+      - name: source_snapshot
+        description: Logical TDR snapshot name from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: source_snapshot_id
+        description: UUID of the physical TDR snapshot from which the row was read.
+        data_type: varchar
+        data_tests:
+          - not_null
+
+  - name: cmg_uwash_src_hmb_irb_workspace_attributes
+    description: >
+      CMG UWash HMB-IRB workspace_attributes rows read from the local TDR Parquet export.
+      Column names are aligned here; values are not cleaned until the int stage.
     columns:
       - name: source_snapshot
         description: Logical TDR snapshot name from which the row was read.

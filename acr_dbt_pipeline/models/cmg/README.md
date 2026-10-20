@@ -7,7 +7,8 @@ DuckDB. It does not connect to BigQuery or Google Cloud Storage.
 
 Parquet sources are configured in `dbt_project.yml`. `vars.tdr_parquet_root`
 holds the shared location of the exports, and `vars.tdr_parquet_sources` holds
-one entry per snapshot:
+one entry per snapshot. A snapshot can set its own `root` when its export lives
+outside the shared root:
 
 ```yaml
 tdr_parquet_root: "/home/rstudio/pipelines/data/cmg_harmonization_2026"
@@ -16,6 +17,10 @@ tdr_parquet_sources:
   cmg_yale_gru:
     path: "yale/_GRU__{table}-*.parquet"
     snapshot_id: "d3caa579-e6f0-458e-859b-008d89af0b48"
+  cmg_uwash_gru_irb:
+    root: "~/pipelines/data/uwash"
+    path: "uwash/ANVIL_CMG_UWash_GRU_IRB_20250224_ANV5_202502241723/{table}-*.parquet"
+    snapshot_id: "3c279159-bd0e-4df9-bcea-9640e49a694b"
 ```
 
 All 19 exported CMG snapshots (9 Yale, 10 UWash) are configured. The logical
@@ -31,11 +36,13 @@ dbt run \
   --vars '{"tdr_parquet_root": "/path/to/cmg_harmonization_2026"}'
 ```
 
-Each source path is relative to `tdr_parquet_root` and must include `{table}`
-so one relation resolves to exactly one table's shards. The expected layout is:
+Each source path is relative to its configured `root` (or
+`tdr_parquet_root` when `root` is omitted) and must include `{table}` so one
+relation resolves to exactly one table's shards. UWash exports use a
+snapshot-directory layout:
 
 ```text
-/home/rstudio/pipelines/data/cmg_harmonization_2026/yale/_GRU__anvil_dataset-000000000000.parquet
+~/pipelines/data/uwash/uwash/ANVIL_CMG_UWash_GRU_IRB_20250224_ANV5_202502241723/workspace_attributes-000000000000.parquet
 ```
 
 ## Runtime
@@ -97,5 +104,38 @@ step, not fixed downstream.
 `acr_clean_text` is installed into the DuckDB database by the `on-run-start`
 hook, so the cleaning rule is defined once rather than repeated per column.
 
+
+## UWash source models
+
+Each of the 10 UWash snapshots has a source model for all seven exported
+tables, named `cmg_uwash_src_<consent>_<table>`:
+
+```text
+anvil_dataset  family  file_inventory  sample  sequencing  subject  workspace_attributes
+```
+
+Select a snapshot for a run with `enabled_srcs`:
+
+```bash
+dbt run --profiles-dir . --vars '{"enabled_srcs": ["cmg_uwash_gru_irb"]}'
+```
+
+## Disabling tables that were not exported
+
+Not every snapshot exports every table. Because `ref()` resolves at parse time,
+a model pointing at a missing Parquet file would break the run. List the absent
+`<snapshot>.<table>` pairs in `vars.disabled_src_tables` to drop those models
+from the graph and from the main-stage union:
+
+```yaml
+disabled_src_tables:
+  - cmg_uwash_ds_ep.sequencing
+  - cmg_uwash_ds_hfa.file_inventory
+```
+
+Disabled models are excluded entirely, so the project still parses. If every
+snapshot for a table is disabled, the union raises a compiler error naming the
+table rather than emitting invalid SQL.
+
 To add another snapshot, add another entry under `tdr_parquet_sources` and
-create a model that calls `tdr_snapshot_path('<name>', '<table>')`.
+create models that call `tdr_snapshot_path('<name>', '<table>')`.

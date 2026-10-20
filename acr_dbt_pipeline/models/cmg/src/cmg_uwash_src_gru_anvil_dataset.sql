@@ -1,6 +1,6 @@
 {{
   config(
-    enabled = src_enabled('cmg_uwash_gru'),
+    enabled = src_enabled('cmg_uwash_gru', 'anvil_dataset'),
     tags = src_tags('cmg_uwash_gru')
   )
 }}

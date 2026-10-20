@@ -4,8 +4,11 @@ Architecture-owned macros for resolving local TDR Parquet exports.
 
 Harmonizers should:
 
-- configure snapshots under `vars.tdr_parquet_sources`;
+- configure snapshots under `vars.tdr_parquet_sources`, optionally setting a
+  per-snapshot `root` when its files are outside `vars.tdr_parquet_root`;
 - select snapshots through `vars.enabled_srcs`;
+- skip snapshot/table pairs with no exported Parquet file through
+  `vars.disabled_src_tables` (entries look like `cmg_uwash_ds_ep.sequencing`);
 - use `normalize_parquet_columns()` in a `src` model to produce lower snake-case
   column names from the Parquet schema;
 - pass a `rename_map` only when a source column needs an explicit naming override.

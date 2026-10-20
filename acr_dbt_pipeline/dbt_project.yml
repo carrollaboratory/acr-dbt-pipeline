@@ -25,6 +25,10 @@ vars:
     - cmg_yale_gru
     - cmg_uwash_gru
 
+  # Snapshot/table pairs to skip when the corresponding Parquet export is absent.
+  # Use "<snapshot>.<table>", for example "cmg_uwash_gru_irb.workspace_attributes".
+  disabled_src_tables: []
+
   # Local directory containing the exported Parquet files.
   tdr_parquet_root: "/home/rstudio/pipelines/data"
 
@@ -78,52 +82,62 @@ vars:
       consent: ds_thal_irb
 
     cmg_uwash_gru:
-      path: "uwash/_GRU__{table}-*.parquet"
+      root: "~/pipelines/data/uwash"
+      path: "uwash/ANVIL_CMG_UWash_GRU_20250224_ANV5_202502241706/{table}-*.parquet"
       snapshot_id: "db0c9cff-f3f9-4315-addb-6b6c9088b124"
       site: cmg_uwash
       consent: gru
     cmg_uwash_gru_irb:
-      path: "uwash/_GRU-IRB__{table}-*.parquet"
+      root: "~/pipelines/data/uwash"
+      path: "uwash/ANVIL_CMG_UWash_GRU_IRB_20250224_ANV5_202502241723/{table}-*.parquet"
       snapshot_id: "3c279159-bd0e-4df9-bcea-9640e49a694b"
       site: cmg_uwash
       consent: gru_irb
     cmg_uwash_hmb:
-      path: "uwash/_HMB__{table}-*.parquet"
+      root: "~/pipelines/data/uwash"
+      path: "uwash/ANVIL_CMG_UWASH_HMB_20250219_ANV5_202502201916/{table}-*.parquet"
       snapshot_id: "1cd2be27-fc8b-4779-9398-d06979ce43c3"
       site: cmg_uwash
       consent: hmb
     cmg_uwash_hmb_irb:
-      path: "uwash/_HMB-IRB__{table}-*.parquet"
+      root: "~/pipelines/data/uwash"
+      path: "uwash/ANVIL_CMG_UWASH_HMB_IRB_20250219_ANV5_202502201921/{table}-*.parquet"
       snapshot_id: "08568995-f347-4c5a-bd55-d9cc44441e07"
       site: cmg_uwash
       consent: hmb_irb
     cmg_uwash_ds_ep:
-      path: "uwash/_DS-EP__{table}-*.parquet"
+      root: "~/pipelines/data/uwash"
+      path: "uwash/ANVIL_CMG_UWash_DS_EP_20250219_ANV5_202502201854/{table}-*.parquet"
       snapshot_id: "f71051be-17e3-42bf-b534-5af0e3740937"
       site: cmg_uwash
       consent: ds_ep
     cmg_uwash_ds_hfa:
-      path: "uwash/_DS-HFA__{table}-*.parquet"
+      root: "~/pipelines/data/uwash"
+      path: "uwash/ANVIL_CMG_UWASH_DS_HFA_20250206_ANV5_202502201859/{table}-*.parquet"
       snapshot_id: "98a13ebb-0a91-427e-bdd5-8f5833036d81"
       site: cmg_uwash
       consent: ds_hfa
     cmg_uwash_ds_bdis:
-      path: "uwash/_DS-BDIS__{table}-*.parquet"
+      root: "~/pipelines/data/uwash"
+      path: "uwash/ANVIL_CMG_UWASH_DS_BDIS_20250206_ANV5_202502201850/{table}-*.parquet"
       snapshot_id: "4312ca34-388a-4d28-baa3-b64ec6eaf7af"
       site: cmg_uwash
       consent: ds_bdis
     cmg_uwash_ds_nbia:
-      path: "uwash/_DS-NBIA__{table}-*.parquet"
+      root: "~/pipelines/data/uwash"
+      path: "uwash/ANVIL_CMG_UWASH_DS_NBIA_20250206_ANV5_202502201903/{table}-*.parquet"
       snapshot_id: "4a815323-5dc1-4a0c-93c0-1c2333345c4d"
       site: cmg_uwash
       consent: ds_nbia
     cmg_uwash_ds_chdef:
-      path: "uwash/_DS-CHDEF__{table}-*.parquet"
+      root: "~/pipelines/data/uwash"
+      path: "uwash/ANVIL_CMG_UWash_DS_CHDEF_20250224_ANV5_202502241753/{table}-*.parquet"
       snapshot_id: "10e413c2-729c-4802-a387-6763a7798d8f"
       site: cmg_uwash
       consent: ds_chdef
     cmg_uwash_ds_bav_irb_pub_rd:
-      path: "uwash/_DS-BAV-IRB-PUB-RD__{table}-*.parquet"
+      root: "~/pipelines/data/uwash"
+      path: "uwash/ANVIL_CMG_UWASH_DS_BAV_IRB_PUB_RD_20250206_ANV5_202502201846/{table}-*.parquet"
       snapshot_id: "b48a3a5c-9d3f-4228-8a24-19f315890f7b"
       site: cmg_uwash
       consent: ds_bav_irb_pub_rd
