@@ -15,11 +15,12 @@ tdr_parquet_root: "/home/rstudio/pipelines/data/cmg_harmonization_2026"
 
 tdr_parquet_sources:
   cmg_yale_gru:
-    path: "yale/_GRU__{table}-*.parquet"
+    root: "~/pipelines/data/yale"
+    path: "ANVIL_CMG_Yale_GRU_20221020_ANV5_202507091800/{table}-*.parquet"
     snapshot_id: "d3caa579-e6f0-458e-859b-008d89af0b48"
   cmg_uwash_gru_irb:
     root: "~/pipelines/data/uwash"
-    path: "uwash/ANVIL_CMG_UWash_GRU_IRB_20250224_ANV5_202502241723/{table}-*.parquet"
+    path: "ANVIL_CMG_UWash_GRU_IRB_20250224_ANV5_202502241723/{table}-*.parquet"
     snapshot_id: "3c279159-bd0e-4df9-bcea-9640e49a694b"
 ```
 
@@ -38,11 +39,11 @@ dbt run \
 
 Each source path is relative to its configured `root` (or
 `tdr_parquet_root` when `root` is omitted) and must include `{table}` so one
-relation resolves to exactly one table's shards. UWash exports use a
+relation resolves to exactly one table's shards. Yale and UWash exports use a
 snapshot-directory layout:
 
 ```text
-~/pipelines/data/uwash/uwash/ANVIL_CMG_UWash_GRU_IRB_20250224_ANV5_202502241723/workspace_attributes-000000000000.parquet
+~/pipelines/data/uwash/ANVIL_CMG_UWash_GRU_IRB_20250224_ANV5_202502241723/workspace_attributes-000000000000.parquet
 ```
 
 ## Runtime
@@ -57,13 +58,13 @@ Run from the dbt project directory:
 dbt deps
 dbt debug --profiles-dir .
 dbt parse --profiles-dir .
-dbt compile --profiles-dir . --select cmg_yale_src_anvil_dataset
-dbt run --profiles-dir . --select cmg_yale_src_anvil_dataset
-dbt test --profiles-dir . --select cmg_yale_src_anvil_dataset
+dbt compile --profiles-dir . --select cmg_yale_src_gru_anvil_dataset
+dbt run --profiles-dir . --select cmg_yale_src_gru_anvil_dataset
+dbt test --profiles-dir . --select cmg_yale_src_gru_anvil_dataset
 ```
 
 The first source model is
-`cmg_yale_src_anvil_dataset.sql`. It reads the configured
+`cmg_yale_src_gru_anvil_dataset.sql`. It reads the configured
 `cmg_yale_gru` Parquet path with DuckDB `read_parquet`, normalizes column names
 and values, and records the configured snapshot ID as provenance.
 
@@ -105,10 +106,10 @@ step, not fixed downstream.
 hook, so the cleaning rule is defined once rather than repeated per column.
 
 
-## UWash source models
+## CMG source models
 
-Each of the 10 UWash snapshots has a source model for all seven exported
-tables, named `cmg_uwash_src_<consent>_<table>`:
+Each of the 9 Yale and 10 UWash snapshots has a source model for all seven
+exported tables, named `cmg_<site>_src_<consent>_<table>`:
 
 ```text
 anvil_dataset  family  file_inventory  sample  sequencing  subject  workspace_attributes

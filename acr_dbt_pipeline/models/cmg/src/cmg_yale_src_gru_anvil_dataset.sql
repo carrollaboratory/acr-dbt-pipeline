@@ -5,8 +5,9 @@
   )
 }}
 {#-
-  Source names are normalized to lower snake case. Values are not cleaned here:
-  cmg_main unions the snapshots first, then cmg_int cleans the result once.
+  Source names are normalized to lower snake case. Add a rename_map override to
+  normalize_parquet_columns only when Yale uses a semantically different name.
+  cmg_main unions by name, so differing semantic names remain distinct columns.
 -#}
 {%- set snapshot = 'cmg_yale_gru' -%}
 {%- set raw_path = tdr_snapshot_path(snapshot, 'anvil_dataset') -%}

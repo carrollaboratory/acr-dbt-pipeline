@@ -36,108 +36,117 @@ vars:
   # --select tag:gru+ or --select tag:cmg_yale,tag:gru
   tdr_parquet_sources:
     cmg_yale_gru:
-      path: "yale/_GRU__{table}-*.parquet"
+      root: "~/pipelines/data/yale"
+      path: "ANVIL_CMG_Yale_GRU_20221020_ANV5_202507091800/{table}-*.parquet"
       snapshot_id: "d3caa579-e6f0-458e-859b-008d89af0b48"
       site: cmg_yale
       consent: gru
     cmg_yale_hmb:
-      path: "yale/_HMB__{table}-*.parquet"
+      root: "~/pipelines/data/yale"
+      path: "ANVIL_CMG_Yale_HMB_20221020_ANV5_202410011825/{table}-*.parquet"
       snapshot_id: "55d26ed5-f046-414f-8c8b-bdc941fa58aa"
       site: cmg_yale
       consent: hmb
     cmg_yale_hmb_gso:
-      path: "yale/_HMB-GSO__{table}-*.parquet"
+      root: "~/pipelines/data/yale"
+      path: "ANVIL_CMG_Yale_HMB_GSO_20221020_ANV5_202410011834/{table}-*.parquet"
       snapshot_id: "5ee23a8c-e9d7-49b9-b23e-ecf1c1cf51a1"
       site: cmg_yale
       consent: hmb_gso
     cmg_yale_hmb_irb:
-      path: "yale/_HMB-IRB__{table}-*.parquet"
+      root: "~/pipelines/data/yale"
+      path: "ANVIL_CMG_Yale_HMB_IRB_20240113_ANV5_202410011846/{table}-*.parquet"
       snapshot_id: "39fd1d5b-2e6f-4035-beb3-05322174dd4b"
       site: cmg_yale
       consent: hmb_irb
     cmg_yale_ds_mc:
-      path: "yale/_DS-MC__{table}-*.parquet"
+      root: "~/pipelines/data/yale"
+      path: "ANVIL_CMG_YALE_DS_MC_20221026_ANV5_202409302315/{table}-*.parquet"
       snapshot_id: "c720c477-dfe2-45e0-805f-94ed11d006b4"
       site: cmg_yale
       consent: ds_mc
     cmg_yale_ds_rd:
-      path: "yale/_DS-RD__{table}-*.parquet"
+      root: "~/pipelines/data/yale"
+      path: "ANVIL_CMG_Yale_DS_RD_20240113_ANV5_202410011804/{table}-*.parquet"
       snapshot_id: "2df015fc-06f8-46aa-a9ac-e12bc608b2f3"
       site: cmg_yale
       consent: ds_rd
     cmg_yale_ds_rared:
-      path: "yale/_DS-RARED__{table}-*.parquet"
+      root: "~/pipelines/data/yale"
+      path: "ANVIL_CMG_YALE_DS_RARED_20221020_ANV5_202409251714/{table}-*.parquet"
       snapshot_id: "e4bc2365-282a-4c51-afe3-971899f61f74"
       site: cmg_yale
       consent: ds_rared
     cmg_yale_ds_bpeakd:
-      path: "yale/_DS-BPEAKD__{table}-*.parquet"
+      root: "~/pipelines/data/yale"
+      path: "ANVIL_CMG_Yale_DS_BPEAKD_20240113_ANV5_202410011754/{table}-*.parquet"
       snapshot_id: "9e210e43-61b5-4a85-8d1a-0abc111f60db"
       site: cmg_yale
       consent: ds_bpeakd
     cmg_yale_ds_thal_irb:
-      path: "yale/_DS-THAL-IRB__{table}-*.parquet"
+      root: "~/pipelines/data/yale"
+      path: "ANVIL_CMG_Yale_DS_THAL_IRB_20240113_ANV5_202410011814/{table}-*.parquet"
       snapshot_id: "c68d1d19-aac9-4042-ab62-5f40837fe10d"
       site: cmg_yale
       consent: ds_thal_irb
 
     cmg_uwash_gru:
       root: "~/pipelines/data/uwash"
-      path: "uwash/ANVIL_CMG_UWash_GRU_20250224_ANV5_202502241706/{table}-*.parquet"
+      path: "ANVIL_CMG_UWash_GRU_20250224_ANV5_202502241706/{table}-*.parquet"
       snapshot_id: "db0c9cff-f3f9-4315-addb-6b6c9088b124"
       site: cmg_uwash
       consent: gru
     cmg_uwash_gru_irb:
       root: "~/pipelines/data/uwash"
-      path: "uwash/ANVIL_CMG_UWash_GRU_IRB_20250224_ANV5_202502241723/{table}-*.parquet"
+      path: "ANVIL_CMG_UWash_GRU_IRB_20250224_ANV5_202502241723/{table}-*.parquet"
       snapshot_id: "3c279159-bd0e-4df9-bcea-9640e49a694b"
       site: cmg_uwash
       consent: gru_irb
     cmg_uwash_hmb:
       root: "~/pipelines/data/uwash"
-      path: "uwash/ANVIL_CMG_UWASH_HMB_20250219_ANV5_202502201916/{table}-*.parquet"
+      path: "ANVIL_CMG_UWASH_HMB_20250219_ANV5_202502201916/{table}-*.parquet"
       snapshot_id: "1cd2be27-fc8b-4779-9398-d06979ce43c3"
       site: cmg_uwash
       consent: hmb
     cmg_uwash_hmb_irb:
       root: "~/pipelines/data/uwash"
-      path: "uwash/ANVIL_CMG_UWASH_HMB_IRB_20250219_ANV5_202502201921/{table}-*.parquet"
+      path: "ANVIL_CMG_UWASH_HMB_IRB_20250219_ANV5_202502201921/{table}-*.parquet"
       snapshot_id: "08568995-f347-4c5a-bd55-d9cc44441e07"
       site: cmg_uwash
       consent: hmb_irb
     cmg_uwash_ds_ep:
       root: "~/pipelines/data/uwash"
-      path: "uwash/ANVIL_CMG_UWash_DS_EP_20250219_ANV5_202502201854/{table}-*.parquet"
+      path: "ANVIL_CMG_UWash_DS_EP_20250219_ANV5_202502201854/{table}-*.parquet"
       snapshot_id: "f71051be-17e3-42bf-b534-5af0e3740937"
       site: cmg_uwash
       consent: ds_ep
     cmg_uwash_ds_hfa:
       root: "~/pipelines/data/uwash"
-      path: "uwash/ANVIL_CMG_UWASH_DS_HFA_20250206_ANV5_202502201859/{table}-*.parquet"
+      path: "ANVIL_CMG_UWASH_DS_HFA_20250206_ANV5_202502201859/{table}-*.parquet"
       snapshot_id: "98a13ebb-0a91-427e-bdd5-8f5833036d81"
       site: cmg_uwash
       consent: ds_hfa
     cmg_uwash_ds_bdis:
       root: "~/pipelines/data/uwash"
-      path: "uwash/ANVIL_CMG_UWASH_DS_BDIS_20250206_ANV5_202502201850/{table}-*.parquet"
+      path: "ANVIL_CMG_UWASH_DS_BDIS_20250206_ANV5_202502201850/{table}-*.parquet"
       snapshot_id: "4312ca34-388a-4d28-baa3-b64ec6eaf7af"
       site: cmg_uwash
       consent: ds_bdis
     cmg_uwash_ds_nbia:
       root: "~/pipelines/data/uwash"
-      path: "uwash/ANVIL_CMG_UWASH_DS_NBIA_20250206_ANV5_202502201903/{table}-*.parquet"
+      path: "ANVIL_CMG_UWASH_DS_NBIA_20250206_ANV5_202502201903/{table}-*.parquet"
       snapshot_id: "4a815323-5dc1-4a0c-93c0-1c2333345c4d"
       site: cmg_uwash
       consent: ds_nbia
     cmg_uwash_ds_chdef:
       root: "~/pipelines/data/uwash"
-      path: "uwash/ANVIL_CMG_UWash_DS_CHDEF_20250224_ANV5_202502241753/{table}-*.parquet"
+      path: "ANVIL_CMG_UWash_DS_CHDEF_20250224_ANV5_202502241753/{table}-*.parquet"
       snapshot_id: "10e413c2-729c-4802-a387-6763a7798d8f"
       site: cmg_uwash
       consent: ds_chdef
     cmg_uwash_ds_bav_irb_pub_rd:
       root: "~/pipelines/data/uwash"
-      path: "uwash/ANVIL_CMG_UWASH_DS_BAV_IRB_PUB_RD_20250206_ANV5_202502201846/{table}-*.parquet"
+      path: "ANVIL_CMG_UWASH_DS_BAV_IRB_PUB_RD_20250206_ANV5_202502201846/{table}-*.parquet"
       snapshot_id: "b48a3a5c-9d3f-4228-8a24-19f315890f7b"
       site: cmg_uwash
       consent: ds_bav_irb_pub_rd
