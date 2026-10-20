@@ -24,10 +24,11 @@ tdr_parquet_sources:
     snapshot_id: "3c279159-bd0e-4df9-bcea-9640e49a694b"
 ```
 
-All 19 exported CMG snapshots (9 Yale, 10 UWash) are configured. The logical
-name of each is derived from its `title` in `scripts/anvil_dataset_export.csv`,
-lowercased (for example `ANVIL_CMG_UWASH_DS_BAV_IRB_PUB_RD` becomes
-`cmg_uwash_ds_bav_irb_pub_rd`).
+All 58 selected CMG snapshots (9 Yale, 10 UWash, and 39 Broad ANV6) are
+configured. Yale and UWash logical names represent their consent groups. Broad
+logical names represent the study, sequencing strategy, and consent suffix
+from the snapshot name (for example, `ANVIL_CMG_Broad_Blood_Gazda_WES_...`
+becomes `cmg_broad_blood_gazda_wes`).
 
 To use another local directory, override the root:
 
@@ -39,8 +40,8 @@ dbt run \
 
 Each source path is relative to its configured `root` (or
 `tdr_parquet_root` when `root` is omitted) and must include `{table}` so one
-relation resolves to exactly one table's shards. Yale and UWash exports use a
-snapshot-directory layout:
+relation resolves to exactly one table's shards. Yale, UWash, and Broad exports
+use a snapshot-directory layout:
 
 ```text
 ~/pipelines/data/uwash/ANVIL_CMG_UWash_GRU_IRB_20250224_ANV5_202502241723/workspace_attributes-000000000000.parquet
@@ -108,8 +109,8 @@ hook, so the cleaning rule is defined once rather than repeated per column.
 
 ## CMG source models
 
-Each of the 9 Yale and 10 UWash snapshots has a source model for all seven
-exported tables, named `cmg_<site>_src_<consent>_<table>`:
+Each of the 9 Yale, 10 UWash, and 39 Broad ANV6 snapshots has a source model
+for all seven exported tables, named `cmg_<site>_src_<source>_<table>`:
 
 ```text
 anvil_dataset  family  file_inventory  sample  sequencing  subject  workspace_attributes

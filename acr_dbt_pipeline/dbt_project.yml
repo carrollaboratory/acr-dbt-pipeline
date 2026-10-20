@@ -23,7 +23,63 @@ vars:
   # dbt run --vars '{"enabled_srcs": ["cmg_yale_hmb", "cmg_uwash_hmb"]}'
   enabled_srcs:
     - cmg_yale_gru
+    - cmg_yale_hmb
+    - cmg_yale_hmb_gso
+    - cmg_yale_hmb_irb
+    - cmg_yale_ds_mc
+    - cmg_yale_ds_rd
+    - cmg_yale_ds_rared
+    - cmg_yale_ds_bpeakd
+    - cmg_yale_ds_thal_irb
     - cmg_uwash_gru
+    - cmg_uwash_gru_irb
+    - cmg_uwash_hmb
+    - cmg_uwash_hmb_irb
+    - cmg_uwash_ds_ep
+    - cmg_uwash_ds_hfa
+    - cmg_uwash_ds_bdis
+    - cmg_uwash_ds_nbia
+    - cmg_uwash_ds_chdef
+    - cmg_uwash_ds_bav_irb_pub_rd
+    - cmg_broad_blood_fleming_wes_ds_bfd_mds
+    - cmg_broad_blood_gazda_wes
+    - cmg_broad_blood_gazda_wgs_ds_bfd_mds
+    - cmg_broad_brain_gleeson_wes
+    - cmg_broad_brain_gleeson_wgs_hmb_mds
+    - cmg_broad_brain_neurodev_wes
+    - cmg_broad_brain_sherr_wes_ds_neurology_mds
+    - cmg_broad_brain_sherr_wgs
+    - cmg_broad_brain_walsh_wes
+    - cmg_broad_brain_walsh_wgs_ds_neurology_npu_mds
+    - cmg_broad_eye_hufnagel_wgs
+    - cmg_broad_eye_pierce_wes
+    - cmg_broad_eye_pierce_wgs
+    - cmg_broad_genitourinary_hirschhorn_wes
+    - cmg_broad_heart_seidman_wes
+    - cmg_broad_heart_seidman_wgs_hmb
+    - cmg_broad_heart_ware_wes
+    - cmg_broad_kidney_hildebrandt_wes
+    - cmg_broad_kidney_hildebrandt_wgs
+    - cmg_broad_kidney_pollak_wes
+    - cmg_broad_lymphdisease_fajgenbaum_wes
+    - cmg_broad_monogenicdiabetes_philipson_wes_gru
+    - cmg_broad_muscle_beggs_wes
+    - cmg_broad_muscle_beggs_wgs
+    - cmg_broad_muscle_bonnemann_wes
+    - cmg_broad_muscle_kang_wes
+    - cmg_broad_muscle_kang_wgs
+    - cmg_broad_muscle_knc_wes
+    - cmg_broad_muscle_knc_wgs
+    - cmg_broad_muscle_myoseq_wes
+    - cmg_broad_muscle_myoseq_wgs
+    - cmg_broad_muscle_topf_wes
+    - cmg_broad_orphan_manton_wes
+    - cmg_broad_orphan_manton_wgs
+    - cmg_broad_orphan_sweetser_wes
+    - cmg_broad_orphan_vcgs_white_wes
+    - cmg_broad_orphan_vcgs_white_wgs
+    - cmg_broad_rohhad_thaker_wes
+    - cmg_broad_rohhad_thaker_wgs
 
   # Snapshot/table pairs to skip when the corresponding Parquet export is absent.
   # Use "<snapshot>.<table>", for example "cmg_uwash_gru_irb.workspace_attributes".
@@ -150,6 +206,241 @@ vars:
       snapshot_id: "b48a3a5c-9d3f-4228-8a24-19f315890f7b"
       site: cmg_uwash
       consent: ds_bav_irb_pub_rd
+
+    cmg_broad_blood_fleming_wes_ds_bfd_mds:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Blood_Fleming_WES_DS_BFD_MDS_20260725_ANV6_202607250035/{table}-*.parquet"
+      snapshot_id: "9fb0def3-8d09-4ea7-80fe-d4c0fb2d1a1f"
+      site: cmg_broad
+      consent: blood_fleming_wes_ds_bfd_mds
+    cmg_broad_blood_gazda_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Blood_Gazda_WES_20260715_ANV6_202607241623/{table}-*.parquet"
+      snapshot_id: "4e642556-2454-4a43-b119-5dc970dc2cce"
+      site: cmg_broad
+      consent: blood_gazda_wes
+    cmg_broad_blood_gazda_wgs_ds_bfd_mds:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Blood_Gazda_WGS_DS_BFD_MDS_20260725_ANV6_202607250112/{table}-*.parquet"
+      snapshot_id: "e4df1a72-bbda-4c22-94ec-1ca2432b08d7"
+      site: cmg_broad
+      consent: blood_gazda_wgs_ds_bfd_mds
+    cmg_broad_brain_gleeson_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Brain_Gleeson_WES_20260715_ANV6_202607241634/{table}-*.parquet"
+      snapshot_id: "17c12356-c7f1-45eb-9929-d12e8f511401"
+      site: cmg_broad
+      consent: brain_gleeson_wes
+    cmg_broad_brain_gleeson_wgs_hmb_mds:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Brain_Gleeson_WGS_HMB_MDS_20260725_ANV6_202607250122/{table}-*.parquet"
+      snapshot_id: "e78a4db1-9e82-4be2-aeb7-e5b8d8f0fb73"
+      site: cmg_broad
+      consent: brain_gleeson_wgs_hmb_mds
+    cmg_broad_brain_neurodev_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Brain_NeuroDev_WES_20260715_ANV6_202607241647/{table}-*.parquet"
+      snapshot_id: "5979d3db-64ae-40f7-8506-aee7bbeac3db"
+      site: cmg_broad
+      consent: brain_neurodev_wes
+    cmg_broad_brain_sherr_wes_ds_neurology_mds:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Brain_Sherr_WES_DS_Neurology_MDS_20260725_ANV6_202607250050/{table}-*.parquet"
+      snapshot_id: "42bb5e12-ae55-4885-8348-ff35eacca52f"
+      site: cmg_broad
+      consent: brain_sherr_wes_ds_neurology_mds
+    cmg_broad_brain_sherr_wgs:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_BROAD_BRAIN_SHERR_WGS_20260715_ANV6_202607241659/{table}-*.parquet"
+      snapshot_id: "25a4cd09-efa1-4c2c-8ae5-09da464f7385"
+      site: cmg_broad
+      consent: brain_sherr_wgs
+    cmg_broad_brain_walsh_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Brain_Walsh_WES_20260715_ANV6_202607241711/{table}-*.parquet"
+      snapshot_id: "e9a4a892-b707-4625-a786-f5bf96cca86f"
+      site: cmg_broad
+      consent: brain_walsh_wes
+    cmg_broad_brain_walsh_wgs_ds_neurology_npu_mds:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_BROAD_BRAIN_WALSH_WGS_DS_NEUROLOGY_NPU_MDS_20260725_ANV6_202607250133/{table}-*.parquet"
+      snapshot_id: "bfad1e50-3fc7-426c-a5c3-5789633d382e"
+      site: cmg_broad
+      consent: brain_walsh_wgs_ds_neurology_npu_mds
+    cmg_broad_eye_hufnagel_wgs:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Eye_Hufnagel_WGS_20260725_ANV6_202607250233/{table}-*.parquet"
+      snapshot_id: "a5639e1a-d2f1-49a3-859d-5337f8ffd4a2"
+      site: cmg_broad
+      consent: eye_hufnagel_wgs
+    cmg_broad_eye_pierce_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Eye_Pierce_WES_20260715_ANV6_202607241742/{table}-*.parquet"
+      snapshot_id: "2d9345ee-d021-46b9-8e0f-897606f44e7b"
+      site: cmg_broad
+      consent: eye_pierce_wes
+    cmg_broad_eye_pierce_wgs:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Eye_Pierce_WGS_20260715_ANV6_202607241801/{table}-*.parquet"
+      snapshot_id: "f3ddbf27-3bfa-4f1a-a8d5-f069a8ba26af"
+      site: cmg_broad
+      consent: eye_pierce_wgs
+    cmg_broad_genitourinary_hirschhorn_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Genitourinary_Hirschhorn_WES_20260715_ANV6_202607241814/{table}-*.parquet"
+      snapshot_id: "2860231e-a806-48cd-8211-16dcb6dd827f"
+      site: cmg_broad
+      consent: genitourinary_hirschhorn_wes
+    cmg_broad_heart_seidman_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Heart_Seidman_WES_20260715_ANV6_202607241826/{table}-*.parquet"
+      snapshot_id: "47444d63-2527-49e5-9b13-09e12badf28d"
+      site: cmg_broad
+      consent: heart_seidman_wes
+    cmg_broad_heart_seidman_wgs_hmb:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Heart_Seidman_WGS_HMB_20260725_ANV6_202607250143/{table}-*.parquet"
+      snapshot_id: "82739444-2e8e-427f-863a-78c2de9f3edc"
+      site: cmg_broad
+      consent: heart_seidman_wgs_hmb
+    cmg_broad_heart_ware_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Heart_Ware_WES_20260715_ANV6_202607241837/{table}-*.parquet"
+      snapshot_id: "80f77274-43ba-4b11-8241-43416e578bcd"
+      site: cmg_broad
+      consent: heart_ware_wes
+    cmg_broad_kidney_hildebrandt_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Kidney_Hildebrandt_WES_20260715_ANV6_202607241848/{table}-*.parquet"
+      snapshot_id: "23b2dbb9-390f-4924-97dc-1c7d6935172a"
+      site: cmg_broad
+      consent: kidney_hildebrandt_wes
+    cmg_broad_kidney_hildebrandt_wgs:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Kidney_Hildebrandt_WGS_20260715_ANV6_202607241900/{table}-*.parquet"
+      snapshot_id: "c7b505c4-a67f-4e9b-aec5-7b15deeed672"
+      site: cmg_broad
+      consent: kidney_hildebrandt_wgs
+    cmg_broad_kidney_pollak_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Kidney_Pollak_WES_20260715_ANV6_202607241912/{table}-*.parquet"
+      snapshot_id: "5dc6f3ad-1d05-4347-8e38-a4bef7343dcd"
+      site: cmg_broad
+      consent: kidney_pollak_wes
+    cmg_broad_lymphdisease_fajgenbaum_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_LymphDisease_Fajgenbaum_WES_20260725_ANV6_202607250101/{table}-*.parquet"
+      snapshot_id: "da4e0580-51cb-4d60-920d-bd71605f0e1e"
+      site: cmg_broad
+      consent: lymphdisease_fajgenbaum_wes
+    cmg_broad_monogenicdiabetes_philipson_wes_gru:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_MonogenicDiabetes_Philipson_WES_GRU_20260725_ANV6_202607250153/{table}-*.parquet"
+      snapshot_id: "4d2b30d6-dd9a-40ee-a8f7-d026ec6c49f1"
+      site: cmg_broad
+      consent: monogenicdiabetes_philipson_wes_gru
+    cmg_broad_muscle_beggs_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Muscle_Beggs_WES_20260715_ANV6_202607242027/{table}-*.parquet"
+      snapshot_id: "bb66d03c-eb5c-4c9f-bf9b-c65a03e867b6"
+      site: cmg_broad
+      consent: muscle_beggs_wes
+    cmg_broad_muscle_beggs_wgs:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Muscle_Beggs_WGS_20260715_ANV6_202607242202/{table}-*.parquet"
+      snapshot_id: "970089eb-8a15-495e-b5af-955d228117b3"
+      site: cmg_broad
+      consent: muscle_beggs_wgs
+    cmg_broad_muscle_bonnemann_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Muscle_Bonnemann_WES_20260715_ANV6_202607242212/{table}-*.parquet"
+      snapshot_id: "2532a8fd-ea80-474a-bc08-4733c9ac7ed2"
+      site: cmg_broad
+      consent: muscle_bonnemann_wes
+    cmg_broad_muscle_kang_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Muscle_Kang_WES_20260715_ANV6_202607242221/{table}-*.parquet"
+      snapshot_id: "24a9fe7e-75c5-4438-b0c0-70261d429556"
+      site: cmg_broad
+      consent: muscle_kang_wes
+    cmg_broad_muscle_kang_wgs:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Muscle_Kang_WGS_20260715_ANV6_202607242233/{table}-*.parquet"
+      snapshot_id: "bc0a167b-6cd0-4e2f-9532-c139dc4371b6"
+      site: cmg_broad
+      consent: muscle_kang_wgs
+    cmg_broad_muscle_knc_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Muscle_KNC_WES_20260715_ANV6_202607242244/{table}-*.parquet"
+      snapshot_id: "63814261-6c24-4834-b4f4-88931edca0e9"
+      site: cmg_broad
+      consent: muscle_knc_wes
+    cmg_broad_muscle_knc_wgs:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Muscle_KNC_WGS_20260715_ANV6_202607242255/{table}-*.parquet"
+      snapshot_id: "57fcaadc-6be0-4af2-9331-a8907aa74b0f"
+      site: cmg_broad
+      consent: muscle_knc_wgs
+    cmg_broad_muscle_myoseq_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Muscle_Myoseq_WES_20260715_ANV6_202607242306/{table}-*.parquet"
+      snapshot_id: "eb77ca05-99bd-4868-a8a1-cf0169434967"
+      site: cmg_broad
+      consent: muscle_myoseq_wes
+    cmg_broad_muscle_myoseq_wgs:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Muscle_Myoseq_WGS_20260715_ANV6_202607242318/{table}-*.parquet"
+      snapshot_id: "f176f4e2-b03e-4fbe-8fd9-f055258afc02"
+      site: cmg_broad
+      consent: muscle_myoseq_wgs
+    cmg_broad_muscle_topf_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Muscle_Topf_WES_20260715_ANV6_202607242328/{table}-*.parquet"
+      snapshot_id: "3ff6365d-bbfc-4e18-9dc2-6ac3a94989a2"
+      site: cmg_broad
+      consent: muscle_topf_wes
+    cmg_broad_orphan_manton_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Orphan_Manton_WES_20260715_ANV6_202607242340/{table}-*.parquet"
+      snapshot_id: "35c200bc-c4d8-4de8-b803-ed96b705ec5e"
+      site: cmg_broad
+      consent: orphan_manton_wes
+    cmg_broad_orphan_manton_wgs:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Orphan_Manton_WGS_20260715_ANV6_202607242351/{table}-*.parquet"
+      snapshot_id: "bb4d2087-8806-4b00-b5b3-a258fcde33c8"
+      site: cmg_broad
+      consent: orphan_manton_wgs
+    cmg_broad_orphan_sweetser_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Orphan_Sweetser_WES_20260715_ANV6_202607250001/{table}-*.parquet"
+      snapshot_id: "44004e3f-e749-400c-9958-5bc3612358ef"
+      site: cmg_broad
+      consent: orphan_sweetser_wes
+    cmg_broad_orphan_vcgs_white_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Orphan_VCGS_White_WES_20260715_ANV6_202607250012/{table}-*.parquet"
+      snapshot_id: "1785e53a-3007-4a69-a9f8-ba128414e425"
+      site: cmg_broad
+      consent: orphan_vcgs_white_wes
+    cmg_broad_orphan_vcgs_white_wgs:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_Orphan_VCGS_White_WGS_20260715_ANV6_202607250024/{table}-*.parquet"
+      snapshot_id: "aae1d36f-8391-4a41-8944-c3c80fd1fbc5"
+      site: cmg_broad
+      consent: orphan_vcgs_white_wgs
+    cmg_broad_rohhad_thaker_wes:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_ROHHAD_Thaker_WES_20260725_ANV6_202607250204/{table}-*.parquet"
+      snapshot_id: "c2e43801-cb7e-4d3d-9e56-4ea707d207eb"
+      site: cmg_broad
+      consent: rohhad_thaker_wes
+    cmg_broad_rohhad_thaker_wgs:
+      root: "~/pipelines/data/broad"
+      path: "ANVIL_CMG_Broad_ROHHAD_Thaker_WGS_20260725_ANV6_202607250222/{table}-*.parquet"
+      snapshot_id: "4ec870d3-b0d5-45ad-a156-3dd75e34fdca"
+      site: cmg_broad
+      consent: rohhad_thaker_wgs
 
   source_null_sentinels:
     - "na"
