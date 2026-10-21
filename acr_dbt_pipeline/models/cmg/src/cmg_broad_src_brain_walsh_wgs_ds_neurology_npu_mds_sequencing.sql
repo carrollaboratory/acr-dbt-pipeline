@@ -4,11 +4,6 @@
     tags = src_tags('cmg_broad_brain_walsh_wgs_ds_neurology_npu_mds')
   )
 }}
-{#-
-  Source names are normalized to lower snake case. Add a rename_map override to
-  normalize_parquet_columns only when Broad uses a semantically different name.
-  cmg_main unions by name, so differing semantic names remain distinct columns.
--#}
 {%- set snapshot = 'cmg_broad_brain_walsh_wgs_ds_neurology_npu_mds' -%}
 {%- set raw_path = tdr_snapshot_path(snapshot, 'sequencing') -%}
 with raw as (

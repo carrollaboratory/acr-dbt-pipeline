@@ -4,11 +4,6 @@
     tags = src_tags('cmg_yale_ds_rd')
   )
 }}
-{#-
-  Source names are normalized to lower snake case. Add a rename_map override to
-  normalize_parquet_columns only when Yale uses a semantically different name.
-  cmg_main unions by name, so differing semantic names remain distinct columns.
--#}
 {%- set snapshot = 'cmg_yale_ds_rd' -%}
 {%- set raw_path = tdr_snapshot_path(snapshot, 'file_inventory') -%}
 with raw as (

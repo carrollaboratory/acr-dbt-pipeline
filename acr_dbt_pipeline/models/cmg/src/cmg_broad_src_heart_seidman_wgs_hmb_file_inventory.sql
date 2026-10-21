@@ -4,11 +4,6 @@
     tags = src_tags('cmg_broad_heart_seidman_wgs_hmb')
   )
 }}
-{#-
-  Source names are normalized to lower snake case. Add a rename_map override to
-  normalize_parquet_columns only when Broad uses a semantically different name.
-  cmg_main unions by name, so differing semantic names remain distinct columns.
--#}
 {%- set snapshot = 'cmg_broad_heart_seidman_wgs_hmb' -%}
 {%- set raw_path = tdr_snapshot_path(snapshot, 'file_inventory') -%}
 with raw as (
