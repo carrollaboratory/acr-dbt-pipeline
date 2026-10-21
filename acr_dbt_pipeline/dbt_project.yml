@@ -83,12 +83,25 @@ vars:
 
   # Snapshot/table pairs to skip when the corresponding Parquet export is absent.
   # Use "<snapshot>.<table>", for example "cmg_uwash_gru_irb.workspace_attributes".
-  disabled_src_tables: []
+  disabled_src_tables:
+    - cmg_yale_hmb.sequencing
+    - cmg_yale_ds_mc.sequencing
+    - cmg_yale_ds_rared.sequencing
+    - cmg_broad_muscle_bonnemann_wes.sequencing
+
+  # Optional source and main-stage filters. Leave empty to include all enabled
+  # snapshots. Both filters use the metadata below and combine as an intersection.
+  # consent values can be replaced with metadata consentCode values without
+  # changing source model names. Example:
+  #   site_filters: ["cmg_yale"]
+  #   consent_filters: ["ds_rd"]
+  site_filters: []
+  consent_filters: []
 
   # Local directory containing the exported Parquet files.
   tdr_parquet_root: "/home/rstudio/pipelines/data"
 
-  # site and consent become model tags, so a run can be narrowed with
+  # site and consent become model tags and union filters, so a run can be narrowed with
   # --select tag:gru+ or --select tag:cmg_yale,tag:gru
   tdr_parquet_sources:
     cmg_yale_gru:
@@ -257,16 +270,16 @@ vars:
       consent: brain_sherr_wgs
     cmg_broad_brain_walsh_wes:
       root: "~/pipelines/data/broad"
-      path: "ANVIL_CMG_Broad_Brain_Walsh_WES_20260715_ANV6_202607241711/{table}-*.parquet"
+      path: "ANVIL_CMG_Broad_WES_20260715_ANV6_202607241711/{table}-*.parquet"
       snapshot_id: "e9a4a892-b707-4625-a786-f5bf96cca86f"
       site: cmg_broad
-      consent: brain_walsh_wes
+      consent: wes
     cmg_broad_brain_walsh_wgs_ds_neurology_npu_mds:
       root: "~/pipelines/data/broad"
-      path: "ANVIL_CMG_BROAD_BRAIN_WALSH_WGS_DS_NEUROLOGY_NPU_MDS_20260725_ANV6_202607250133/{table}-*.parquet"
+      path: "ANVIL_CMG_BROAD_WGS_DS_NEUROLOGY_NPU_MDS_20260725_ANV6_202607250133/{table}-*.parquet"
       snapshot_id: "bfad1e50-3fc7-426c-a5c3-5789633d382e"
       site: cmg_broad
-      consent: brain_walsh_wgs_ds_neurology_npu_mds
+      consent: wgs_ds_neurology_npu_mds
     cmg_broad_eye_hufnagel_wgs:
       root: "~/pipelines/data/broad"
       path: "ANVIL_CMG_Broad_Eye_Hufnagel_WGS_20260725_ANV6_202607250233/{table}-*.parquet"

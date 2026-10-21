@@ -2753,22 +2753,6 @@ models:
         data_tests:
           - not_null
 
-  - name: cmg_broad_src_muscle_bonnemann_wes_sequencing
-    description: >
-      CMG Broad MUSCLE-BONNEMANN-WES sequencing rows read from the local TDR Parquet export.
-      Column names are aligned here; values are not cleaned until the int stage.
-    columns:
-      - name: source_snapshot
-        description: Logical TDR snapshot name from which the row was read.
-        data_type: varchar
-        data_tests:
-          - not_null
-      - name: source_snapshot_id
-        description: UUID of the physical TDR snapshot from which the row was read.
-        data_type: varchar
-        data_tests:
-          - not_null
-
   - name: cmg_broad_src_muscle_bonnemann_wes_subject
     description: >
       CMG Broad MUSCLE-BONNEMANN-WES subject rows read from the local TDR Parquet export.
@@ -5665,22 +5649,6 @@ models:
         data_tests:
           - not_null
 
-  - name: cmg_yale_src_ds_mc_sequencing
-    description: >
-      CMG Yale DS-MC sequencing rows read from the local TDR Parquet export.
-      Column names are aligned here; values are not cleaned until the int stage.
-    columns:
-      - name: source_snapshot
-        description: Logical TDR snapshot name from which the row was read.
-        data_type: varchar
-        data_tests:
-          - not_null
-      - name: source_snapshot_id
-        description: UUID of the physical TDR snapshot from which the row was read.
-        data_type: varchar
-        data_tests:
-          - not_null
-
   - name: cmg_yale_src_ds_mc_subject
     description: >
       CMG Yale DS-MC subject rows read from the local TDR Parquet export.
@@ -5764,22 +5732,6 @@ models:
   - name: cmg_yale_src_ds_rared_sample
     description: >
       CMG Yale DS-RARED sample rows read from the local TDR Parquet export.
-      Column names are aligned here; values are not cleaned until the int stage.
-    columns:
-      - name: source_snapshot
-        description: Logical TDR snapshot name from which the row was read.
-        data_type: varchar
-        data_tests:
-          - not_null
-      - name: source_snapshot_id
-        description: UUID of the physical TDR snapshot from which the row was read.
-        data_type: varchar
-        data_tests:
-          - not_null
-
-  - name: cmg_yale_src_ds_rared_sequencing
-    description: >
-      CMG Yale DS-RARED sequencing rows read from the local TDR Parquet export.
       Column names are aligned here; values are not cleaned until the int stage.
     columns:
       - name: source_snapshot
@@ -6212,22 +6164,6 @@ models:
   - name: cmg_yale_src_hmb_sample
     description: >
       CMG Yale HMB sample rows read from the local TDR Parquet export.
-      Column names are aligned here; values are not cleaned until the int stage.
-    columns:
-      - name: source_snapshot
-        description: Logical TDR snapshot name from which the row was read.
-        data_type: varchar
-        data_tests:
-          - not_null
-      - name: source_snapshot_id
-        description: UUID of the physical TDR snapshot from which the row was read.
-        data_type: varchar
-        data_tests:
-          - not_null
-
-  - name: cmg_yale_src_hmb_sequencing
-    description: >
-      CMG Yale HMB sequencing rows read from the local TDR Parquet export.
       Column names are aligned here; values are not cleaned until the int stage.
     columns:
       - name: source_snapshot
