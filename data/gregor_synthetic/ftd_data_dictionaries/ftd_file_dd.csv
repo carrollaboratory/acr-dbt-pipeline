@@ -1,9 +1,0 @@
-variable_name,description,data_type,min,max,units,enumerations,comment,tests,src_variable_name,variable_description
-filename,The name of the file.,string,,,,,,,filename,The name of the file.
-format,The format of the file.,enumeration,,,,,Data formats from the EDAM ontology.,,format,The format of the file.
-data_type,The type of data within this file.,enumeration,,,,,Data types from the EDAM ontology.,,data_type,The type of data within this file.
-size,"Size of the file, in Bytes.",bigint,,,,,,,size,"Size of the file, in Bytes."
-drs_uri,DRS location to access the data.,string,,,,,,,drs_uri,DRS location to access the data.
-file_metadata,"Additional metadata about the contents of the file, eg, genome reference build.",string,,,,,Foreign Key: FileMetadata.id,,file_metadata,"Additional metadata about the contents of the file, eg, genome reference build."
-has_access_policy,Which access policy applies to this element?,string,,,,,Foreign Key: AccessPolicy.id,,has_access_policy,Which access policy applies to this element?
-id,ID associated with a class,string,,,,,,not_null,id,ID associated with a class

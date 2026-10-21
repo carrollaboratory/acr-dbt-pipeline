@@ -1,7 +1,0 @@
-variable_name,description,data_type,min,max,units,enumerations,comment,src_variable_name,variable_description
-snapshot_id,The Terra Data Repository Snapshot ID.,string,,,,,,snapshot_id,The Terra Data Repository Snapshot ID.
-google_data_project,The Google Data Project needed to query this snapshot in BigQuery.,string,,,,,,google_data_project,The Google Data Project needed to query this snapshot in BigQuery.
-snapshot_dataset,The Dataset within BigQuery where the table can be queried.,string,,,,,,snapshot_dataset,The Dataset within BigQuery where the table can be queried.
-table_id,The table in the dataset that contains the row of interest.,string,,,,,,table_id,The table in the dataset that contains the row of interest.
-parameterized_query,"A parameterized query that contains the primary key fields and can be used to select specific rows. This should be formatted according to (https://cloud.google.com/bigquery/docs/parameterized-queries)[BigQuery instructions], including using named parameters.",string,,,,,,parameterized_query,"A parameterized query that contains the primary key fields and can be used to select specific rows. This should be formatted according to (https://cloud.google.com/bigquery/docs/parameterized-queries)[BigQuery instructions], including using named parameters."
-id,ID associated with a class,string,,,,,,id,ID associated with a class

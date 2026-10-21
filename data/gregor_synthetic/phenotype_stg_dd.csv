@@ -1,9 +1,0 @@
-variable_name,variable_description,data_type,enumerated_values,units,min,max,src_variable_name
-phenotype_id,Unique identifier for the phenotype record,string,bgqlz3917n / tfljr6430e / rtnbe0537a,,,,phenotype_id
-additional_details,Free text field for extra phenotype information,string,,,,,additional_details
-additional_modifiers,Modifiers that qualify the phenotype term,string,,,,,additional_modifiers
-onset_age_range,Age range when the phenotype was observed,string,,,,,onset_age_range
-ontology,Ontology used for the phenotype term,string,HPO,,,,ontology
-participant_id,Participant ID associated with the phenotype record,string,GSS1704 / GSS1310,,,,participant_id
-presence,Indicates if the phenotype is present or absent,string,Present,,,,presence
-term_id,Ontology identifier for the phenotype term,string,HP:0010782 / HP:0004876 / HP:0007030,,,,term_id

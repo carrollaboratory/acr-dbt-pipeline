@@ -1,3 +1,0 @@
-variable_name,description,data_type,min,max,units,enumerations,comment,tests,src_variable_name,variable_description
-Family_id,Autocreated FK slot,string,,,,,Foreign Key: Family.id,not_null,Family_id,Autocreated FK slot
-family_relationships_id,Family relationships associated with this family.,string,,,,,Foreign Key: FamilyRelationship.id,not_null,family_relationships_id,Family relationships associated with this family.
