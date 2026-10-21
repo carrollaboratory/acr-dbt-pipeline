@@ -10,7 +10,7 @@
   cmg_main unions by name, so differing semantic names remain distinct columns.
 -#}
 {%- set snapshot = 'cmg_yale_ds_rared' -%}
-{%- set raw_path = tdr_snapshot_path(snapshot, 'subject') -%}
+{%- set raw_path = tdr_snapshot_path(snapshot, 'participant') -%}
 with raw as (
   select *
   from read_parquet('{{ raw_path | replace("'", "''") }}')
