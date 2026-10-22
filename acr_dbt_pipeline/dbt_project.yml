@@ -41,45 +41,45 @@ vars:
     - cmg_uwash_ds_nbia
     - cmg_uwash_ds_chdef
     - cmg_uwash_ds_bav_irb_pub_rd
-    - cmg_broad_blood_fleming_wes_ds_bfd_mds
-    - cmg_broad_blood_gazda_wes
-    - cmg_broad_blood_gazda_wgs_ds_bfd_mds
-    - cmg_broad_brain_gleeson_wes
-    - cmg_broad_brain_gleeson_wgs_hmb_mds
-    - cmg_broad_brain_neurodev_wes
-    - cmg_broad_brain_sherr_wes_ds_neurology_mds
-    - cmg_broad_brain_sherr_wgs
-    - cmg_broad_brain_walsh_wes
-    - cmg_broad_brain_walsh_wgs_ds_neurology_npu_mds
-    - cmg_broad_eye_hufnagel_wgs
-    - cmg_broad_eye_pierce_wes
-    - cmg_broad_eye_pierce_wgs
-    - cmg_broad_genitourinary_hirschhorn_wes
-    - cmg_broad_heart_seidman_wes
-    - cmg_broad_heart_seidman_wgs_hmb
-    - cmg_broad_heart_ware_wes
-    - cmg_broad_kidney_hildebrandt_wes
-    - cmg_broad_kidney_hildebrandt_wgs
-    - cmg_broad_kidney_pollak_wes
-    - cmg_broad_lymphdisease_fajgenbaum_wes
-    - cmg_broad_monogenicdiabetes_philipson_wes_gru
-    - cmg_broad_muscle_beggs_wes
-    - cmg_broad_muscle_beggs_wgs
-    - cmg_broad_muscle_bonnemann_wes
-    - cmg_broad_muscle_kang_wes
-    - cmg_broad_muscle_kang_wgs
-    - cmg_broad_muscle_knc_wes
-    - cmg_broad_muscle_knc_wgs
-    - cmg_broad_muscle_myoseq_wes
-    - cmg_broad_muscle_myoseq_wgs
-    - cmg_broad_muscle_topf_wes
-    - cmg_broad_orphan_manton_wes
-    - cmg_broad_orphan_manton_wgs
-    - cmg_broad_orphan_sweetser_wes
-    - cmg_broad_orphan_vcgs_white_wes
-    - cmg_broad_orphan_vcgs_white_wgs
-    - cmg_broad_rohhad_thaker_wes
-    - cmg_broad_rohhad_thaker_wgs
+  # - cmg_broad_blood_fleming_wes_ds_bfd_mds
+    # - cmg_broad_blood_gazda_wes
+    # - cmg_broad_blood_gazda_wgs_ds_bfd_mds
+    # - cmg_broad_brain_gleeson_wes
+    # - cmg_broad_brain_gleeson_wgs_hmb_mds
+    # - cmg_broad_brain_neurodev_wes
+    # - cmg_broad_brain_sherr_wes_ds_neurology_mds
+    # - cmg_broad_brain_sherr_wgs
+    # - cmg_broad_brain_walsh_wes
+    # - cmg_broad_brain_walsh_wgs_ds_neurology_npu_mds
+    # - cmg_broad_eye_hufnagel_wgs
+    # - cmg_broad_eye_pierce_wes
+    # - cmg_broad_eye_pierce_wgs
+    # - cmg_broad_genitourinary_hirschhorn_wes
+    # - cmg_broad_heart_seidman_wes
+    # - cmg_broad_heart_seidman_wgs_hmb
+    # - cmg_broad_heart_ware_wes
+    # - cmg_broad_kidney_hildebrandt_wes
+    # - cmg_broad_kidney_hildebrandt_wgs
+    # - cmg_broad_kidney_pollak_wes
+    # - cmg_broad_lymphdisease_fajgenbaum_wes
+    # - cmg_broad_monogenicdiabetes_philipson_wes_gru
+    # - cmg_broad_muscle_beggs_wes
+    # - cmg_broad_muscle_beggs_wgs
+    # - cmg_broad_muscle_bonnemann_wes
+    # - cmg_broad_muscle_kang_wes
+    # - cmg_broad_muscle_kang_wgs
+    # - cmg_broad_muscle_knc_wes
+    # - cmg_broad_muscle_knc_wgs
+    # - cmg_broad_muscle_myoseq_wes
+    # - cmg_broad_muscle_myoseq_wgs
+    # - cmg_broad_muscle_topf_wes
+    # - cmg_broad_orphan_manton_wes
+    # - cmg_broad_orphan_manton_wgs
+    # - cmg_broad_orphan_sweetser_wes
+    # - cmg_broad_orphan_vcgs_white_wes
+    # - cmg_broad_orphan_vcgs_white_wgs
+    # - cmg_broad_rohhad_thaker_wes
+    # - cmg_broad_rohhad_thaker_wgs
 
   # Snapshot/table pairs to skip when the corresponding Parquet export is absent.
   # Use "<snapshot>.<table>", for example "cmg_uwash_gru_irb.workspace_attributes".
