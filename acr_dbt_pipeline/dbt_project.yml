@@ -95,7 +95,7 @@ vars:
   # changing source model names. Example:
   #   site_filters: ["cmg_yale"]
   #   consent_filters: ["ds_rd"]
-  site_filters: []
+  site_filters: ["cmg_yale","cmg_uwash"]
   consent_filters: []
 
   # Local directory containing the exported Parquet files.
