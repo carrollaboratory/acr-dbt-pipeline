@@ -7,7 +7,7 @@ import "common.just"
 PROGRAM_ID := "anvil"
 STUDY_ID := "cmg"
 PIPELINE_STAGES := "src int program"
-MODELS_STAGE_ROOT := "acr_dbt_pipeline/models/stb"
+MODELS_STAGE_ROOT := "acr_dbt_pipeline/models"
 
 DD_FORMAT := "ftd_dd"
 SOURCE_SCHEMA := "anvil_cmg_raw"
@@ -33,7 +33,7 @@ PROGRAM_DD_DIR := ""
 # Optional stage-specific output directory overrides. Defaults to: <MODELS_STAGE_ROOT>/<study_id>/<stage>
 SRC_STAGE_DIR := ""
 INT_STAGE_DIR := ""
-PROGRAM_STAGE_DIR := "acr_dbt_pipeline/models/cmg"
+PROGRAM_STAGE_DIR := "acr_dbt_pipeline/models/cmg/stb"
 
 # Optional stage-specific table-prefix overrides.
 # When unset, defaults to: <program_id>_<study_id>_<stage>
