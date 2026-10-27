@@ -1,4 +1,6 @@
 select
-    person_id::text as "person_id",
-    access_policy_id::text as "access_policy_id",
-    study_id::text as "study_id"
+  {{ generate_global_id(prefix='pt', descriptor=['registered_identifier','consent_group','subject_id']) }}::text as "person_id",
+  {{ generate_global_id(prefix='co', descriptor=['consent_group']) }}::text as  "access_policy_id",
+  {{ generate_global_id(prefix='sd', descriptor=['registered_identifier']) }}::text as "study_id" 
+from {{ ref("cmg_int_subject")}}
+

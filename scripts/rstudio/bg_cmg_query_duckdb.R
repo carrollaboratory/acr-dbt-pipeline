@@ -29,6 +29,50 @@ execute <- function(query) {
 
 # Analysis ------------------------------------------
 
+# --------------------------------------------------
+# Get unique registered_identifiers
+r <- execute(
+  "SELECT distinct registered_identifier
+  FROM main_cmg.cmg_main_anvil_dataset s
+")
+print(r)
+# consent_group
+# 1            HMB-IRB
+# 2            GRU-IRB
+# 3            DS-NBIA
+# 4              DS-MC
+# 5          DS-BPEAKD
+# 6           DS-CHDEF
+# 7  DS-BAV-IRB-PUB-RD
+# 8                HMB
+# 9           DS-RARED
+# 10       DS-THAL-IRB
+# 11           HMB-GSO
+# 12             DS-EP
+# 13               GRU
+# 14             DS-RD
+# 15            DS-HFA
+# 16           DS-BDIS
+
+# --------------------------------------------------
+
+# Link anvil_dataset metadata to other src data
+# Can anvil_dataset.registered_identifier be linked to a person_id - stb person harmonization
+# Using dataset_id?
+
+
+r <- execute(
+  "SELECT distinct source_snapshot, dbgap_submission, dbgap_study_id, multiple_datasets, ad.* 
+  FROM main_cmg.cmg_main_subject s
+  left join main_cmg.cmg_main_anvil_dataset ad
+  using(source_snapshot_id , source_snapshot)
+
+")
+
+print(r)
+
+# information schema ------------------------------------------
+
 table_names <- execute(
   "SELECT * FROM information_schema.tables 
    WHERE (table_name like '%cmg_main%')"
@@ -69,6 +113,7 @@ for (t in table_metadata$table_name) {
 
 shapes <- do.call(rbind, shapes_list)
 print(shapes)
+
 
 
 
