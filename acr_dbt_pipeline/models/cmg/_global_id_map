@@ -1,0 +1,6 @@
+{{ generate_global_id(prefix='sb', descriptor=['subject_id','consent_group']) }}::text  as subject_gid,
+{{ generate_global_id(prefix='pr', descriptor=['subject_id','consent_group']) }}::text  as person_gid,
+{{ generate_global_id(prefix='fy', descriptor=['family_id']) }}::text  as family_gid,
+{{ generate_global_id(prefix='st', descriptor=['registered_identifier']) }}::text  as study_gid,
+{{ generate_global_id(prefix='co', descriptor=['consent_group']) }}::text  as access_policy_gid
+{{ generate_global_id(prefix='sb', descriptor=['sample_id','consent_group']) }}::text  as sample_gid,

@@ -13,7 +13,9 @@ DD_FORMAT := "ftd_dd"
 SOURCE_SCHEMA := "anvil_cmg_raw"
 SRC_MATERIALIZED := "table"
 FROM_CLAUSE_TEMPLATE := ""
-SQL_REFERENCE_DIR := ""
+# Keep generator reference copies outside dbt's model paths. The SQL generator
+# writes both editable models and *_generated.sql references.
+SQL_REFERENCE_DIR := "pipeline_docs/generated_sql_reference"
 VERSION_LOG := "pipeline_docs/access_version_log.log"
 
 # Inputs to generation: local DD paths and/or in-memory release assets.
@@ -246,7 +248,7 @@ generate-all-stages:
     done
 
 generate-acr-pipeline:
-    # Generate the CMG src/int/program stages from the ACR release bundle.
+    # Generate CMG src/int/program models from ACR, with references outside models/.
     just -f justfile.advanced \
       PROGRAM_ID="anvil" \
       STUDY_ID="cmg" \

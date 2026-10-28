@@ -1,3 +1,4 @@
-select
-    subject_subject_id::text as "subject_subject_id",
-    external_id::text as "external_id"
+select distinct
+    subject_gid::text as "subject_subject_id",
+    subject_id::text as "external_id"
+from {{ ref('cmg_int_subject') }}

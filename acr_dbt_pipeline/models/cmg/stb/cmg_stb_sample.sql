@@ -1,11 +1,12 @@
-select
-    sample_id::text as "sample_id",
-    biospecimen_collection_id::text as "biospecimen_collection_id",
-    parent_sample_id::text as "parent_sample_id",
-    sample_type::text as "sample_type",
-    subject_id::text as "subject_id",
-    availability_status::text as "availability_status",
-    quantity_number::text as "quantity_number",
-    quantity_unit::text as "quantity_unit",
-    access_policy_id::text as "access_policy_id",
-    study_id::text as "study_id"
+select distinct
+    sample_gid::text as "sample_id",
+    cast(null as text) as "biospecimen_collection_id",
+    cast(null as text) as "parent_sample_id",
+    sample_source::text as "sample_type",
+    subject_gid::text as "subject_id",
+    cast(null as text) as "availability_status",
+    cast(null as text) as "quantity_number",
+    cast(null as text) as "quantity_unit",
+    access_policy_gid::text as "access_policy_id",
+    study_gid::text as "study_id"
+from {{ ref('cmg_int_sample') }}
