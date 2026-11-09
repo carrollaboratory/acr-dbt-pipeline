@@ -32,27 +32,37 @@ execute <- function(query) {
 # --------------------------------------------------
 # Get unique registered_identifiers
 r <- execute(
-  "SELECT distinct registered_identifier
-  FROM main_cmg.cmg_main_anvil_dataset s
+  "SELECT *
+  FROM main_cmg.cmg_data_model_mappings s
 ")
 print(r)
-# consent_group
-# 1            HMB-IRB
-# 2            GRU-IRB
-# 3            DS-NBIA
-# 4              DS-MC
-# 5          DS-BPEAKD
-# 6           DS-CHDEF
-# 7  DS-BAV-IRB-PUB-RD
-# 8                HMB
-# 9           DS-RARED
-# 10       DS-THAL-IRB
-# 11           HMB-GSO
-# 12             DS-EP
-# 13               GRU
-# 14             DS-RD
-# 15            DS-HFA
-# 16           DS-BDIS
+
+# --------------------------------------------------
+# Dive into Family
+r <- execute(
+  "SELECT *
+  FROM main_cmg.cmg_main_family s
+  where pedigree_detail not null
+  LIMIT 50
+")
+print(r)
+
+r <- execute(
+  "SELECT *
+  FROM cmg_int_family s
+  where pedigree_detail not null
+  LIMIT 50
+")
+print(r)
+
+
+# --------------------------------------------------
+# Get unique registered_identifiers
+r <- execute(
+  "SELECT *
+  FROM main_cmg.cmg_int_anvil_dataset s
+")
+print(r)
 
 # --------------------------------------------------
 

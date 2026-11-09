@@ -1,4 +1,4 @@
-{% macro normalize_curie(column_name, default_prefix=none, local_id_pattern=none, prefix_seed='curie_prefixes', prefix_column='prefix', alias_column='alias_prefix') %}
+{% macro normalize_curie(column_name, default_prefix=none, local_id_pattern=none, prefix_seed='vocabulary_details', prefix_column='prefix', alias_column='alias_prefix') %}
     {#- Accepts phs123456 and phs123456.v1.p1. -#}
     {%- set dbgap_pattern = '^phs[0-9]{6}([.]v[0-9]+[.]p[0-9]+)?$' -%}
     {%- set builtin_patterns = {

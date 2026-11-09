@@ -1,9 +1,0 @@
-variable_name,description,source,source_id,data_type,units,min,max,repeated_measure,required,comment,enumerations
-subject_id,Deidentified Subject/eMERGE ID,caDSR,2181644,String,NA,NA,NA,No,yes,Non-enumerated value domain. Deidentified ID where the first two digits denote the origination site of the samples; site key:  Marshfield Clinic=16; Vanderbilt University=27; Group Health Cooperative=38; Mayo Clinic=49; Northwestern University=52,NA
-age_at_ecg,Age at ECG,NA,NA,Decimal,Years,0,89,Yes,yes,Include up to 2 digits if possible,NA
-ecg_qrs_duration,QRS duration,caDSR,2008419,Integer,ms,0,1000,Yes,yes,NA,.=Missing; NA=Not Assessed
-ecg_qt_interval,QT interval duration,NA,NA,Integer,ms,0,1000,Yes,yes,NA,.=Missing; NA=Not Assessed
-ecg_qtc_bazett,"QT interval, corrected for HR",NA,NA,Integer,ms,0,1000,Yes,yes,with Bazetts method,.=Missing; NA=Not Assessed
-ecg_hr,Heartrate,NA,NA,Integer,bpm,0,1000,Yes,yes,NA,.=Missing; NA=Not Assessed
-ecg_pr_interval,PR Interval duration,NA,NA,Integer,ms,0,1000,Yes,yes,NA,.=Missing; NA=Not Assessed
-visit_number,A database generated unique key created for repeated values.,NA,NA,Integer,NA,NA,NA,NA,NA,NA,NA

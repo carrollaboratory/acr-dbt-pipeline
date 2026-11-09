@@ -8,6 +8,8 @@ macro-paths:
   - macros
 seed-paths:
   - seeds
+analysis-paths:
+  - analysis
 snapshot-paths:
   - snapshots
 clean-targets:
@@ -466,6 +468,9 @@ models:
     cmg:
       +tags: ["cmg"]
       src:
+        +materialized: table
+        +tags: ["src"]
+      src_supplements:
         +materialized: table
         +tags: ["src"]
       main:
