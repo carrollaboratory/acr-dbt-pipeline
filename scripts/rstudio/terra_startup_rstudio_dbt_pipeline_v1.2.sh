@@ -6,7 +6,6 @@ Requires R 4.5.1, Bioconductor 3.21, and Python 3.12.3.
 
 Requirements are satisfied for:
 Developing and running dbt pipelines
-"AnVIL-DD-Extract" - Pull data from DUOS and TDR apis
 '''
 
 set -euo pipefail
@@ -25,11 +24,7 @@ python3.12 -m venv "$VENV_DIR"
 "$VENV_DIR/bin/pip" install \
   dbt-core==1.12.5 \
   dbt-duckdb==1.11.0 \
-  requests==2.34.2 \
-  pandas==2.2.3 \
-  openpyxl==3.1.5 \
-  beautifulsoup4==4.15.0 \
-  lxml==6.1.3
+  duckdb==1.3.2
 
 "$VENV_DIR/bin/python" -c \
   'import duckdb; print(f"Python DuckDB version: {duckdb.__version__}")'

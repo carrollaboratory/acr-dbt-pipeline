@@ -25,6 +25,7 @@ python3.12 -m venv "$VENV_DIR"
 "$VENV_DIR/bin/pip" install \
   dbt-core==1.12.5 \
   dbt-duckdb==1.11.0 \
+  duckdb==1.3.2
   requests==2.34.2 \
   pandas==2.2.3 \
   openpyxl==3.1.5 \
