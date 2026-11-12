@@ -1,26 +1,24 @@
+{%- set subject_cols = [
+  'subject_gid', 'subject_id_descriptor',
+  'person_gid', 'person_id_descriptor',
+  'study_gid', 'study_id_descriptor',
+  'access_policy_gid', 'access_policy_descriptor',
+  'consent_group', 'sequencing_center'
+] -%}
+
 with base as (
 select
-  sa.*, s.*,
-  {{ generate_global_id(prefix='sa', descriptor=['s.subject_id','sa.sample_id','consent_group']) }}::text as sample_gid,
-  concat('subject_id|sample id|consent_group:sa-[', s."subject_id", '|', sa."sample_id", '|', "consent_group", ']') AS sample_id_descriptor,
-  s.person_id_descriptor,
-  subject_id_descriptor,
-  study_id_descriptor,
-  access_policy_descriptor
+  {{ dbt_utils.star(ref('cmg_main_sample'), relation_alias='sa', except=subject_cols) }},
+  {% for col in subject_cols -%}
+  s."{{ col }}",
+  {% endfor -%}
+  {{ generate_global_id(prefix='sa', descriptor=['sa.subject_id','sa.sample_id','s.consent_group']) }}::text as sample_gid,
+  concat('subject_id|sample id|consent_group:sa-[', sa."subject_id", '|', sa."sample_id", '|', s."consent_group", ']') AS sample_id_descriptor
 from {{ ref('cmg_main_sample') }} sa
 left join (
-select 
-  distinct subject_id, 
-  subject_gid, 
-  subject_id_descriptor,
-  person_gid, 
-  person_id_descriptor,
-  study_gid,
-  study_id_descriptor,
-  access_policy_gid,
-  access_policy_descriptor,
-  consent_group,
-  sequencing_center
+select distinct
+  subject_id,
+  {{ subject_cols | join(',\n  ') }}
 from {{ ref("cmg_int_subject") }} ) s
 using (subject_id)
 ),

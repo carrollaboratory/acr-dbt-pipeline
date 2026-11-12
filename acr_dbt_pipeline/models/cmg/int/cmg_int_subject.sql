@@ -1,7 +1,7 @@
 with base as ( -- join the base table to anvil_dataset
   select 
-    s.*,
-    ad.*,
+    {{ dbt_utils.star(ref('cmg_main_subject'), relation_alias='s') }},
+    {{ dbt_utils.star(ref('cmg_int_anvil_dataset'), relation_alias='ad', except=['source_snapshot_id', 'source_snapshot']) }},
     {{ generate_global_id(prefix='sb', descriptor=['subject_id','consent_group']) }}::text as subject_gid,
     concat('family id:sb-[', "subject_id", '|', "consent_group", ']') AS subject_id_descriptor,
     {{ generate_global_id(prefix='pr', descriptor=['subject_id','consent_group']) }}::text as person_gid,
