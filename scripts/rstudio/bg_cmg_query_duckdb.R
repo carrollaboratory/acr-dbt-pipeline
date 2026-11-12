@@ -60,7 +60,7 @@ print(r)
 # Get unique registered_identifiers
 r <- execute(
   "SELECT *
-  FROM main_cmg.cmg_int_anvil_dataset s
+  FROM main_cmg.cmg_int_subject s
 ")
 print(r)
 

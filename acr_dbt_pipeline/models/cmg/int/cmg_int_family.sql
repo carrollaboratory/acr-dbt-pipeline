@@ -15,21 +15,21 @@ using(source_snapshot_id)
 consanguinity_mappings as (
 select 
 source_text::text as consanguinity,
-mapped_code::text as consanguinity_code
+mapped_code::text as consanguinity_mapped_code
 from {{ ref("mapdragon_annotations_talon") }}
 where source_system = 'https://anvilproject.org//consanguinity'
 ),
 family_history_mappings as (
 select 
 source_text::text as family_history,
-mapped_code::text as family_history_code
+mapped_code::text as family_history_mapped_code
 from {{ ref("mapdragon_annotations_talon") }}
 where source_system = 'https://anvilproject.org//family_history'
 )
 select -- join the annotations
   base.*,
-  consanguinity_code::text as consanguinity_code,
-  family_history_code::text as family_history_code,
+  consanguinity_mapped_code::text as consanguinity_mapped_code,
+  family_history_mapped_code::text as family_history_mapped_code,
   from base
   left join consanguinity_mappings
   using (consanguinity)
