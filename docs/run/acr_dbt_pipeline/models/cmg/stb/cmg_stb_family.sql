@@ -1,0 +1,14 @@
+
+  
+  create view "acr_dbt_pipeline"."main_cmg"."cmg_stb_family__dbt_tmp" as (
+    select distinct
+  family_gid::text as "family_id",
+  cast(null as text) as "family_type",
+  cast(null as text) as "family_description",
+  consanguinity::text as "consanguinity",
+  cast(null as text) as "family_study_focus",
+  access_policy_gid::text as "access_policy_id",
+  study_gid::text as "study_id"
+from "acr_dbt_pipeline"."main_cmg"."cmg_int_family"
+where family_id is not null
+  );
