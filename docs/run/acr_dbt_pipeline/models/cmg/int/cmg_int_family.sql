@@ -8,14 +8,24 @@
     as (
       with base as ( -- join to dataset metadata (anvil_dataset)
 select
-  f.*,
-  ad.*,
+  f."datarepo_row_id",
+  f."family_id",
+  f."consanguinity",
+  f."ingest_provenance",
+  f."source_snapshot",
+  f."source_snapshot_id",
+  f."family_history",
+  f."pedigree_detail",
+  f."pedigree_image",
+  f."consanguinity_detail",
+  ad."registered_identifier",
+  ad."consent_group",
+  ad."study_gid",
+  ad."access_policy_gid",
+  ad."study_id_descriptor",
+  ad."access_policy_descriptor",
   'fy' || '_' || md5(cast(coalesce(family_id, '') as text))::text  as family_gid,
-  study_gid,
-  access_policy_gid,
-  concat('family id:fy-[', "family_id", ']') AS family_id_descriptor,
-  study_id_descriptor,
-  access_policy_descriptor,
+  concat('family id:fy-[', "family_id", ']') AS family_id_descriptor
 from "acr_dbt_pipeline"."main_cmg"."cmg_main_family" f
 left join "acr_dbt_pipeline"."main_cmg"."cmg_int_anvil_dataset" ad
 using(source_snapshot_id)

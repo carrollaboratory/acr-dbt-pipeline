@@ -2,15 +2,13 @@ with base as (
 select
   sa."datarepo_row_id",
   sa."sample_id",
-  sa."participant_id",
   sa."crai",
   sa."cram",
   sa."sample_source",
-  sa."subject_id",
   sa."ingest_provenance",
   sa."source_snapshot",
   sa."source_snapshot_id",
-  sa."participant_id_2",
+  sa."subject_id",
   sa."bam",
   s."subject_gid",
   s."subject_id_descriptor",
@@ -21,13 +19,15 @@ select
   s."access_policy_gid",
   s."access_policy_descriptor",
   s."consent_group",
-  s."sequencing_center",
+  -- most snapshots record sequencing_center on sample; uwash_ds_bdis records it on subject
+  coalesce(sa."sequencing_center", s."subject_sequencing_center") as sequencing_center,
   'sa' || '_' || md5(cast(coalesce(sa.subject_id, '') as text) || '|' || cast(coalesce(sa.sample_id, '') as text) || '|' || cast(coalesce(s.consent_group, '') as text))::text as sample_gid,
   concat('subject_id|sample id|consent_group:sa-[', sa."subject_id", '|', sa."sample_id", '|', s."consent_group", ']') AS sample_id_descriptor
 from "acr_dbt_pipeline"."main_cmg"."cmg_main_sample" sa
 left join (
 select distinct
   subject_id,
+  source_snapshot_id,
   subject_gid,
   subject_id_descriptor,
   person_gid,
@@ -37,9 +37,9 @@ select distinct
   access_policy_gid,
   access_policy_descriptor,
   consent_group,
-  sequencing_center
+  sequencing_center as subject_sequencing_center
 from "acr_dbt_pipeline"."main_cmg"."cmg_int_subject" ) s
-using (subject_id)
+using (subject_id, source_snapshot_id)
 ),
 sample_source_mappings as (
   select 

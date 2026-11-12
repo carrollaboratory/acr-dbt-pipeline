@@ -32,12 +32,13 @@ select
   sa."access_policy_descriptor",
   sa."consent_group",
   sa."sequencing_center",
-  'ay' || '_' || md5(cast(coalesce(seq.sequencing_id, '') as text) || '|' || cast(coalesce(sa.consent_group, '') as text))::text as assay_id_gid,
+  'ay' || '_' || md5(cast(coalesce(seq.sequencing_id, '') as text) || '|' || cast(coalesce(sa.consent_group, '') as text))::text as assay_gid,
   concat('sequencing_id|consent_group:ay-[', seq."sequencing_id", '|', sa."consent_group", ']') AS assay_id_descriptor
 from "acr_dbt_pipeline"."main_cmg"."cmg_main_sequencing" seq
 left join (
 select distinct
   sample_id,
+  source_snapshot_id,
   sample_gid,
   sample_id_descriptor,
   subject_id,
@@ -52,7 +53,7 @@ select distinct
   consent_group,
   sequencing_center
 from "acr_dbt_pipeline"."main_cmg"."cmg_int_sample" ) sa
-using (sample_id)
+using (sample_id, source_snapshot_id)
 )
   
 select -- join the annotations

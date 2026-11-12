@@ -2,8 +2,16 @@ with raw as (
   select *
   from read_parquet('/home/rstudio/pipelines/data/yale/ANVIL_CMG_Yale_GRU_20221020_ANV5_202507091800/sample-*.parquet')
 )
+-- this snapshot carries both subject_id and Participant_id; fill subject_id from Participant_id
 select
-  "raw"."datarepo_row_id" as "datarepo_row_id",
+  * exclude (subject_id, participant_id),
+  coalesce(
+    nullif(trim(cast(subject_id as varchar)), ''),
+    nullif(trim(cast(participant_id as varchar)), '')
+  ) as subject_id
+from (
+  select
+    "raw"."datarepo_row_id" as "datarepo_row_id",
   "raw"."sample_id" as "sample_id",
   "raw"."Participant_id" as "participant_id",
   "raw"."crai" as "crai",
@@ -12,6 +20,7 @@ select
   "raw"."sequencing_center" as "sequencing_center",
   "raw"."subject_id" as "subject_id",
   "raw"."ingest_provenance" as "ingest_provenance",
-  cast('cmg_yale_gru' as varchar) as source_snapshot,
-  cast('d3caa579-e6f0-458e-859b-008d89af0b48' as varchar) as source_snapshot_id
-from raw
+    cast('cmg_yale_gru' as varchar) as source_snapshot,
+    cast('d3caa579-e6f0-458e-859b-008d89af0b48' as varchar) as source_snapshot_id
+  from raw
+)
