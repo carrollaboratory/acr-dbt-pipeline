@@ -10,8 +10,11 @@ with raw as (
   select *
   from read_parquet('{{ raw_path | replace("'", "''") }}')
 )
-select
-  {{ normalize_parquet_columns(raw_path, source_alias='raw') }},
-  cast('{{ snapshot }}' as varchar) as source_snapshot,
-  cast('{{ tdr_snapshot_id(snapshot) }}' as varchar) as source_snapshot_id
-from raw
+select * exclude (participant_id_2)
+from (
+  select
+    {{ normalize_parquet_columns(raw_path, rename_map={'participant_id': 'subject_id'}, source_alias='raw') }},
+    cast('{{ snapshot }}' as varchar) as source_snapshot,
+    cast('{{ tdr_snapshot_id(snapshot) }}' as varchar) as source_snapshot_id
+  from raw
+)

@@ -13,15 +13,16 @@ select
   {% for col in sample_cols -%}
   sa."{{ col }}",
   {% endfor -%}
-  {{ generate_global_id(prefix='ay', descriptor=['seq.sequencing_id','sa.consent_group']) }}::text as assay_id_gid,
+  {{ generate_global_id(prefix='ay', descriptor=['seq.sequencing_id','sa.consent_group']) }}::text as assay_gid,
   concat('sequencing_id|consent_group:ay-[', seq."sequencing_id", '|', sa."consent_group", ']') AS assay_id_descriptor
 from {{ ref('cmg_main_sequencing') }} seq
 left join (
 select distinct
   sample_id,
+  source_snapshot_id,
   {{ sample_cols | join(',\n  ') }}
 from {{ ref("cmg_int_sample") }} ) sa
-using (sample_id)
+using (sample_id, source_snapshot_id)
 )
   
 select -- join the annotations
