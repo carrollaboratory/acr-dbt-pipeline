@@ -2,12 +2,18 @@ with raw as (
   select *
   from read_parquet('/home/rstudio/pipelines/data/yale/ANVIL_CMG_YALE_DS_MC_20221026_ANV5_202409302315/sample-*.parquet')
 )
-select * exclude (participant_id_2)
+-- this snapshot has no subject_id; build it from participant_id, then participant_id_2
+select
+  * exclude (participant_id, participant_id_2),
+  coalesce(
+    nullif(trim(cast(participant_id as varchar)), ''),
+    nullif(trim(cast(participant_id_2 as varchar)), '')
+  ) as subject_id
 from (
   select
     "raw"."datarepo_row_id" as "datarepo_row_id",
   "raw"."sample_id" as "sample_id",
-  "raw"."participant_id" as "subject_id",
+  "raw"."participant_id" as "participant_id",
   "raw"."crai" as "crai",
   "raw"."cram" as "cram",
   "raw"."participant_id_2" as "participant_id_2",

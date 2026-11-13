@@ -31,11 +31,183 @@ execute <- function(query) {
 
 # --------------------------------------------------
 # Get unique registered_identifiers
+r <- execute("
+with refs as (
+  select source_snapshot, source_snapshot_id, 'cram' as ref_column, sample_id as owner_id, cast(cram as varchar) as ref_value
+  from main_cmg.cmg_main_sample where cram is not null
+  union all
+  select source_snapshot, source_snapshot_id, 'crai', sample_id, cast(crai as varchar)
+  from main_cmg.cmg_main_sample where crai is not null
+  union all
+  select source_snapshot, source_snapshot_id, 'bam', sample_id, cast(bam as varchar)
+  from main_cmg.cmg_main_sample where bam is not null
+  union all
+  select source_snapshot, source_snapshot_id, 'sequencing_id_fileref', sequencing_id, cast(sequencing_id_fileref as varchar)
+  from main_cmg.cmg_main_sequencing where sequencing_id_fileref is not null
+  union all
+  select source_snapshot, source_snapshot_id, 'seq_filename', sequencing_id, cast(seq_filename as varchar)
+  from main_cmg.cmg_main_sequencing where seq_filename is not null
+  union all
+  select source_snapshot, source_snapshot_id, 'file_id', sequencing_id, cast(file_id as varchar)
+  from main_cmg.cmg_main_sequencing where file_id is not null
+),
+inventory as (
+  select source_snapshot_id, file_id as inv_file_id, 'file_ref' as inventory_key, cast(file_ref as varchar) as key_value
+  from main_cmg.cmg_main_file_inventory where file_ref is not null
+  union all
+  select source_snapshot_id, file_id, 'file_id', cast(file_id as varchar)
+  from main_cmg.cmg_main_file_inventory where file_id is not null
+  union all
+  select source_snapshot_id, file_id, 'uri', cast(uri as varchar)
+  from main_cmg.cmg_main_file_inventory where uri is not null
+  union all
+  select source_snapshot_id, file_id, 'name', cast(name as varchar)
+  from main_cmg.cmg_main_file_inventory where name is not null
+  union all
+  select source_snapshot_id, file_id, 'path', cast(path as varchar)
+  from main_cmg.cmg_main_file_inventory where path is not null
+),
+matches as (
+  select r.*, i.inventory_key, i.inv_file_id
+  from refs r
+  left join inventory i
+    on i.source_snapshot_id = r.source_snapshot_id
+   and i.key_value = r.ref_value
+),
+per_ref as (
+  select source_snapshot, ref_column, inventory_key, ref_value,
+         count(distinct inv_file_id) as n_files
+  from matches
+  group by all
+),
+per_file as (
+  select source_snapshot, ref_column, inventory_key,
+         count(*) as n_files_matched,
+         max(n_owners) as max_refs_per_file
+  from (
+    select source_snapshot, ref_column, inventory_key, inv_file_id,
+           count(distinct owner_id) as n_owners
+    from matches
+    where inv_file_id is not null
+    group by all
+  )
+  group by all
+),
+n_refs as (
+  select source_snapshot, ref_column, count(distinct ref_value) as n_refs
+  from refs
+  group by all
+)
+select
+  p.source_snapshot,
+  p.ref_column,
+  p.inventory_key,
+  n.n_refs,
+  count(distinct p.ref_value) filter (where p.n_files > 0) as n_refs_matched,
+  f.n_files_matched,
+  max(p.n_files) as max_files_per_ref,
+  f.max_refs_per_file
+from per_ref p
+join n_refs n
+  on n.source_snapshot = p.source_snapshot and n.ref_column = p.ref_column
+left join per_file f
+  on f.source_snapshot = p.source_snapshot
+ and f.ref_column = p.ref_column
+ and f.inventory_key is not distinct from p.inventory_key
+group by all
+order by p.source_snapshot, p.ref_column, p.inventory_key nulls last
+")
+
+print(r)
+
+
+
+# --------------------------------------------------
+# Get unique registered_identifiers
 r <- execute(
-  "SELECT *
-  FROM main_cmg.cmg_data_model_mappings s
+  "
+ -- select source_snapshot, issue, count(*) as n_samples
+--from ( 
+with samples as (
+  select distinct source_snapshot, source_snapshot_id, sample_id, subject_id
+  from main_cmg.cmg_main_sample
+),
+subjects as (
+  select distinct source_snapshot, source_snapshot_id, subject_id
+  from main_cmg.cmg_main_subject
+)
+
+select
+  sa.source_snapshot,
+  sa.sample_id,
+  sa.subject_id,
+  case
+    when sa.subject_id is null then 'null_subject_id'
+    when other.subject_id is not null then 'subject_in_other_snapshot'
+    else 'subject_missing'
+  end as issue,
+  string_agg(distinct other.source_snapshot, ', ') as subject_found_in_snapshots
+from samples sa
+left join subjects same
+  on same.subject_id = sa.subject_id
+  and same.source_snapshot_id = sa.source_snapshot_id
+left join subjects other
+  on other.subject_id = sa.subject_id
+  and other.source_snapshot_id <> sa.source_snapshot_id
+where same.subject_id is null
+group by all
+order by sa.source_snapshot, issue, sa.sample_id
+
+--)
+--group by all
+--order by 1, 2;
 ")
 print(r)
+
+# --------------------------------------------------
+# Dive into Family
+r <- execute(
+  "
+select source_snapshot, count(*) as n_files_with_multiple_rows, max(n) as max_rows
+from (
+  select source_snapshot, file_id, count(*) as n
+  from main_cmg.cmg_int_file_inventory
+  group by all
+  having count(*) > 1
+)
+group by all;
+")
+print(r)
+
+
+# --------------------------------------------------
+# Dive into Family
+r <- execute(
+  "
+with sa as (
+  select sample_id, subject_id from main_cmg.cmg_main_sample
+  where source_snapshot = 'cmg_yale_ds_mc'
+),
+sb as (
+  select distinct subject_id from main_cmg.cmg_main_subject
+  where source_snapshot = 'cmg_yale_ds_mc'
+)
+select
+  (sb_match.subject_id is not null)   as joins_to_subject,
+  (sa.sample_id = sa.subject_id)      as sample_eq_subject,
+  count(*)                            as n_samples,
+  count(*) filter (where exists (
+    select 1 from sb
+    where sa.sample_id like sb.subject_id || '%' and sa.sample_id <> sb.subject_id
+  ))                                  as n_prefix_match
+from sa
+left join sb sb_match on sb_match.subject_id = sa.subject_id
+group by all
+order by 1, 2;
+")
+print(r)
+
+
 
 # --------------------------------------------------
 # Dive into Family

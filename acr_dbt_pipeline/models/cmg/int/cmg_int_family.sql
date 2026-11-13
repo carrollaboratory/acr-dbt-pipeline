@@ -1,9 +1,13 @@
 with base as ( -- join to dataset metadata (anvil_dataset)
 select
-  {{ dbt_utils.star(ref('cmg_main_family'), relation_alias='f') }},
-  {{ dbt_utils.star(ref('cmg_int_anvil_dataset'), relation_alias='ad', except=['source_snapshot_id', 'source_snapshot']) }},
+  f.*,
+  ad.*,
   {{ generate_global_id(prefix='fy', descriptor=["family_id"]) }}::text  as family_gid,
-  concat('family id:fy-[', "family_id", ']') AS family_id_descriptor
+  study_gid,
+  access_policy_gid,
+  concat('family id:fy-[', "family_id", ']') AS family_id_descriptor,
+  study_id_descriptor,
+  access_policy_descriptor,
 from {{ ref('cmg_main_family') }} f
 left join {{ ref("cmg_int_anvil_dataset")}} ad
 using(source_snapshot_id)
