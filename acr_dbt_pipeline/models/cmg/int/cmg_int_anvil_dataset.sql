@@ -1,6 +1,6 @@
 with supplement_consent_data as (
 select
-c.*,
+{{ dbt_utils.star(ref("consent_mapping_datasets"), relation_alias='c') }},
 replace(snapshot_url,'https://data.terra.bio/snapshots/','') as source_snapshot_url_id
 from {{ ref("consent_mapping_datasets") }} c
 where institution in ('Yale','UWash')
