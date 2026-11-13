@@ -1,0 +1,54 @@
+import "pipeline.just"
+
+# ACR/AnVIL CMG configuration. Override defaults with NAME=value on the command line.
+# Only STB is generated from data dictionaries: SRC and MAIN are Parquet macro
+# models, and INT and _global_id_map are hand-written.
+PROGRAM_ID := "acr"
+STUDY_ID := "cmg"
+PIPELINE_STAGES := "stb"
+# Stage folders resolve to MODELS_STAGE_ROOT/STUDY_ID/<stage>, e.g. models/cmg/stb.
+MODELS_STAGE_ROOT := "acr_dbt_pipeline/models"
+
+DD_FORMAT := "ftd_dd"
+# Optional DD version/hash log; blank disables it.
+VERSION_LOG := ""
+
+# STB data dictionaries come from the ACR harmonized data model release
+# (acr -> anvilproject/acr-harmonized-data-model) and are read in memory.
+STB_RELEASE_ASSETS := "acr|project-artifacts.zip"
+# Fallback release list for stages without a stage-specific release.
+RELEASE_ASSETS := ""
+# Pin a tag such as v1.5.3 for reproducible output; latest follows GitHub's latest release.
+RELEASE_TAG := "latest"
+RELEASE_TOKEN := env("RELEASE_TOKEN", "")
+REFRESH := ""
+# Optional local DD directory, e.g. PROGRAM_REFRESH_DIR after refresh-releases.
+STB_DD_DIR := ""
+
+# Blank resolves to MODELS_STAGE_ROOT/STUDY_ID/stb.
+STB_STAGE_DIR := ""
+STB_TABLE_PREFIX_STAGE := STUDY_ID + "_stb"
+# Blank writes FROM-less STB scaffolding; for example
+# "{{ ref('cmg_int_{base_name}') }}" selects from same-named INT models.
+STB_FROM_CLAUSE_TEMPLATE := ""
+
+# Direct generator inputs and outputs; blank values must be provided for the
+# specific direct generator command (stage recipes resolve these automatically).
+TABLE_PREFIX := ""
+DD_DIR := ""
+MODELS_YML := ""
+MODELS_DOCS := ""
+SQL_DIR := ""
+FROM_CLAUSE_TEMPLATE := ""
+SQL_REFERENCE_DIR := ""
+
+# Optional release extraction; generation reads releases in memory.
+REFRESH_BUNDLES := "program"
+PROGRAM_RELEASE_REPO := PROGRAM_ID
+RELEASE_ARTIFACT := "project-artifacts.zip"
+DD_INTERNAL_PATH := "project/data-dictionary"
+DBT_INTERNAL_PATH := "project/dbt"
+PROGRAM_REFRESH_DIR := "utils_resources/data_dictionaries/acr"
+RELEASE_REPO := PROGRAM_RELEASE_REPO
+RELEASE_INTERNAL_PATH := ""
+RELEASE_OUTPUT_PATH := ""

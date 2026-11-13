@@ -1,7 +1,0 @@
-local_code,text,table_name,parent_varname,local code system,mapping relationship,code,display,code system,comment
-age_at_ecg,age_at_ecg,ECG Table,,eMERGE/ECG Table,equivalent,SNOMED:397669002,Age,file:///nfs/production/parkinso/spot/ols4/prod/local_ontologies/snomed-inferred.owl,
-ecg_hr,ecg_hr,ECG Table,,eMERGE/ECG Table,equivalent,8867-4,Heart rate,https://loinc.org/,
-ecg_pr_interval,ecg_pr_interval,ECG Table,,eMERGE/ECG Table,equivalent,8625-6,P-R Interval,https://loinc.org/,
-ecg_qrs_duration,ecg_qrs_duration,ECG Table,,eMERGE/ECG Table,equivalent,8633-0,QRS duration,https://loinc.org/,
-ecg_qt_interval,ecg_qt_interval,ECG Table,,eMERGE/ECG Table,equivalent,8634-8,Q-T interval,https://loinc.org/,
-ecg_qtc_bazett,ecg_qtc_bazett,ECG Table,,eMERGE/ECG Table,equivalent,76635-2,Q-T interval corrected based on Bazett formula,https://loinc.org/,

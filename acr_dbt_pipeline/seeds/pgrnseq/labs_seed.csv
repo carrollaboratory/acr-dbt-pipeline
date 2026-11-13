@@ -1,9 +1,0 @@
-variable_name,description,source,source_id,data_type,units,min,max,comment,enumerations
-subject_id,Deidentified Subject/eMERGE ID,caDSR,2181644,String,NA,NA,NA,Non-enumerated value domain. Deidentified ID where the first two digits denote the origination site of the samples; site key:  Marshfield Clinic=16; Vanderbilt University=27; Group Health Cooperative=38; Mayo Clinic=49; Northwestern University=52,NA
-age_at_lipids,Age (years) at lipid lab,NA,NA,Integer,years,0,89,Submit age if unable to send date,.=Missing; NA=Not Assessed
-on_statins_at_time_of_lab,Ever on statins from measurement of lipids- 60 days to measurement of lipids,NA,NA,"Integer, encoded value",NA,NA,NA,0=not on meds; 1=on meds,0=not on meds; 1=on meds
-serum_total_cholesterol,A value measured which captures the amount of Total Cholesterol in the blood measured in milligrams per deciliter (mg/dL); short name = Cho-RF and Chol,caDSR,2655820,Decimal,mg/dL,1,1000,NA,.=Missing; NA=Not Assessed
-ldl,A value measured which captures the amount of Low Density Lipoprotein (LDL) Cholesterol in the blood measured in milligrams per deciliter (mg/dL).; short name =  LDL-C,caDSR,2656096,Decimal,mg/dL,1,1000,NA,.=Missing; NA=Not Assessed
-hdl,A value measured which captures the amount of High Density Lipoprotein (HDL) Cholesterol in the blood measured in milligrams per deciliter (mg/dL).; short name = HDL-C,caDSR,2655832,Decimal,mg/dL,1,1000,NA,.=Missing; NA=Not Assessed
-triglyceride,A value measured which captures the amount of Triglycerides in the blood measured in milligrams per deciliter (mg/dL); short name =  Trigs,caDSR,2656092,Decimal,mg/dL,1,1000,NA,.=Missing; NA=Not Assessed
-visit_number,A database generated unique key created for repeated values.,NA,NA,Integer,NA,NA,NA,NA,NA

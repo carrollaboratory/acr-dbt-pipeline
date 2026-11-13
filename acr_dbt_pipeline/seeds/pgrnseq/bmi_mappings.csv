@@ -1,5 +1,0 @@
-local code,text,table_name,parent_varname,local code system,mapping relationship,code,display,code system,comment
-age_observation,age_observation,BMI Table,,eMERGE/BMI Table,equivalent,445518008,Age at onset of clinical finding,http://snomed.info/sct,
-body_mass_index,body_mass_index,BMI Table,,eMERGE/BMI Table,equivalent,LP35925-4,Body mass index (BMI),https://loinc.org/,
-height,height,BMI Table,,eMERGE/BMI Table,equivalent,LP72681-7,Height,https://loinc.org/,
-weight,weight,BMI Table,,eMERGE/BMI Table,equivalent,LP18015-5,Weight,https://loinc.org/,

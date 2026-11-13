@@ -5,7 +5,7 @@
   )
 }}
 {%- set snapshot = 'cmg_yale_ds_rared' -%}
-{%- set raw_path = tdr_snapshot_path(snapshot, 'subject') -%}
+{%- set raw_path = tdr_snapshot_path(snapshot, 'participant') -%}
 {%- set rename_map = {'participant_id': 'subject_id'} -%}
 with raw as (
   select *

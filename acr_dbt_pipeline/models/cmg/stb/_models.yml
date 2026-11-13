@@ -1,0 +1,864 @@
+models:
+- name: cmg_stb_virtualbiorepository_contact
+  description: Model for cmg_stb_virtualbiorepository_contact.
+  columns:
+  - name: VirtualBiorepository_vbr_id
+    description: '{{ doc("cmg_stb_virtualbiorepository_contact_virtualbiorepo_33abb796")
+      }}'
+  - name: contact_id
+    description: '{{ doc("cmg_stb_virtualbiorepository_contact_contact_id") }}'
+- name: cmg_stb_encounterdefinition_activity_definition_id
+  description: Model for cmg_stb_encounterdefinition_activity_definition_id.
+  columns:
+  - name: EncounterDefinition_encounter_definition_id
+    description: '{{ doc("cmg_stb_encounterdefinition_activity_definition_id__364707a1")
+      }}'
+  - name: activity_definition_id_activity_definition_id
+    description: '{{ doc("cmg_stb_encounterdefinition_activity_definition_id__25dfe1dc")
+      }}'
+- name: cmg_stb_synonym
+  description: Model for cmg_stb_synonym.
+  columns:
+  - name: id
+    description: '{{ doc("cmg_stb_synonym_id") }}'
+  - name: concept_curie
+    description: '{{ doc("cmg_stb_synonym_concept_curie") }}'
+  - name: display
+    description: '{{ doc("cmg_stb_synonym_display") }}'
+  - name: display_type
+    description: '{{ doc("cmg_stb_synonym_display_type") }}'
+  - name: language
+    description: '{{ doc("cmg_stb_synonym_language") }}'
+- name: cmg_stb_dataset_publication
+  description: Model for cmg_stb_dataset_publication.
+  columns:
+  - name: Dataset_dataset_id
+    description: '{{ doc("cmg_stb_dataset_publication_dataset_dataset_id") }}'
+  - name: publication_id
+    description: '{{ doc("cmg_stb_dataset_publication_publication_id") }}'
+- name: cmg_stb_familyrelationship_external_id
+  description: Model for cmg_stb_familyrelationship_external_id.
+  columns:
+  - name: FamilyRelationship_family_relationship_id
+    description: '{{ doc("cmg_stb_familyrelationship_external_id_familyrelati_2d597c3d")
+      }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_familyrelationship_external_id_external_id") }}'
+- name: cmg_stb_file_sample_id
+  description: Model for cmg_stb_file_sample_id.
+  columns:
+  - name: File_file_id
+    description: '{{ doc("cmg_stb_file_sample_id_file_file_id") }}'
+  - name: sample_id_sample_id
+    description: '{{ doc("cmg_stb_file_sample_id_sample_id_sample_id") }}'
+- name: cmg_stb_subjectassertion_external_id
+  description: Model for cmg_stb_subjectassertion_external_id.
+  columns:
+  - name: SubjectAssertion_assertion_id
+    description: '{{ doc("cmg_stb_subjectassertion_external_id_subjectasserti_dfb0d740")
+      }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_subjectassertion_external_id_external_id") }}'
+- name: cmg_stb_sample_processing
+  description: Model for cmg_stb_sample_processing.
+  columns:
+  - name: Sample_sample_id
+    description: '{{ doc("cmg_stb_sample_processing_sample_sample_id") }}'
+  - name: processing
+    description: '{{ doc("cmg_stb_sample_processing_processing") }}'
+- name: cmg_stb_encounter
+  description: Model for cmg_stb_encounter.
+  columns:
+  - name: encounter_id
+    description: '{{ doc("cmg_stb_encounter_encounter_id") }}'
+  - name: subject_id
+    description: '{{ doc("cmg_stb_encounter_subject_id") }}'
+  - name: encounter_definition_id
+    description: '{{ doc("cmg_stb_encounter_encounter_definition_id") }}'
+  - name: age_at_event
+    description: '{{ doc("cmg_stb_encounter_age_at_event") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_encounter_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_encounter_study_id") }}'
+- name: cmg_stb_biospecimencollection
+  description: Model for cmg_stb_biospecimencollection.
+  columns:
+  - name: biospecimen_collection_id
+    description: '{{ doc("cmg_stb_biospecimencollection_biospecimen_collection_id")
+      }}'
+  - name: age_at_collection
+    description: '{{ doc("cmg_stb_biospecimencollection_age_at_collection") }}'
+  - name: method
+    description: '{{ doc("cmg_stb_biospecimencollection_method") }}'
+  - name: site
+    description: '{{ doc("cmg_stb_biospecimencollection_site") }}'
+  - name: spatial_qualifier
+    description: '{{ doc("cmg_stb_biospecimencollection_spatial_qualifier") }}'
+  - name: laterality
+    description: '{{ doc("cmg_stb_biospecimencollection_laterality") }}'
+  - name: encounter_id
+    description: '{{ doc("cmg_stb_biospecimencollection_encounter_id") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_biospecimencollection_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_biospecimencollection_study_id") }}'
+- name: cmg_stb_encounter_external_id
+  description: Model for cmg_stb_encounter_external_id.
+  columns:
+  - name: Encounter_encounter_id
+    description: '{{ doc("cmg_stb_encounter_external_id_encounter_encounter_id") }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_encounter_external_id_external_id") }}'
+- name: cmg_stb_virtualbiorepository
+  description: Model for cmg_stb_virtualbiorepository.
+  columns:
+  - name: vbr_id
+    description: '{{ doc("cmg_stb_virtualbiorepository_vbr_id") }}'
+  - name: name
+    description: '{{ doc("cmg_stb_virtualbiorepository_name") }}'
+  - name: institution
+    description: '{{ doc("cmg_stb_virtualbiorepository_institution") }}'
+  - name: website
+    description: '{{ doc("cmg_stb_virtualbiorepository_website") }}'
+  - name: vbr_readme
+    description: '{{ doc("cmg_stb_virtualbiorepository_vbr_readme") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_virtualbiorepository_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_virtualbiorepository_study_id") }}'
+- name: cmg_stb_subjectassertion_concept
+  description: Model for cmg_stb_subjectassertion_concept.
+  columns:
+  - name: SubjectAssertion_assertion_id
+    description: '{{ doc("cmg_stb_subjectassertion_concept_subjectassertion_a_472aac74")
+      }}'
+  - name: concept_concept_curie
+    description: '{{ doc("cmg_stb_subjectassertion_concept_concept_concept_curie")
+      }}'
+- name: cmg_stb_subjectassertion_value_concept
+  description: Model for cmg_stb_subjectassertion_value_concept.
+  columns:
+  - name: SubjectAssertion_assertion_id
+    description: '{{ doc("cmg_stb_subjectassertion_value_concept_subjectasser_19a46100")
+      }}'
+  - name: value_concept_concept_curie
+    description: '{{ doc("cmg_stb_subjectassertion_value_concept_value_concep_87b17341")
+      }}'
+- name: cmg_stb_aliquot_external_id
+  description: Model for cmg_stb_aliquot_external_id.
+  columns:
+  - name: Aliquot_aliquot_id
+    description: '{{ doc("cmg_stb_aliquot_external_id_aliquot_aliquot_id") }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_aliquot_external_id_external_id") }}'
+- name: cmg_stb_subject
+  description: Model for cmg_stb_subject.
+  columns:
+  - name: subject_id
+    description: '{{ doc("cmg_stb_subject_subject_id") }}'
+  - name: subject_type
+    description: '{{ doc("cmg_stb_subject_subject_type") }}'
+  - name: organism_type
+    description: '{{ doc("cmg_stb_subject_organism_type") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_subject_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_subject_study_id") }}'
+- name: cmg_stb_vocabulary
+  description: Model for cmg_stb_vocabulary.
+  columns:
+  - name: vocabulary_prefix
+    description: '{{ doc("cmg_stb_vocabulary_vocabulary_prefix") }}'
+  - name: name
+    description: '{{ doc("cmg_stb_vocabulary_name") }}'
+  - name: vocabulary_uri
+    description: '{{ doc("cmg_stb_vocabulary_vocabulary_uri") }}'
+  - name: vocabulary_id
+    description: '{{ doc("cmg_stb_vocabulary_vocabulary_id") }}'
+  - name: fhir_system
+    description: '{{ doc("cmg_stb_vocabulary_fhir_system") }}'
+  - name: description
+    description: '{{ doc("cmg_stb_vocabulary_description") }}'
+  - name: version
+    description: '{{ doc("cmg_stb_vocabulary_version") }}'
+  - name: vocabulary_source
+    description: '{{ doc("cmg_stb_vocabulary_vocabulary_source") }}'
+- name: cmg_stb_record_external_id
+  description: Model for cmg_stb_record_external_id.
+  columns:
+  - name: Record_id
+    description: '{{ doc("cmg_stb_record_external_id_record_id") }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_record_external_id_external_id") }}'
+- name: cmg_stb_study_external_id
+  description: Model for cmg_stb_study_external_id.
+  columns:
+  - name: Study_study_id
+    description: '{{ doc("cmg_stb_study_external_id_study_study_id") }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_study_external_id_external_id") }}'
+- name: cmg_stb_file_hash
+  description: Model for cmg_stb_file_hash.
+  columns:
+  - name: File_file_id
+    description: '{{ doc("cmg_stb_file_hash_file_file_id") }}'
+  - name: hash_id
+    description: '{{ doc("cmg_stb_file_hash_hash_id") }}'
+- name: cmg_stb_person_subject_id
+  description: Model for cmg_stb_person_subject_id.
+  columns:
+  - name: Person_person_id
+    description: '{{ doc("cmg_stb_person_subject_id_person_person_id") }}'
+  - name: subject_id_subject_id
+    description: '{{ doc("cmg_stb_person_subject_id_subject_id_subject_id") }}'
+- name: cmg_stb_activitydefinition_external_id
+  description: Model for cmg_stb_activitydefinition_external_id.
+  columns:
+  - name: ActivityDefinition_activity_definition_id
+    description: '{{ doc("cmg_stb_activitydefinition_external_id_activitydefi_29a46a9b")
+      }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_activitydefinition_external_id_external_id") }}'
+- name: cmg_stb_family_external_id
+  description: Model for cmg_stb_family_external_id.
+  columns:
+  - name: Family_family_id
+    description: '{{ doc("cmg_stb_family_external_id_family_family_id") }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_family_external_id_external_id") }}'
+- name: cmg_stb_study
+  description: Model for cmg_stb_study.
+  columns:
+  - name: parent_study
+    description: '{{ doc("cmg_stb_study_parent_study") }}'
+  - name: study_title
+    description: '{{ doc("cmg_stb_study_study_title") }}'
+  - name: study_code
+    description: '{{ doc("cmg_stb_study_study_code") }}'
+  - name: study_short_name
+    description: '{{ doc("cmg_stb_study_study_short_name") }}'
+  - name: study_description
+    description: '{{ doc("cmg_stb_study_study_description") }}'
+  - name: website
+    description: '{{ doc("cmg_stb_study_website") }}'
+  - name: acknowledgments
+    description: '{{ doc("cmg_stb_study_acknowledgments") }}'
+  - name: citation_statement
+    description: '{{ doc("cmg_stb_study_citation_statement") }}'
+  - name: do_id
+    description: '{{ doc("cmg_stb_study_do_id") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_study_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_study_study_id") }}'
+- name: cmg_stb_publication_external_id
+  description: Model for cmg_stb_publication_external_id.
+  columns:
+  - name: Publication_id
+    description: '{{ doc("cmg_stb_publication_external_id_publication_id") }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_publication_external_id_external_id") }}'
+- name: cmg_stb_conceptrelationship
+  description: Model for cmg_stb_conceptrelationship.
+  columns:
+  - name: id
+    description: '{{ doc("cmg_stb_conceptrelationship_id") }}'
+  - name: concept_curie
+    description: '{{ doc("cmg_stb_conceptrelationship_concept_curie") }}'
+  - name: target_concept_curie
+    description: '{{ doc("cmg_stb_conceptrelationship_target_concept_curie") }}'
+  - name: relationship_curie
+    description: '{{ doc("cmg_stb_conceptrelationship_relationship_curie") }}'
+- name: cmg_stb_familymembership_external_id
+  description: Model for cmg_stb_familymembership_external_id.
+  columns:
+  - name: FamilyMembership_family_membership_id
+    description: '{{ doc("cmg_stb_familymembership_external_id_familymembersh_ea261b13")
+      }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_familymembership_external_id_external_id") }}'
+- name: cmg_stb_publication
+  description: Model for cmg_stb_publication.
+  columns:
+  - name: id
+    description: '{{ doc("cmg_stb_publication_id") }}'
+  - name: bibliographic_reference
+    description: '{{ doc("cmg_stb_publication_bibliographic_reference") }}'
+  - name: website
+    description: '{{ doc("cmg_stb_publication_website") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_publication_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_publication_study_id") }}'
+- name: cmg_stb_study_funding_source
+  description: Model for cmg_stb_study_funding_source.
+  columns:
+  - name: Study_study_id
+    description: '{{ doc("cmg_stb_study_funding_source_study_study_id") }}'
+  - name: funding_source
+    description: '{{ doc("cmg_stb_study_funding_source_funding_source") }}'
+- name: cmg_stb_studymetadata
+  description: Model for cmg_stb_studymetadata.
+  columns:
+  - name: study_id
+    description: '{{ doc("cmg_stb_studymetadata_study_id") }}'
+  - name: selection_criteria
+    description: '{{ doc("cmg_stb_studymetadata_selection_criteria") }}'
+  - name: vbr_id
+    description: '{{ doc("cmg_stb_studymetadata_vbr_id") }}'
+  - name: expected_number_of_participants
+    description: '{{ doc("cmg_stb_studymetadata_expected_number_of_participants")
+      }}'
+  - name: actual_number_of_participants
+    description: '{{ doc("cmg_stb_studymetadata_actual_number_of_participants") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_studymetadata_access_policy_id") }}'
+- name: cmg_stb_studymetadata_external_id
+  description: Model for cmg_stb_studymetadata_external_id.
+  columns:
+  - name: StudyMetadata_study_id
+    description: '{{ doc("cmg_stb_studymetadata_external_id_studymetadata_study_id")
+      }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_studymetadata_external_id_external_id") }}'
+- name: cmg_stb_file
+  description: Model for cmg_stb_file.
+  columns:
+  - name: file_id
+    description: '{{ doc("cmg_stb_file_file_id") }}'
+  - name: filename
+    description: '{{ doc("cmg_stb_file_filename") }}'
+  - name: file_extension
+    description: '{{ doc("cmg_stb_file_file_extension") }}'
+  - name: data_category
+    description: '{{ doc("cmg_stb_file_data_category") }}'
+  - name: data_type
+    description: '{{ doc("cmg_stb_file_data_type") }}'
+  - name: format
+    description: '{{ doc("cmg_stb_file_format") }}'
+  - name: size
+    description: '{{ doc("cmg_stb_file_size") }}'
+  - name: internal_uri
+    description: '{{ doc("cmg_stb_file_internal_uri") }}'
+  - name: release_uri
+    description: '{{ doc("cmg_stb_file_release_uri") }}'
+  - name: drs_uri
+    description: '{{ doc("cmg_stb_file_drs_uri") }}'
+  - name: storage_class
+    description: '{{ doc("cmg_stb_file_storage_class") }}'
+  - name: availability
+    description: '{{ doc("cmg_stb_file_availability") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_file_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_file_study_id") }}'
+- name: cmg_stb_investigator_external_id
+  description: Model for cmg_stb_investigator_external_id.
+  columns:
+  - name: Investigator_id
+    description: '{{ doc("cmg_stb_investigator_external_id_investigator_id") }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_investigator_external_id_external_id") }}'
+- name: cmg_stb_assay
+  description: Model for cmg_stb_assay.
+  columns:
+  - name: assay_id
+    description: '{{ doc("cmg_stb_assay_assay_id") }}'
+  - name: assay_type
+    description: '{{ doc("cmg_stb_assay_assay_type") }}'
+  - name: assay_source
+    description: '{{ doc("cmg_stb_assay_assay_source") }}'
+  - name: activity_definition_id
+    description: '{{ doc("cmg_stb_assay_activity_definition_id") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_assay_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_assay_study_id") }}'
+- name: cmg_stb_study_principal_investigator
+  description: Model for cmg_stb_study_principal_investigator.
+  columns:
+  - name: Study_study_id
+    description: '{{ doc("cmg_stb_study_principal_investigator_study_study_id") }}'
+  - name: principal_investigator_id
+    description: '{{ doc("cmg_stb_study_principal_investigator_principal_inve_23466e69")
+      }}'
+- name: cmg_stb_investigator
+  description: Model for cmg_stb_investigator.
+  columns:
+  - name: id
+    description: '{{ doc("cmg_stb_investigator_id") }}'
+  - name: name
+    description: '{{ doc("cmg_stb_investigator_name") }}'
+  - name: institution
+    description: '{{ doc("cmg_stb_investigator_institution") }}'
+  - name: investigator_title
+    description: '{{ doc("cmg_stb_investigator_investigator_title") }}'
+  - name: email
+    description: '{{ doc("cmg_stb_investigator_email") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_investigator_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_investigator_study_id") }}'
+- name: cmg_stb_subjectassertion
+  description: Model for cmg_stb_subjectassertion.
+  columns:
+  - name: assertion_id
+    description: '{{ doc("cmg_stb_subjectassertion_assertion_id") }}'
+  - name: subject_id
+    description: '{{ doc("cmg_stb_subjectassertion_subject_id") }}'
+  - name: encounter_id
+    description: '{{ doc("cmg_stb_subjectassertion_encounter_id") }}'
+  - name: asserter_type
+    description: '{{ doc("cmg_stb_subjectassertion_asserter_type") }}'
+  - name: assertion_source_type
+    description: '{{ doc("cmg_stb_subjectassertion_assertion_source_type") }}'
+  - name: age_at_assertion
+    description: '{{ doc("cmg_stb_subjectassertion_age_at_assertion") }}'
+  - name: age_at_event
+    description: '{{ doc("cmg_stb_subjectassertion_age_at_event") }}'
+  - name: age_at_resolution
+    description: '{{ doc("cmg_stb_subjectassertion_age_at_resolution") }}'
+  - name: concept_source
+    description: '{{ doc("cmg_stb_subjectassertion_concept_source") }}'
+  - name: value_number
+    description: '{{ doc("cmg_stb_subjectassertion_value_number") }}'
+  - name: value_source
+    description: '{{ doc("cmg_stb_subjectassertion_value_source") }}'
+  - name: value_unit
+    description: '{{ doc("cmg_stb_subjectassertion_value_unit") }}'
+  - name: value_unit_source
+    description: '{{ doc("cmg_stb_subjectassertion_value_unit_source") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_subjectassertion_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_subjectassertion_study_id") }}'
+- name: cmg_stb_sample_storage_method
+  description: Model for cmg_stb_sample_storage_method.
+  columns:
+  - name: Sample_sample_id
+    description: '{{ doc("cmg_stb_sample_storage_method_sample_sample_id") }}'
+  - name: storage_method
+    description: '{{ doc("cmg_stb_sample_storage_method_storage_method") }}'
+- name: cmg_stb_accesspolicy
+  description: Model for cmg_stb_accesspolicy.
+  columns:
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_accesspolicy_access_policy_id") }}'
+  - name: data_use_accession
+    description: '{{ doc("cmg_stb_accesspolicy_data_use_accession") }}'
+  - name: data_use_permission
+    description: '{{ doc("cmg_stb_accesspolicy_data_use_permission") }}'
+  - name: data_use_modifier
+    description: '{{ doc("cmg_stb_accesspolicy_data_use_modifier") }}'
+  - name: disease_limitation
+    description: '{{ doc("cmg_stb_accesspolicy_disease_limitation") }}'
+  - name: access_description
+    description: '{{ doc("cmg_stb_accesspolicy_access_description") }}'
+  - name: website
+    description: '{{ doc("cmg_stb_accesspolicy_website") }}'
+- name: cmg_stb_encounterdefinition
+  description: Model for cmg_stb_encounterdefinition.
+  columns:
+  - name: encounter_definition_id
+    description: '{{ doc("cmg_stb_encounterdefinition_encounter_definition_id") }}'
+  - name: name
+    description: '{{ doc("cmg_stb_encounterdefinition_name") }}'
+  - name: description
+    description: '{{ doc("cmg_stb_encounterdefinition_description") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_encounterdefinition_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_encounterdefinition_study_id") }}'
+- name: cmg_stb_subject_external_id
+  description: Model for cmg_stb_subject_external_id.
+  columns:
+  - name: Subject_subject_id
+    description: '{{ doc("cmg_stb_subject_external_id_subject_subject_id") }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_subject_external_id_external_id") }}'
+- name: cmg_stb_any
+  description: Model for cmg_stb_any.
+  columns:
+  - name: id
+    description: '{{ doc("cmg_stb_any_id") }}'
+- name: cmg_stb_assay_subject_id
+  description: Model for cmg_stb_assay_subject_id.
+  columns:
+  - name: Assay_assay_id
+    description: '{{ doc("cmg_stb_assay_subject_id_assay_assay_id") }}'
+  - name: subject_id_subject_id
+    description: '{{ doc("cmg_stb_assay_subject_id_subject_id_subject_id") }}'
+- name: cmg_stb_person
+  description: Model for cmg_stb_person.
+  columns:
+  - name: person_id
+    description: '{{ doc("cmg_stb_person_person_id") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_person_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_person_study_id") }}'
+- name: cmg_stb_aliquot
+  description: Model for cmg_stb_aliquot.
+  columns:
+  - name: aliquot_id
+    description: '{{ doc("cmg_stb_aliquot_aliquot_id") }}'
+  - name: sample_id
+    description: '{{ doc("cmg_stb_aliquot_sample_id") }}'
+  - name: availability_status
+    description: '{{ doc("cmg_stb_aliquot_availability_status") }}'
+  - name: quantity_number
+    description: '{{ doc("cmg_stb_aliquot_quantity_number") }}'
+  - name: quantity_unit
+    description: '{{ doc("cmg_stb_aliquot_quantity_unit") }}'
+  - name: concentration_number
+    description: '{{ doc("cmg_stb_aliquot_concentration_number") }}'
+  - name: concentration_unit
+    description: '{{ doc("cmg_stb_aliquot_concentration_unit") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_aliquot_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_aliquot_study_id") }}'
+- name: cmg_stb_study_program
+  description: Model for cmg_stb_study_program.
+  columns:
+  - name: Study_study_id
+    description: '{{ doc("cmg_stb_study_program_study_study_id") }}'
+  - name: program
+    description: '{{ doc("cmg_stb_study_program_program") }}'
+- name: cmg_stb_dataset_external_id
+  description: Model for cmg_stb_dataset_external_id.
+  columns:
+  - name: Dataset_dataset_id
+    description: '{{ doc("cmg_stb_dataset_external_id_dataset_dataset_id") }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_dataset_external_id_external_id") }}'
+- name: cmg_stb_hashdigest
+  description: Model for cmg_stb_hashdigest.
+  columns:
+  - name: id
+    description: '{{ doc("cmg_stb_hashdigest_id") }}'
+  - name: hash_type
+    description: '{{ doc("cmg_stb_hashdigest_hash_type") }}'
+  - name: hash_value
+    description: '{{ doc("cmg_stb_hashdigest_hash_value") }}'
+- name: cmg_stb_familymembership
+  description: Model for cmg_stb_familymembership.
+  columns:
+  - name: family_membership_id
+    description: '{{ doc("cmg_stb_familymembership_family_membership_id") }}'
+  - name: family_id
+    description: '{{ doc("cmg_stb_familymembership_family_id") }}'
+  - name: subject_id
+    description: '{{ doc("cmg_stb_familymembership_subject_id") }}'
+  - name: family_role
+    description: '{{ doc("cmg_stb_familymembership_family_role") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_familymembership_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_familymembership_study_id") }}'
+- name: cmg_stb_studymetadata_research_domain
+  description: Model for cmg_stb_studymetadata_research_domain.
+  columns:
+  - name: StudyMetadata_study_id
+    description: '{{ doc("cmg_stb_studymetadata_research_domain_studymetadata_study_id")
+      }}'
+  - name: research_domain_concept_curie
+    description: '{{ doc("cmg_stb_studymetadata_research_domain_research_doma_ab404b4b")
+      }}'
+- name: cmg_stb_studymetadata_study_design
+  description: Model for cmg_stb_studymetadata_study_design.
+  columns:
+  - name: StudyMetadata_study_id
+    description: '{{ doc("cmg_stb_studymetadata_study_design_studymetadata_study_id")
+      }}'
+  - name: study_design_concept_curie
+    description: '{{ doc("cmg_stb_studymetadata_study_design_study_design_con_5b4e43ef")
+      }}'
+- name: cmg_stb_assay_external_id
+  description: Model for cmg_stb_assay_external_id.
+  columns:
+  - name: Assay_assay_id
+    description: '{{ doc("cmg_stb_assay_external_id_assay_assay_id") }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_assay_external_id_external_id") }}'
+- name: cmg_stb_assay_sample_id
+  description: Model for cmg_stb_assay_sample_id.
+  columns:
+  - name: Assay_assay_id
+    description: '{{ doc("cmg_stb_assay_sample_id_assay_assay_id") }}'
+  - name: sample_id_sample_id
+    description: '{{ doc("cmg_stb_assay_sample_id_sample_id_sample_id") }}'
+- name: cmg_stb_demographics
+  description: Model for cmg_stb_demographics.
+  columns:
+  - name: subject_id
+    description: '{{ doc("cmg_stb_demographics_subject_id") }}'
+  - name: sex
+    description: '{{ doc("cmg_stb_demographics_sex") }}'
+  - name: ethnicity
+    description: '{{ doc("cmg_stb_demographics_ethnicity") }}'
+  - name: age_at_last_vital_status
+    description: '{{ doc("cmg_stb_demographics_age_at_last_vital_status") }}'
+  - name: vital_status
+    description: '{{ doc("cmg_stb_demographics_vital_status") }}'
+  - name: age_at_first_engagement
+    description: '{{ doc("cmg_stb_demographics_age_at_first_engagement") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_demographics_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_demographics_study_id") }}'
+- name: cmg_stb_dataset
+  description: Model for cmg_stb_dataset.
+  columns:
+  - name: dataset_id
+    description: '{{ doc("cmg_stb_dataset_dataset_id") }}'
+  - name: name
+    description: '{{ doc("cmg_stb_dataset_name") }}'
+  - name: description
+    description: '{{ doc("cmg_stb_dataset_description") }}'
+  - name: do_id
+    description: '{{ doc("cmg_stb_dataset_do_id") }}'
+  - name: data_collection_start
+    description: '{{ doc("cmg_stb_dataset_data_collection_start") }}'
+  - name: data_collection_end
+    description: '{{ doc("cmg_stb_dataset_data_collection_end") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_dataset_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_dataset_study_id") }}'
+- name: cmg_stb_studymetadata_data_category
+  description: Model for cmg_stb_studymetadata_data_category.
+  columns:
+  - name: StudyMetadata_study_id
+    description: '{{ doc("cmg_stb_studymetadata_data_category_studymetadata_study_id")
+      }}'
+  - name: data_category_concept_curie
+    description: '{{ doc("cmg_stb_studymetadata_data_category_data_category_c_9869bf99")
+      }}'
+- name: cmg_stb_family
+  description: Model for cmg_stb_family.
+  columns:
+  - name: family_id
+    description: '{{ doc("cmg_stb_family_family_id") }}'
+  - name: family_type
+    description: '{{ doc("cmg_stb_family_family_type") }}'
+  - name: family_description
+    description: '{{ doc("cmg_stb_family_family_description") }}'
+  - name: consanguinity
+    description: '{{ doc("cmg_stb_family_consanguinity") }}'
+  - name: family_study_focus
+    description: '{{ doc("cmg_stb_family_family_study_focus") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_family_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_family_study_id") }}'
+- name: cmg_stb_biospecimencollection_external_id
+  description: Model for cmg_stb_biospecimencollection_external_id.
+  columns:
+  - name: BiospecimenCollection_biospecimen_collection_id
+    description: '{{ doc("cmg_stb_biospecimencollection_external_id_biospecim_b5c14341")
+      }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_biospecimencollection_external_id_external_id")
+      }}'
+- name: cmg_stb_dataset_file_id
+  description: Model for cmg_stb_dataset_file_id.
+  columns:
+  - name: Dataset_dataset_id
+    description: '{{ doc("cmg_stb_dataset_file_id_dataset_dataset_id") }}'
+  - name: file_id_file_id
+    description: '{{ doc("cmg_stb_dataset_file_id_file_id_file_id") }}'
+- name: cmg_stb_person_external_id
+  description: Model for cmg_stb_person_external_id.
+  columns:
+  - name: Person_person_id
+    description: '{{ doc("cmg_stb_person_external_id_person_person_id") }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_person_external_id_external_id") }}'
+- name: cmg_stb_study_publication
+  description: Model for cmg_stb_study_publication.
+  columns:
+  - name: Study_study_id
+    description: '{{ doc("cmg_stb_study_publication_study_study_id") }}'
+  - name: publication_id
+    description: '{{ doc("cmg_stb_study_publication_publication_id") }}'
+- name: cmg_stb_activitydefinition
+  description: Model for cmg_stb_activitydefinition.
+  columns:
+  - name: activity_definition_id
+    description: '{{ doc("cmg_stb_activitydefinition_activity_definition_id") }}'
+  - name: name
+    description: '{{ doc("cmg_stb_activitydefinition_name") }}'
+  - name: description
+    description: '{{ doc("cmg_stb_activitydefinition_description") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_activitydefinition_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_activitydefinition_study_id") }}'
+- name: cmg_stb_deprecatedconcept
+  description: Model for cmg_stb_deprecatedconcept.
+  columns:
+  - name: id
+    description: '{{ doc("cmg_stb_deprecatedconcept_id") }}'
+  - name: concept_curie
+    description: '{{ doc("cmg_stb_deprecatedconcept_concept_curie") }}'
+  - name: deprecation_type
+    description: '{{ doc("cmg_stb_deprecatedconcept_deprecation_type") }}'
+  - name: replacement_curie
+    description: '{{ doc("cmg_stb_deprecatedconcept_replacement_curie") }}'
+- name: cmg_stb_studymetadata_clinical_data_source_type
+  description: Model for cmg_stb_studymetadata_clinical_data_source_type.
+  columns:
+  - name: StudyMetadata_study_id
+    description: '{{ doc("cmg_stb_studymetadata_clinical_data_source_type_stu_d3878f65")
+      }}'
+  - name: clinical_data_source_type
+    description: '{{ doc("cmg_stb_studymetadata_clinical_data_source_type_cli_a3e411ae")
+      }}'
+- name: cmg_stb_demographics_external_id
+  description: Model for cmg_stb_demographics_external_id.
+  columns:
+  - name: Demographics_subject_id
+    description: '{{ doc("cmg_stb_demographics_external_id_demographics_subject_id")
+      }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_demographics_external_id_external_id") }}'
+- name: cmg_stb_assay_file_id
+  description: Model for cmg_stb_assay_file_id.
+  columns:
+  - name: Assay_assay_id
+    description: '{{ doc("cmg_stb_assay_file_id_assay_assay_id") }}'
+  - name: file_id_file_id
+    description: '{{ doc("cmg_stb_assay_file_id_file_id_file_id") }}'
+- name: cmg_stb_virtualbiorepository_external_id
+  description: Model for cmg_stb_virtualbiorepository_external_id.
+  columns:
+  - name: VirtualBiorepository_vbr_id
+    description: '{{ doc("cmg_stb_virtualbiorepository_external_id_virtualbio_1994eab6")
+      }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_virtualbiorepository_external_id_external_id") }}'
+- name: cmg_stb_encounterdefinition_external_id
+  description: Model for cmg_stb_encounterdefinition_external_id.
+  columns:
+  - name: EncounterDefinition_encounter_definition_id
+    description: '{{ doc("cmg_stb_encounterdefinition_external_id_encounterde_080beb72")
+      }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_encounterdefinition_external_id_external_id") }}'
+- name: cmg_stb_doi_external_id
+  description: Model for cmg_stb_doi_external_id.
+  columns:
+  - name: DOI_do_id
+    description: '{{ doc("cmg_stb_doi_external_id_doi_do_id") }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_doi_external_id_external_id") }}'
+- name: cmg_stb_doi
+  description: Model for cmg_stb_doi.
+  columns:
+  - name: do_id
+    description: '{{ doc("cmg_stb_doi_do_id") }}'
+  - name: bibliographic_reference
+    description: '{{ doc("cmg_stb_doi_bibliographic_reference") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_doi_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_doi_study_id") }}'
+- name: cmg_stb_file_external_id
+  description: Model for cmg_stb_file_external_id.
+  columns:
+  - name: File_file_id
+    description: '{{ doc("cmg_stb_file_external_id_file_file_id") }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_file_external_id_external_id") }}'
+- name: cmg_stb_sample_external_id
+  description: Model for cmg_stb_sample_external_id.
+  columns:
+  - name: Sample_sample_id
+    description: '{{ doc("cmg_stb_sample_external_id_sample_sample_id") }}'
+  - name: external_id
+    description: '{{ doc("cmg_stb_sample_external_id_external_id") }}'
+- name: cmg_stb_concept
+  description: Model for cmg_stb_concept.
+  columns:
+  - name: concept_curie
+    description: '{{ doc("cmg_stb_concept_concept_curie") }}'
+  - name: concept_id
+    description: '{{ doc("cmg_stb_concept_concept_id") }}'
+  - name: vocabulary_prefix
+    description: '{{ doc("cmg_stb_concept_vocabulary_prefix") }}'
+  - name: concept_code
+    description: '{{ doc("cmg_stb_concept_concept_code") }}'
+  - name: display
+    description: '{{ doc("cmg_stb_concept_display") }}'
+  - name: definition
+    description: '{{ doc("cmg_stb_concept_definition") }}'
+- name: cmg_stb_demographics_race
+  description: Model for cmg_stb_demographics_race.
+  columns:
+  - name: Demographics_subject_id
+    description: '{{ doc("cmg_stb_demographics_race_demographics_subject_id") }}'
+  - name: race_concept_curie
+    description: '{{ doc("cmg_stb_demographics_race_race_concept_curie") }}'
+- name: cmg_stb_studymetadata_participant_lifespan_stage
+  description: Model for cmg_stb_studymetadata_participant_lifespan_stage.
+  columns:
+  - name: StudyMetadata_study_id
+    description: '{{ doc("cmg_stb_studymetadata_participant_lifespan_stage_st_a00ea2cd")
+      }}'
+  - name: participant_lifespan_stage
+    description: '{{ doc("cmg_stb_studymetadata_participant_lifespan_stage_pa_53f03172")
+      }}'
+- name: cmg_stb_sample
+  description: Model for cmg_stb_sample.
+  columns:
+  - name: sample_id
+    description: '{{ doc("cmg_stb_sample_sample_id") }}'
+  - name: biospecimen_collection_id
+    description: '{{ doc("cmg_stb_sample_biospecimen_collection_id") }}'
+  - name: parent_sample_id
+    description: '{{ doc("cmg_stb_sample_parent_sample_id") }}'
+  - name: sample_type
+    description: '{{ doc("cmg_stb_sample_sample_type") }}'
+  - name: subject_id
+    description: '{{ doc("cmg_stb_sample_subject_id") }}'
+  - name: availability_status
+    description: '{{ doc("cmg_stb_sample_availability_status") }}'
+  - name: quantity_number
+    description: '{{ doc("cmg_stb_sample_quantity_number") }}'
+  - name: quantity_unit
+    description: '{{ doc("cmg_stb_sample_quantity_unit") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_sample_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_sample_study_id") }}'
+- name: cmg_stb_familyrelationship
+  description: Model for cmg_stb_familyrelationship.
+  columns:
+  - name: family_relationship_id
+    description: '{{ doc("cmg_stb_familyrelationship_family_relationship_id") }}'
+  - name: family_member_id
+    description: '{{ doc("cmg_stb_familyrelationship_family_member_id") }}'
+  - name: relation
+    description: '{{ doc("cmg_stb_familyrelationship_relation") }}'
+  - name: subject_id
+    description: '{{ doc("cmg_stb_familyrelationship_subject_id") }}'
+  - name: access_policy_id
+    description: '{{ doc("cmg_stb_familyrelationship_access_policy_id") }}'
+  - name: study_id
+    description: '{{ doc("cmg_stb_familyrelationship_study_id") }}'
+- name: cmg_stb_study_contact
+  description: Model for cmg_stb_study_contact.
+  columns:
+  - name: Study_study_id
+    description: '{{ doc("cmg_stb_study_contact_study_study_id") }}'
+  - name: contact_id
+    description: '{{ doc("cmg_stb_study_contact_contact_id") }}'
+- name: cmg_stb_file_subject_id
+  description: Model for cmg_stb_file_subject_id.
+  columns:
+  - name: File_file_id
+    description: '{{ doc("cmg_stb_file_subject_id_file_file_id") }}'
+  - name: subject_id_subject_id
+    description: '{{ doc("cmg_stb_file_subject_id_subject_id_subject_id") }}'

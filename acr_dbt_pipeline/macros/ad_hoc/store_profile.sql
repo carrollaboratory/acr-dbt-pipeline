@@ -1,3 +1,4 @@
+{#- Originally sourced from dbt_pipeline_utils (dbt-pipeline-utils repo: macros/profiling/store_profile.sql). Copied locally, not imported; keep in sync by hand. -#}
 {% macro store_profile(
     profile_table,
     profile_database=none,

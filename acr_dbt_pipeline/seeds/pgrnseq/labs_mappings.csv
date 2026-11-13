@@ -1,9 +1,0 @@
-local code,text,table_name,parent_varname,local code system,mapping relationship,code,display,code system,comment
-age_at_lipids,age_at_lipids,Labs Table,,eMERGE/Labs Table,source-is-narrower-than-target,SNOMED:397669002,Age,file:///nfs/production/parkinso/spot/ols4/prod/local_ontologies/snomed-inferred.owl,
-hdl,hdl,Labs Table,,eMERGE/Labs Table,equivalent,2085-9,Cholesterol in HDL [Mass/volume] in Serum or Plasma,https://loinc.org/,
-ldl,ldl,Labs Table,,eMERGE/Labs Table,equivalent,2089-1,Cholesterol in LDL [Mass/volume] in Serum or Plasma,https://loinc.org/,
-on_statins_at_time_of_lab,on_statins_at_time_of_lab,Labs Table,,eMERGE/Labs Table,source-is-narrower-than-target,SNOMED:439631004,History of statin therapy,file:///nfs/production/parkinso/spot/ols4/prod/local_ontologies/snomed-inferred.owl,
-serum_total_cholesterol,serum_total_cholesterol,Labs Table,,eMERGE/Labs Table,equivalent,2093-3,Cholesterol [Mass/volume] in Serum or Plasma,https://loinc.org/,
-triglyceride,triglyceride,Labs Table,,eMERGE/Labs Table,equivalent,2571-8,Triglyceride [Mass/volume] in Serum or Plasma,https://loinc.org/,
-0,not on meds,Labs Table,,eMERGE/on_statins_at_time_of_lab,equivalent,715036001,Does not take medication,http://snomed.info/sct,
-1,on meds,Labs Table,,eMERGE/on_statins_at_time_of_lab,equivalent,129019007,Taking medication,http://snomed.info/sct,
