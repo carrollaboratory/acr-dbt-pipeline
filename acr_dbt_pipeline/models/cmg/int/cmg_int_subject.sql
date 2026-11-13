@@ -2,10 +2,10 @@ with base as ( -- join the base table to anvil_dataset
   select 
     {{ dbt_utils.star(ref('cmg_main_subject'), relation_alias='s') }},
     {{ dbt_utils.star(ref('cmg_int_anvil_dataset'), relation_alias='ad', except=['source_snapshot_id', 'source_snapshot']) }},
-    {{ generate_global_id(prefix='sb', descriptor=['subject_id','consent_group']) }}::text as subject_gid,
-    concat('family id:sb-[', "subject_id", '|', "consent_group", ']') AS subject_id_descriptor,
-    {{ generate_global_id(prefix='pr', descriptor=['subject_id','consent_group']) }}::text as person_gid,
-    concat('family id:pr-[', "subject_id", '|', "consent_group", ']') AS person_id_descriptor,
+    {{ generate_md5_global_id(prefix='sb', descriptor=['subject_id','consent_group']) }}::text as subject_gid,
+    {{ generate_descriptor_for_analysis(prefix='sb', descriptor=['subject_id','consent_group']) }}::text as subject_id_descriptor,
+    {{ generate_md5_global_id(prefix='pr', descriptor=['subject_id','consent_group']) }}::text as person_gid,
+    {{ generate_descriptor_for_analysis(prefix='pr', descriptor=['subject_id','consent_group']) }}::text as person_id_descriptor,
   from {{ ref("cmg_main_subject")}} s
   left join {{ ref("cmg_int_anvil_dataset")}} ad
   using(source_snapshot_id)

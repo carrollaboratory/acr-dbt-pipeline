@@ -1,3 +1,23 @@
+{#-
+  Originally sourced from dbt_pipeline_utils (dbt-pipeline-utils repo:
+  macros/uri_curie/uri_curie.sql). Copied locally, not imported; keep in sync
+  by hand. Only normalize_curie and its regex_match helper are copied.
+  Local changes: regex_match dispatches in the acr_dbt_pipeline namespace,
+  and normalize_curie defaults prefix_seed to ACR's 'vocabulary_details' seed.
+-#}
+
+{% macro regex_match(expression, pattern) %}
+    {{ return(adapter.dispatch('regex_match', 'acr_dbt_pipeline')(expression, pattern)) }}
+{% endmacro %}
+
+{% macro default__regex_match(expression, pattern) %}
+    (cast({{ expression }} as {{ dbt.type_string() }}) ~ '{{ pattern | replace("'", "''") }}')
+{% endmacro %}
+
+{% macro duckdb__regex_match(expression, pattern) %}
+    regexp_matches(cast({{ expression }} as {{ dbt.type_string() }}), '{{ pattern | replace("'", "''") }}')
+{% endmacro %}
+
 {% macro normalize_curie(column_name, default_prefix=none, local_id_pattern=none, prefix_seed='vocabulary_details', prefix_column='prefix', alias_column='alias_prefix') %}
     {#- Accepts phs123456 and phs123456.v1.p1. -#}
     {%- set dbgap_pattern = '^phs[0-9]{6}([.]v[0-9]+[.]p[0-9]+)?$' -%}
@@ -22,11 +42,11 @@
     case
         when {{ value }} is null then null
         when {{ value }} like '%://%' or lower({{ value }}) like 'urn:%' then {{ value }}
-        {%- if default_prefix %}
+{%- if default_prefix %}
         when not ({{ has_prefix }}) and not {{ regex_match(value, local_id_pattern) }} then {{ value }}
         {%- else %}
         when not ({{ has_prefix }}) then {{ value }}
-        {%- endif %}
+{%- endif %}
         else coalesce(
             (
                 select max(p.{{ prefix_column }})

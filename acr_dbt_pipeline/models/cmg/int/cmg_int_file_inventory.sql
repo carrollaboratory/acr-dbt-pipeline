@@ -65,8 +65,8 @@ select
   {% for col in dataset_cols -%}
   ad."{{ col }}",
   {% endfor -%}
-  {{ generate_global_id(prefix='fi', descriptor=['fi.file_id','ad.consent_group']) }}::text as file_gid,
-  concat('file_id|consent_group:fi-[', fi."file_id", '|', ad."consent_group", ']') AS file_id_descriptor
+  {{ generate_md5_global_id(prefix='fi', descriptor=['fi.file_id','ad.consent_group']) }}::text as file_gid,
+  {{ generate_descriptor_for_analysis(prefix='fi', descriptor=['fi.file_id','ad.consent_group']) }}::text as file_id_descriptor
 from {{ ref('cmg_main_file_inventory') }} fi
 left join links l
   on l.source_snapshot_id = fi.source_snapshot_id

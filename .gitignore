@@ -202,3 +202,10 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 .Rproj.user
+
+# notes
+collab/
+
+# Query results and other CSVs: add an intended CSV (e.g. a seed) with `git add -f`.
+# Already-tracked CSVs stay tracked.
+*.csv

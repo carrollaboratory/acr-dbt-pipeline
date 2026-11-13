@@ -7,6 +7,7 @@ if(!require("duckdb")) install.packages("duckdb")
 if(!require("DBI")) install.packages("DBI")
 if(!require("tidyverse")) install.packages("tidyverse")
 if(!require("openxlsx")) install.packages("openxlsx")
+if(!require("knitr")) install.packages("knitr")
 library(duckdb)
 library(DBI)
 library(tidyverse)
@@ -48,6 +49,35 @@ execute <- function(query, max_rows = 50, max_width = 20, format = "rst") {
   }
   invisible(result)
 }
+
+
+# Print a result as a Markdown table. In Google Docs paste with
+# Edit > Paste from Markdown (enable it in Tools > Preferences first).
+print_table <- function(df) {
+  cells <- as.data.frame(lapply(df, function(x) gsub("|", "\\|", as.character(x), fixed = TRUE)))
+  cells[is.na(cells)] <- "NULL"
+  row_line <- function(x) paste0("| ", paste(x, collapse = " | "), " |")
+  cat(row_line(names(df)), row_line(rep("---", ncol(df))),
+      apply(cells, 1, row_line), sep = "\n")
+  invisible(df)
+}
+
+# Write a result to CSV (default ~/pipelines/data/analysis/r_query_result.csv)
+# and print the path. Rename with file= and/or dir=.
+save_csv <- function(df, file = "r_query_result.csv", dir = "~/pipelines/data/analysis") {
+  dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+  path <- file.path(path.expand(dir), file)
+  write.csv(df, path, row.names = FALSE, na = "")
+  message("Wrote ", nrow(df), " rows to ", path)
+  invisible(path)
+}
+
+# Usage:
+#   r <- execute("select ...")
+#   print_table(r)                                  # copy into a Google Doc
+#   save_csv(r)                                     # default file
+#   save_csv(r, "yale_gru_files.csv", dir = "~/pipelines/data/analysis/cmg")
+
 
 # Example query with valid SQL syntax
 r <- execute("
@@ -107,7 +137,6 @@ left join main_cmg.cmg_int_sequencing sq
 where sa.source_snapshot = 'cmg_yale_ds_mc'
   and sa.subject_gid is null
 ")
-print(r)
 
 
 # ------------------------------------------
@@ -124,7 +153,6 @@ having count(*) > 1
 order by n_rows desc
 limit 50
 ")
-print(r)
 
 
 # ------------------------------------------
@@ -146,7 +174,6 @@ select 'file_inventory' as domain, m.source_snapshot, main_rows, int_rows,
 from m left join i using (source_snapshot)
 order by extra_rows desc, m.source_snapshot
 ")
-print(r)
 
 
 # --------------------------------------------------
@@ -238,7 +265,6 @@ group by all
 order by p.source_snapshot, p.ref_column, p.inventory_key nulls last
 ")
 
-print(r)
 
 
 
@@ -282,7 +308,6 @@ order by sa.source_snapshot, issue, sa.sample_id
 --group by all
 --order by 1, 2;
 ")
-print(r)
 
 # --------------------------------------------------
 # Dive into Family
@@ -297,7 +322,6 @@ from (
 )
 group by all;
 ")
-print(r)
 
 
 # --------------------------------------------------
@@ -325,7 +349,6 @@ left join sb sb_match on sb_match.subject_id = sa.subject_id
 group by all
 order by 1, 2;
 ")
-print(r)
 
 
 
@@ -337,7 +360,6 @@ r <- execute(
   where pedigree_detail not null
   LIMIT 50
 ")
-print(r)
 
 r <- execute(
   "SELECT *
@@ -345,7 +367,6 @@ r <- execute(
   where pedigree_detail not null
   LIMIT 50
 ")
-print(r)
 
 
 # --------------------------------------------------
@@ -354,7 +375,6 @@ r <- execute(
   "SELECT *
   FROM main_cmg.cmg_int_subject s
 ")
-print(r)
 
 # --------------------------------------------------
 
@@ -371,7 +391,6 @@ r <- execute(
 
 ")
 
-print(r)
 
 # information schema ------------------------------------------
 
@@ -380,7 +399,6 @@ table_names <- execute(
    WHERE (table_name like '%cmg_main%')"
 )
 
-print(table_names)
 
 # ------------------------------------------
 
@@ -448,7 +466,6 @@ query <- sprintf('
 ', column_exprs)
 
 result <- execute(query)
-print(result)
 
 
 
@@ -474,7 +491,6 @@ query <- sprintf('
 ', count_exprs)
 
 result <- execute(query)
-print(result)
 
 
 # n unique values group by dataset ----------------------------------------
@@ -503,7 +519,6 @@ query <- sprintf('
 ', count_exprs)
 
 result <- execute(query)
-print(result)
 
 write.csv(
   result,

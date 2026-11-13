@@ -14,8 +14,8 @@ select
   {% endfor -%}
   -- most snapshots record sequencing_center on sample; uwash_ds_bdis records it on subject
   coalesce(sa."sequencing_center", s."subject_sequencing_center") as sequencing_center,
-  {{ generate_global_id(prefix='sa', descriptor=['sa.subject_id','sa.sample_id','s.consent_group']) }}::text as sample_gid,
-  concat('subject_id|sample id|consent_group:sa-[', sa."subject_id", '|', sa."sample_id", '|', s."consent_group", ']') AS sample_id_descriptor
+  {{ generate_md5_global_id(prefix='sa', descriptor=['sa.subject_id','sa.sample_id','s.consent_group']) }}::text as sample_gid,
+  {{ generate_descriptor_for_analysis(prefix='sa', descriptor=['sa.subject_id','sa.sample_id','s.consent_group']) }}::text as sample_id_descriptor
 from {{ ref('cmg_main_sample') }} sa
 left join (
 select distinct
