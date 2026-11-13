@@ -7,11 +7,12 @@ if(!require("duckdb")) install.packages("duckdb")
 if(!require("DBI")) install.packages("DBI")
 if(!require("tidyverse")) install.packages("tidyverse")
 if(!require("openxlsx")) install.packages("openxlsx")
-
 library(duckdb)
 library(DBI)
 library(tidyverse)
 library(openxlsx)
+library(knitr)
+
 
 bucket <- Sys.getenv("WORKSPACE_BUCKET")
 if (bucket == "") {
@@ -22,12 +23,131 @@ drv <- duckdb(dbdir = "~/pipelines/data/acr_dbt_pipeline.duckdb")
 con <- dbConnect(drv)
 # dbDisconnect(con)
 
-execute <- function(query) {
+execute <- function(query, max_rows = 50, max_width = 20, format = "rst") {
   result <- dbGetQuery(con, query)
-  return(result)
+  total_rows <- nrow(result)
+  if (total_rows == 0) {
+    message("Query executed successfully, but returned 0 rows.")
+    return(invisible(result))
+  }
+  preview <- head(result, max_rows)
+  for (col_name in names(preview)) {
+    txt <- as.character(preview[[col_name]])
+    too_long <- !is.na(txt) & nchar(txt) > max_width
+    txt[too_long] <- paste0(substr(txt[too_long], 1, max_width - 3), "...")
+    preview[[col_name]] <- txt
+  }
+  summary_line <- sprintf("\nShowing %d of %d available rows.", nrow(preview), total_rows)
+  output <- c(as.character(kable(preview, format = format)), summary_line)
+  if (interactive() && isatty(stdout()) && nzchar(Sys.which("less"))) {
+    p <- pipe("less -S", "w")
+    writeLines(output, p)
+    close(p)
+  } else {
+    cat(output, sep = "\n")
+  }
+  invisible(result)
 }
 
+# Example query with valid SQL syntax
+r <- execute("
+  SELECT *
+  FROM main_cmg.cmg_main_family s
+  WHERE pedigree_detail IS NOT NULL
+  LIMIT 50
+")
+
 # Analysis ------------------------------------------
+# --------------------------------------------------
+# --------------------------------------------------
+# --------------------------------------------------
+# --------------------------------------------------
+# --------------------------------------------------
+# --------------------------------------------------
+# --------------------------------------------------
+# --------------------------------------------------
+# --------------------------------------------------
+# Files with no sample link, by snapshot and file extension
+r <- execute("
+select source_snapshot, full_extension,
+       count(*) as n_files,
+       count(*) filter (where sample_id is null) as n_unlinked
+from main_cmg.cmg_int_file_inventory
+group by all
+having count(*) filter (where sample_id is null) > 0
+order by source_snapshot, n_unlinked desc
+")
+
+# --------------------------------------------------
+# Count files repeated in cmg_int_file_inventory, by number of linked samples
+r <- execute("
+select source_snapshot, n_rows as samples_per_file, count(*) as n_files,
+       string_agg(distinct full_extension, ', ') as extensions
+from (
+  select source_snapshot, any_value(full_extension) as full_extension, count(*) as n_rows
+  from main_cmg.cmg_int_file_inventory
+  group by file_id, source_snapshot
+  having count(*) > 1
+)
+group by all
+order by 1
+")
+
+
+
+
+# --------------------------------------------------
+
+r <- execute("
+select count(distinct sa.sample_id) as orphan_samples,
+       count(sq.sequencing_id) as sequencing_rows_lost
+from main_cmg.cmg_int_sample sa
+left join main_cmg.cmg_int_sequencing sq
+  using (sample_id, source_snapshot_id)
+where sa.source_snapshot = 'cmg_yale_ds_mc'
+  and sa.subject_gid is null
+")
+print(r)
+
+
+# ------------------------------------------
+# Example query
+r <- execute("
+select source_snapshot, file_ref, file_id,
+       count(*) as n_rows,
+       string_agg(distinct sample_id, ', ') as sample_ids,
+       string_agg(distinct subject_id, ', ') as subject_ids,
+       count(sequencing_id) as n_seq_links
+from main_cmg.cmg_int_file_inventory
+group by all
+having count(*) > 1
+order by n_rows desc
+limit 50
+")
+print(r)
+
+
+# ------------------------------------------
+# Example query
+r <- execute("
+with m as (
+  select source_snapshot, count(*) as main_rows
+  from main_cmg.cmg_main_file_inventory
+  group by all
+),
+i as (
+  select source_snapshot, count(*) as int_rows,
+         count(*) filter (where sample_id is null) as unlinked_rows
+  from main_cmg.cmg_int_file_inventory
+  group by all
+)
+select 'file_inventory' as domain, m.source_snapshot, main_rows, int_rows,
+       int_rows - main_rows as extra_rows, unlinked_rows
+from m left join i using (source_snapshot)
+order by extra_rows desc, m.source_snapshot
+")
+print(r)
+
 
 # --------------------------------------------------
 # Get unique registered_identifiers
@@ -295,7 +415,6 @@ for (t in table_metadata$table_name) {
 
 shapes <- do.call(rbind, shapes_list)
 print(shapes)
-
 
 
 
