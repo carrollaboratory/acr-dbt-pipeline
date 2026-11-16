@@ -1,5 +1,5 @@
 select
-  'co' || '_' || md5(cast(coalesce(consent_group, '') as text))::text as  "access_policy_id",
+  'co' || '_' || md5(coalesce(nullif(replace(regexp_replace(trim(cast(consent_group as text)), '\s+', ' ', 'g'), '|', '/|'), ''), ''))::text as  "access_policy_id",
   --case
         when nullif(trim(cast( as TEXT)), '') is null then null
         when nullif(trim(cast( as TEXT)), '') like '%://%' or lower(nullif(trim(cast( as TEXT)), '')) like 'urn:%' then nullif(trim(cast( as TEXT)), '')

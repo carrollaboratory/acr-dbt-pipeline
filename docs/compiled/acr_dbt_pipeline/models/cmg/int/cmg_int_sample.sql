@@ -21,8 +21,8 @@ select
   s."consent_group",
   -- most snapshots record sequencing_center on sample; uwash_ds_bdis records it on subject
   coalesce(sa."sequencing_center", s."subject_sequencing_center") as sequencing_center,
-  'sa' || '_' || md5(cast(coalesce(sa.subject_id, '') as text) || '|' || cast(coalesce(sa.sample_id, '') as text) || '|' || cast(coalesce(s.consent_group, '') as text))::text as sample_gid,
-  concat('subject_id|sample id|consent_group:sa-[', sa."subject_id", '|', sa."sample_id", '|', s."consent_group", ']') AS sample_id_descriptor
+  'sa' || '_' || md5(coalesce(nullif(replace(regexp_replace(trim(cast(sa.subject_id as text)), '\s+', ' ', 'g'), '|', '/|'), ''), '') || '|' || coalesce(nullif(replace(regexp_replace(trim(cast(sa.sample_id as text)), '\s+', ' ', 'g'), '|', '/|'), ''), '') || '|' || coalesce(nullif(replace(regexp_replace(trim(cast(s.consent_group as text)), '\s+', ' ', 'g'), '|', '/|'), ''), ''))::text as sample_gid,
+  'subject_id|sample_id|consent_group:sa-[' || coalesce(nullif(replace(regexp_replace(trim(cast(sa.subject_id as text)), '\s+', ' ', 'g'), '|', '/|'), ''), '') || '|' || coalesce(nullif(replace(regexp_replace(trim(cast(sa.sample_id as text)), '\s+', ' ', 'g'), '|', '/|'), ''), '') || '|' || coalesce(nullif(replace(regexp_replace(trim(cast(s.consent_group as text)), '\s+', ' ', 'g'), '|', '/|'), ''), '') || ']'::text as sample_id_descriptor
 from "acr_dbt_pipeline"."main_cmg"."cmg_main_sample" sa
 left join (
 select distinct

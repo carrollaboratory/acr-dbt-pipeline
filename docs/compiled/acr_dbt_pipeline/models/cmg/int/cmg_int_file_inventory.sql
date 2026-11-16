@@ -131,8 +131,8 @@ select
   ad."access_policy_gid",
   ad."access_policy_descriptor",
   ad."consent_group",
-  'fi' || '_' || md5(cast(coalesce(fi.file_id, '') as text) || '|' || cast(coalesce(ad.consent_group, '') as text))::text as file_gid,
-  concat('file_id|consent_group:fi-[', fi."file_id", '|', ad."consent_group", ']') AS file_id_descriptor
+  'fi' || '_' || md5(coalesce(nullif(replace(regexp_replace(trim(cast(fi.file_id as text)), '\s+', ' ', 'g'), '|', '/|'), ''), '') || '|' || coalesce(nullif(replace(regexp_replace(trim(cast(ad.consent_group as text)), '\s+', ' ', 'g'), '|', '/|'), ''), ''))::text as file_gid,
+  'file_id|consent_group:fi-[' || coalesce(nullif(replace(regexp_replace(trim(cast(fi.file_id as text)), '\s+', ' ', 'g'), '|', '/|'), ''), '') || '|' || coalesce(nullif(replace(regexp_replace(trim(cast(ad.consent_group as text)), '\s+', ' ', 'g'), '|', '/|'), ''), '') || ']'::text as file_id_descriptor
 from "acr_dbt_pipeline"."main_cmg"."cmg_main_file_inventory" fi
 left join links l
   on l.source_snapshot_id = fi.source_snapshot_id

@@ -36,10 +36,10 @@ with base as ( -- join the base table to anvil_dataset
   ad."access_policy_gid",
   ad."study_id_descriptor",
   ad."access_policy_descriptor",
-    'sb' || '_' || md5(cast(coalesce(subject_id, '') as text) || '|' || cast(coalesce(consent_group, '') as text))::text as subject_gid,
-    concat('family id:sb-[', "subject_id", '|', "consent_group", ']') AS subject_id_descriptor,
-    'pr' || '_' || md5(cast(coalesce(subject_id, '') as text) || '|' || cast(coalesce(consent_group, '') as text))::text as person_gid,
-    concat('family id:pr-[', "subject_id", '|', "consent_group", ']') AS person_id_descriptor,
+    'sb' || '_' || md5(coalesce(nullif(replace(regexp_replace(trim(cast(subject_id as text)), '\s+', ' ', 'g'), '|', '/|'), ''), '') || '|' || coalesce(nullif(replace(regexp_replace(trim(cast(consent_group as text)), '\s+', ' ', 'g'), '|', '/|'), ''), ''))::text as subject_gid,
+    'subject_id|consent_group:sb-[' || coalesce(nullif(replace(regexp_replace(trim(cast(subject_id as text)), '\s+', ' ', 'g'), '|', '/|'), ''), '') || '|' || coalesce(nullif(replace(regexp_replace(trim(cast(consent_group as text)), '\s+', ' ', 'g'), '|', '/|'), ''), '') || ']'::text as subject_id_descriptor,
+    'pr' || '_' || md5(coalesce(nullif(replace(regexp_replace(trim(cast(subject_id as text)), '\s+', ' ', 'g'), '|', '/|'), ''), '') || '|' || coalesce(nullif(replace(regexp_replace(trim(cast(consent_group as text)), '\s+', ' ', 'g'), '|', '/|'), ''), ''))::text as person_gid,
+    'subject_id|consent_group:pr-[' || coalesce(nullif(replace(regexp_replace(trim(cast(subject_id as text)), '\s+', ' ', 'g'), '|', '/|'), ''), '') || '|' || coalesce(nullif(replace(regexp_replace(trim(cast(consent_group as text)), '\s+', ' ', 'g'), '|', '/|'), ''), '') || ']'::text as person_id_descriptor,
   from "acr_dbt_pipeline"."main_cmg"."cmg_main_subject" s
   left join "acr_dbt_pipeline"."main_cmg"."cmg_int_anvil_dataset" ad
   using(source_snapshot_id)
