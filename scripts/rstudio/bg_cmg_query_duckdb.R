@@ -24,7 +24,7 @@ drv <- duckdb(dbdir = "~/pipelines/data/acr_dbt_pipeline.duckdb")
 con <- dbConnect(drv)
 # dbDisconnect(con)
 
-execute <- function(query, max_rows = 50, max_width = 20, format = "rst") {
+execute <- function(query, max_rows = 50, max_width = 50, format = "rst") {
   result <- dbGetQuery(con, query)
   total_rows <- nrow(result)
   if (total_rows == 0) {
@@ -96,6 +96,26 @@ r <- execute("
 # --------------------------------------------------
 # --------------------------------------------------
 # --------------------------------------------------
+r <- execute("
+select source_system, source_text,
+       count(*) as n_rows,
+       count(distinct mapped_code) as n_codes
+from main_cmg.mapdragon_annotations_talon
+group by all
+having count(*) > 1
+order by source_system, n_rows desc
+")
+
+r <- execute("
+select source_system,
+       count(*) as n_rows,
+       count(distinct source_text) as n_text,
+       count(distinct lower(trim(source_text))) as n_text_normalized
+from main_cmg.mapdragon_annotations_talon
+group by all
+order by source_system
+")
+
 # --------------------------------------------------
 # Files with no sample link, by snapshot and file extension
 r <- execute("
