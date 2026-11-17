@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: cmg_int_source_concepts
+    description: >-
+      Distinct source text/code inventory for vocabulary review. Delimited
+      pairs are aligned by position, with unmatched partners retained as NULL.
+      Configure the field dictionary in the model; this is not automatic
+      ontology-field discovery or one row per subject.
+    columns:
+      - name: table_ref
+        description: Rendered reference to the source relation.
+      - name: raw_text
+        description: Original full text cell, repeated for each split position.
+      - name: raw_concept
+        description: Original full code cell, repeated for each split position.
+      - name: normalized_text
+        description: Text token with whitespace normalized; NULL when absent or blank.
+      - name: normalized_concept
+        description: Code token after configured character removal and whitespace normalization.
+      - name: text_column
+        description: Name of the source label column; NULL for code-only fields.
+      - name: concept_column
+        description: Name of the source code column; NULL for text-only fields.
+      - name: token_position
+        description: Original 1-based position in the paired token lists.

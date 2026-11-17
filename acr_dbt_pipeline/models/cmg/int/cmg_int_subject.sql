@@ -1,7 +1,7 @@
 with base as ( -- join the base table to anvil_dataset
   select 
     {{ dbt_utils.star(ref('cmg_main_subject'), relation_alias='s') }},
-    {{ dbt_utils.star(ref('cmg_int_anvil_dataset'), relation_alias='ad', except=['source_snapshot_id', 'source_snapshot']) }},
+    {{ dbt_utils.star(ref('cmg_int_anvil_dataset'), relation_alias='ad', except=['source_snapshot_id', 'source_snapshot', 'dataset_gid', 'dataset_id_descriptor', 'dataset_id', 'dataset_title', 'data_use_permission_duo_code', 'data_use_modifier_duo_codes', 'disease_limitation']) }},
     {{ generate_md5_global_id(prefix='sb', descriptor=['subject_id','consent_group']) }}::text as subject_gid,
     {{ generate_descriptor_for_analysis(prefix='sb', descriptor=['subject_id','consent_group']) }}::text as subject_id_descriptor,
     {{ generate_md5_global_id(prefix='pr', descriptor=['subject_id','consent_group']) }}::text as person_gid,

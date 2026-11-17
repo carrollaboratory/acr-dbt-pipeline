@@ -1,4 +1,5 @@
 select distinct
-    person_id_gid::text as "person_person_id",
-    person_id ::text as "external_id" --todo
+    person_gid::text as "person_person_id",
+    subject_id::text as "external_id"
 from {{ ref('cmg_int_subject') }}
+where subject_id is not null

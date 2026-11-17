@@ -1,16 +1,18 @@
+-- Common columns in the links ctes
 {%- set link_cols = [
   'sequencing_id', 'assay_gid', 'assay_id_descriptor',
   'sample_id', 'sample_gid', 'sample_id_descriptor',
   'subject_id', 'subject_gid', 'subject_id_descriptor',
   'person_gid', 'person_id_descriptor'
 ] -%}
+-- Necessary columns from anvil_dataset, used to join the consent, study, etc gids.
 {%- set dataset_cols = [
   'study_gid', 'study_id_descriptor',
   'access_policy_gid', 'access_policy_descriptor',
   'consent_group'
 ] -%}
 
--- Files carry no sample/sequencing id; sample and sequencing rows point at file_inventory.file_ref.
+-- This cte handles cleaning file refs within the sequencing table.
 with sequencing_links as (
   {%- for col in ['sequencing_id_fileref', 'seq_filename'] %}
   select
@@ -24,6 +26,8 @@ with sequencing_links as (
   {%- endif %}
   {%- endfor %}
 ),
+-- This cte handles cleaning file refs within the sample table.
+-- links identify the sample/subject but cannot identify a sequencing assay.
 sample_links as (
   {%- for col in ['cram', 'crai', 'bam'] %}
   select
@@ -43,9 +47,11 @@ sample_links as (
   {%- endif %}
   {%- endfor %}
 ),
--- a sequencing link already carries the sample/subject, so sample links only fill files sequencing doesn't reach
+-- Prefer sequencing links because they also identify the assay. Use a sample
+-- link only when that file has no sequencing link in the same snapshot.
 links as (
-  select * from sequencing_links
+  select * 
+  from sequencing_links
   union all
   select sl.*
   from sample_links sl
@@ -56,6 +62,7 @@ links as (
   )
 ),
 
+-- Keep every file ref, even when it has no matching sample/sequencing row.
 base as (
 select
   {{ dbt_utils.star(ref('cmg_main_file_inventory'), relation_alias='fi', except=link_cols + dataset_cols) }},
