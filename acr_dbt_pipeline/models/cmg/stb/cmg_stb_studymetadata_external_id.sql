@@ -1,3 +1,6 @@
+{{ config(materialized='table') }}
+
 select
-    studymetadata_study_id::text as "studymetadata_study_id",
-    external_id::text as "external_id"
+  null::text as "studymetadata_study_id",
+  null::text as "external_id"
+where 1 = 0

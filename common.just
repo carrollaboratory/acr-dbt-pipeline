@@ -58,6 +58,9 @@ _gen_model_sql:
     if [[ -n "${VERSION_LOG:-}" ]]; then args+=(--version-log "$VERSION_LOG"); fi
     if [[ "${INT_DESCRIPTORS:-false}" == "true" ]]; then args+=(--int-descriptors); fi
     generate_sql_models "${args[@]}"
+    if [[ "${EMPTY_MODEL_SCAFFOLD:-false}" == "true" ]]; then
+        python scripts/stb_scaffolds.py "$output_dir"
+    fi
     shopt -s nullglob
     files=("$output_dir"/*.sql)
     if (( ${#files[@]} )); then

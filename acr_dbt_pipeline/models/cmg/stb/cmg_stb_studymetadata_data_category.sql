@@ -1,3 +1,6 @@
+{{ config(materialized='table') }}
+
 select
-    studymetadata_study_id::text as "studymetadata_study_id",
-    data_category_concept_curie::text as "data_category_concept_curie"
+  null::text as "studymetadata_study_id",
+  null::text as "data_category_concept_curie"
+where 1 = 0

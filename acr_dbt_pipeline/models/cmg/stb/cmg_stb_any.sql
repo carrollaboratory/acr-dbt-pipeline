@@ -1,2 +1,4 @@
-select
-    id::integer as "id"
+{{ config(materialized='table') }}
+
+select null::text as "id"
+where 1 = 0

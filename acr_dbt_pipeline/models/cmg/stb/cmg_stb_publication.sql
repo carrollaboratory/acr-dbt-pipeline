@@ -1,6 +1,9 @@
+{{ config(materialized='table') }}
+
 select
-    id::integer as "id",
-    bibliographic_reference::text as "bibliographic_reference",
-    website::text as "website",
-    access_policy_id::text as "access_policy_id",
-    study_id::text as "study_id"
+  null::text as "id",
+  null::text as "bibliographic_reference",
+  null::text as "website",
+  null::text as "access_policy_id",
+  null::text as "study_id"
+where 1 = 0

@@ -1,9 +1,12 @@
+{{ config(materialized='table') }}
+
 select
-    vocabulary_prefix::text as "vocabulary_prefix",
-    name::text as "name",
-    vocabulary_uri::text as "vocabulary_uri",
-    vocabulary_id::text as "vocabulary_id",
-    fhir_system::text as "fhir_system",
-    description::text as "description",
-    version::text as "version",
-    vocabulary_source::text as "vocabulary_source"
+  null::text as "vocabulary_prefix",
+  null::text as "name",
+  null::text as "vocabulary_uri",
+  null::text as "vocabulary_id",
+  null::text as "fhir_system",
+  null::text as "description",
+  null::text as "version",
+  null::text as "vocabulary_source"
+where 1 = 0

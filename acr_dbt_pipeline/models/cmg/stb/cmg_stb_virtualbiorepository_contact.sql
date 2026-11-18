@@ -1,3 +1,6 @@
+{{ config(materialized='table') }}
+
 select
-    virtualbiorepository_vbr_id::text as "virtualbiorepository_vbr_id",
-    contact_id::integer as "contact_id"
+  null::text as "virtualbiorepository_vbr_id",
+  null::text as "contact_id"
+where 1 = 0

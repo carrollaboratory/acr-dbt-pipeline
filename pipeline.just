@@ -137,12 +137,19 @@ _resolve_stage_env := '
     stage_sources_table_prefix="$stage_table_prefix"
     stage_int_descriptors=""
     stage_normalize_model_columns=""
+    stage_empty_model_scaffold=""
     if [[ "$stage" == "int" ]]; then
         stage_int_descriptors="${INT_DESCRIPTORS:-}"
         stage_normalize_model_columns="true"
     fi
     # STB SQL aliases are lowercase, so its model YAML must match them.
-    if [[ "$stage" == "stb" ]]; then stage_normalize_model_columns="true"; fi
+    if [[ "$stage" == "stb" ]]; then
+        stage_normalize_model_columns="true"
+        stage_empty_model_scaffold="true"
+        if [[ -n "${STB_FROM_CLAUSE_TEMPLATE:-}" ]]; then
+            stage_empty_model_scaffold=""
+        fi
+    fi
     stage_sql_dir="$stage_dir"
     stage_src_sql_dir="$stage_dir"
     stage_program_ref_prefix=""
@@ -243,6 +250,7 @@ generate-stage-model-sql stage:
     PROGRAM_REF_PREFIX="$stage_program_ref_prefix" \
     SQL_DIR="$stage_sql_dir" \
     STUDIES_VAR="$stage_studies_var" \
+    EMPTY_MODEL_SCAFFOLD="$stage_empty_model_scaffold" \
     just -f common.just "$stage_sql_recipe"
 
 generate-stage-src-sql stage:
@@ -296,6 +304,7 @@ generate-stage stage:
         PROGRAM_REF_PREFIX="$stage_program_ref_prefix" \
         SQL_DIR="$stage_sql_dir" \
         STUDIES_VAR="$stage_studies_var" \
+        EMPTY_MODEL_SCAFFOLD="$stage_empty_model_scaffold" \
         just -f common.just "$stage_sql_recipe"
     fi
 

@@ -2,7 +2,7 @@ models:
 - name: cmg_stb_virtualbiorepository_contact
   description: Model for cmg_stb_virtualbiorepository_contact.
   columns:
-  - name: VirtualBiorepository_vbr_id
+  - name: virtualbiorepository_vbr_id
     description: '{{ doc("cmg_stb_virtualbiorepository_contact_virtualbiorepo_33abb796")
       }}'
   - name: contact_id
@@ -10,7 +10,7 @@ models:
 - name: cmg_stb_encounterdefinition_activity_definition_id
   description: Model for cmg_stb_encounterdefinition_activity_definition_id.
   columns:
-  - name: EncounterDefinition_encounter_definition_id
+  - name: encounterdefinition_encounter_definition_id
     description: '{{ doc("cmg_stb_encounterdefinition_activity_definition_id__364707a1")
       }}'
   - name: activity_definition_id_activity_definition_id
@@ -32,14 +32,14 @@ models:
 - name: cmg_stb_dataset_publication
   description: Model for cmg_stb_dataset_publication.
   columns:
-  - name: Dataset_dataset_id
+  - name: dataset_dataset_id
     description: '{{ doc("cmg_stb_dataset_publication_dataset_dataset_id") }}'
   - name: publication_id
     description: '{{ doc("cmg_stb_dataset_publication_publication_id") }}'
 - name: cmg_stb_familyrelationship_external_id
   description: Model for cmg_stb_familyrelationship_external_id.
   columns:
-  - name: FamilyRelationship_family_relationship_id
+  - name: familyrelationship_family_relationship_id
     description: '{{ doc("cmg_stb_familyrelationship_external_id_familyrelati_2d597c3d")
       }}'
   - name: external_id
@@ -47,14 +47,14 @@ models:
 - name: cmg_stb_file_sample_id
   description: Model for cmg_stb_file_sample_id.
   columns:
-  - name: File_file_id
+  - name: file_file_id
     description: '{{ doc("cmg_stb_file_sample_id_file_file_id") }}'
   - name: sample_id_sample_id
     description: '{{ doc("cmg_stb_file_sample_id_sample_id_sample_id") }}'
 - name: cmg_stb_subjectassertion_external_id
   description: Model for cmg_stb_subjectassertion_external_id.
   columns:
-  - name: SubjectAssertion_assertion_id
+  - name: subjectassertion_assertion_id
     description: '{{ doc("cmg_stb_subjectassertion_external_id_subjectasserti_dfb0d740")
       }}'
   - name: external_id
@@ -62,7 +62,7 @@ models:
 - name: cmg_stb_sample_processing
   description: Model for cmg_stb_sample_processing.
   columns:
-  - name: Sample_sample_id
+  - name: sample_sample_id
     description: '{{ doc("cmg_stb_sample_processing_sample_sample_id") }}'
   - name: processing
     description: '{{ doc("cmg_stb_sample_processing_processing") }}'
@@ -106,7 +106,7 @@ models:
 - name: cmg_stb_encounter_external_id
   description: Model for cmg_stb_encounter_external_id.
   columns:
-  - name: Encounter_encounter_id
+  - name: encounter_encounter_id
     description: '{{ doc("cmg_stb_encounter_external_id_encounter_encounter_id") }}'
   - name: external_id
     description: '{{ doc("cmg_stb_encounter_external_id_external_id") }}'
@@ -130,7 +130,7 @@ models:
 - name: cmg_stb_subjectassertion_concept
   description: Model for cmg_stb_subjectassertion_concept.
   columns:
-  - name: SubjectAssertion_assertion_id
+  - name: subjectassertion_assertion_id
     description: '{{ doc("cmg_stb_subjectassertion_concept_subjectassertion_a_472aac74")
       }}'
   - name: concept_concept_curie
@@ -139,7 +139,7 @@ models:
 - name: cmg_stb_subjectassertion_value_concept
   description: Model for cmg_stb_subjectassertion_value_concept.
   columns:
-  - name: SubjectAssertion_assertion_id
+  - name: subjectassertion_assertion_id
     description: '{{ doc("cmg_stb_subjectassertion_value_concept_subjectasser_19a46100")
       }}'
   - name: value_concept_concept_curie
@@ -148,7 +148,7 @@ models:
 - name: cmg_stb_aliquot_external_id
   description: Model for cmg_stb_aliquot_external_id.
   columns:
-  - name: Aliquot_aliquot_id
+  - name: aliquot_aliquot_id
     description: '{{ doc("cmg_stb_aliquot_external_id_aliquot_aliquot_id") }}'
   - name: external_id
     description: '{{ doc("cmg_stb_aliquot_external_id_external_id") }}'
@@ -187,35 +187,35 @@ models:
 - name: cmg_stb_record_external_id
   description: Model for cmg_stb_record_external_id.
   columns:
-  - name: Record_id
+  - name: record_id
     description: '{{ doc("cmg_stb_record_external_id_record_id") }}'
   - name: external_id
     description: '{{ doc("cmg_stb_record_external_id_external_id") }}'
 - name: cmg_stb_study_external_id
   description: Model for cmg_stb_study_external_id.
   columns:
-  - name: Study_study_id
+  - name: study_study_id
     description: '{{ doc("cmg_stb_study_external_id_study_study_id") }}'
   - name: external_id
     description: '{{ doc("cmg_stb_study_external_id_external_id") }}'
 - name: cmg_stb_file_hash
   description: Model for cmg_stb_file_hash.
   columns:
-  - name: File_file_id
+  - name: file_file_id
     description: '{{ doc("cmg_stb_file_hash_file_file_id") }}'
   - name: hash_id
     description: '{{ doc("cmg_stb_file_hash_hash_id") }}'
 - name: cmg_stb_person_subject_id
   description: Model for cmg_stb_person_subject_id.
   columns:
-  - name: Person_person_id
+  - name: person_person_id
     description: '{{ doc("cmg_stb_person_subject_id_person_person_id") }}'
   - name: subject_id_subject_id
     description: '{{ doc("cmg_stb_person_subject_id_subject_id_subject_id") }}'
 - name: cmg_stb_activitydefinition_external_id
   description: Model for cmg_stb_activitydefinition_external_id.
   columns:
-  - name: ActivityDefinition_activity_definition_id
+  - name: activitydefinition_activity_definition_id
     description: '{{ doc("cmg_stb_activitydefinition_external_id_activitydefi_29a46a9b")
       }}'
   - name: external_id
@@ -223,7 +223,7 @@ models:
 - name: cmg_stb_family_external_id
   description: Model for cmg_stb_family_external_id.
   columns:
-  - name: Family_family_id
+  - name: family_family_id
     description: '{{ doc("cmg_stb_family_external_id_family_family_id") }}'
   - name: external_id
     description: '{{ doc("cmg_stb_family_external_id_external_id") }}'
@@ -255,7 +255,7 @@ models:
 - name: cmg_stb_publication_external_id
   description: Model for cmg_stb_publication_external_id.
   columns:
-  - name: Publication_id
+  - name: publication_id
     description: '{{ doc("cmg_stb_publication_external_id_publication_id") }}'
   - name: external_id
     description: '{{ doc("cmg_stb_publication_external_id_external_id") }}'
@@ -273,7 +273,7 @@ models:
 - name: cmg_stb_familymembership_external_id
   description: Model for cmg_stb_familymembership_external_id.
   columns:
-  - name: FamilyMembership_family_membership_id
+  - name: familymembership_family_membership_id
     description: '{{ doc("cmg_stb_familymembership_external_id_familymembersh_ea261b13")
       }}'
   - name: external_id
@@ -294,7 +294,7 @@ models:
 - name: cmg_stb_study_funding_source
   description: Model for cmg_stb_study_funding_source.
   columns:
-  - name: Study_study_id
+  - name: study_study_id
     description: '{{ doc("cmg_stb_study_funding_source_study_study_id") }}'
   - name: funding_source
     description: '{{ doc("cmg_stb_study_funding_source_funding_source") }}'
@@ -317,7 +317,7 @@ models:
 - name: cmg_stb_studymetadata_external_id
   description: Model for cmg_stb_studymetadata_external_id.
   columns:
-  - name: StudyMetadata_study_id
+  - name: studymetadata_study_id
     description: '{{ doc("cmg_stb_studymetadata_external_id_studymetadata_study_id")
       }}'
   - name: external_id
@@ -356,7 +356,7 @@ models:
 - name: cmg_stb_investigator_external_id
   description: Model for cmg_stb_investigator_external_id.
   columns:
-  - name: Investigator_id
+  - name: investigator_id
     description: '{{ doc("cmg_stb_investigator_external_id_investigator_id") }}'
   - name: external_id
     description: '{{ doc("cmg_stb_investigator_external_id_external_id") }}'
@@ -378,7 +378,7 @@ models:
 - name: cmg_stb_study_principal_investigator
   description: Model for cmg_stb_study_principal_investigator.
   columns:
-  - name: Study_study_id
+  - name: study_study_id
     description: '{{ doc("cmg_stb_study_principal_investigator_study_study_id") }}'
   - name: principal_investigator_id
     description: '{{ doc("cmg_stb_study_principal_investigator_principal_inve_23466e69")
@@ -436,7 +436,7 @@ models:
 - name: cmg_stb_sample_storage_method
   description: Model for cmg_stb_sample_storage_method.
   columns:
-  - name: Sample_sample_id
+  - name: sample_sample_id
     description: '{{ doc("cmg_stb_sample_storage_method_sample_sample_id") }}'
   - name: storage_method
     description: '{{ doc("cmg_stb_sample_storage_method_storage_method") }}'
@@ -473,7 +473,7 @@ models:
 - name: cmg_stb_subject_external_id
   description: Model for cmg_stb_subject_external_id.
   columns:
-  - name: Subject_subject_id
+  - name: subject_subject_id
     description: '{{ doc("cmg_stb_subject_external_id_subject_subject_id") }}'
   - name: external_id
     description: '{{ doc("cmg_stb_subject_external_id_external_id") }}'
@@ -485,7 +485,7 @@ models:
 - name: cmg_stb_assay_subject_id
   description: Model for cmg_stb_assay_subject_id.
   columns:
-  - name: Assay_assay_id
+  - name: assay_assay_id
     description: '{{ doc("cmg_stb_assay_subject_id_assay_assay_id") }}'
   - name: subject_id_subject_id
     description: '{{ doc("cmg_stb_assay_subject_id_subject_id_subject_id") }}'
@@ -522,14 +522,14 @@ models:
 - name: cmg_stb_study_program
   description: Model for cmg_stb_study_program.
   columns:
-  - name: Study_study_id
+  - name: study_study_id
     description: '{{ doc("cmg_stb_study_program_study_study_id") }}'
   - name: program
     description: '{{ doc("cmg_stb_study_program_program") }}'
 - name: cmg_stb_dataset_external_id
   description: Model for cmg_stb_dataset_external_id.
   columns:
-  - name: Dataset_dataset_id
+  - name: dataset_dataset_id
     description: '{{ doc("cmg_stb_dataset_external_id_dataset_dataset_id") }}'
   - name: external_id
     description: '{{ doc("cmg_stb_dataset_external_id_external_id") }}'
@@ -560,7 +560,7 @@ models:
 - name: cmg_stb_studymetadata_research_domain
   description: Model for cmg_stb_studymetadata_research_domain.
   columns:
-  - name: StudyMetadata_study_id
+  - name: studymetadata_study_id
     description: '{{ doc("cmg_stb_studymetadata_research_domain_studymetadata_study_id")
       }}'
   - name: research_domain_concept_curie
@@ -569,7 +569,7 @@ models:
 - name: cmg_stb_studymetadata_study_design
   description: Model for cmg_stb_studymetadata_study_design.
   columns:
-  - name: StudyMetadata_study_id
+  - name: studymetadata_study_id
     description: '{{ doc("cmg_stb_studymetadata_study_design_studymetadata_study_id")
       }}'
   - name: study_design_concept_curie
@@ -578,14 +578,14 @@ models:
 - name: cmg_stb_assay_external_id
   description: Model for cmg_stb_assay_external_id.
   columns:
-  - name: Assay_assay_id
+  - name: assay_assay_id
     description: '{{ doc("cmg_stb_assay_external_id_assay_assay_id") }}'
   - name: external_id
     description: '{{ doc("cmg_stb_assay_external_id_external_id") }}'
 - name: cmg_stb_assay_sample_id
   description: Model for cmg_stb_assay_sample_id.
   columns:
-  - name: Assay_assay_id
+  - name: assay_assay_id
     description: '{{ doc("cmg_stb_assay_sample_id_assay_assay_id") }}'
   - name: sample_id_sample_id
     description: '{{ doc("cmg_stb_assay_sample_id_sample_id_sample_id") }}'
@@ -630,7 +630,7 @@ models:
 - name: cmg_stb_studymetadata_data_category
   description: Model for cmg_stb_studymetadata_data_category.
   columns:
-  - name: StudyMetadata_study_id
+  - name: studymetadata_study_id
     description: '{{ doc("cmg_stb_studymetadata_data_category_studymetadata_study_id")
       }}'
   - name: data_category_concept_curie
@@ -656,7 +656,7 @@ models:
 - name: cmg_stb_biospecimencollection_external_id
   description: Model for cmg_stb_biospecimencollection_external_id.
   columns:
-  - name: BiospecimenCollection_biospecimen_collection_id
+  - name: biospecimencollection_biospecimen_collection_id
     description: '{{ doc("cmg_stb_biospecimencollection_external_id_biospecim_b5c14341")
       }}'
   - name: external_id
@@ -665,21 +665,21 @@ models:
 - name: cmg_stb_dataset_file_id
   description: Model for cmg_stb_dataset_file_id.
   columns:
-  - name: Dataset_dataset_id
+  - name: dataset_dataset_id
     description: '{{ doc("cmg_stb_dataset_file_id_dataset_dataset_id") }}'
   - name: file_id_file_id
     description: '{{ doc("cmg_stb_dataset_file_id_file_id_file_id") }}'
 - name: cmg_stb_person_external_id
   description: Model for cmg_stb_person_external_id.
   columns:
-  - name: Person_person_id
+  - name: person_person_id
     description: '{{ doc("cmg_stb_person_external_id_person_person_id") }}'
   - name: external_id
     description: '{{ doc("cmg_stb_person_external_id_external_id") }}'
 - name: cmg_stb_study_publication
   description: Model for cmg_stb_study_publication.
   columns:
-  - name: Study_study_id
+  - name: study_study_id
     description: '{{ doc("cmg_stb_study_publication_study_study_id") }}'
   - name: publication_id
     description: '{{ doc("cmg_stb_study_publication_publication_id") }}'
@@ -710,7 +710,7 @@ models:
 - name: cmg_stb_studymetadata_clinical_data_source_type
   description: Model for cmg_stb_studymetadata_clinical_data_source_type.
   columns:
-  - name: StudyMetadata_study_id
+  - name: studymetadata_study_id
     description: '{{ doc("cmg_stb_studymetadata_clinical_data_source_type_stu_d3878f65")
       }}'
   - name: clinical_data_source_type
@@ -719,7 +719,7 @@ models:
 - name: cmg_stb_demographics_external_id
   description: Model for cmg_stb_demographics_external_id.
   columns:
-  - name: Demographics_subject_id
+  - name: demographics_subject_id
     description: '{{ doc("cmg_stb_demographics_external_id_demographics_subject_id")
       }}'
   - name: external_id
@@ -727,14 +727,14 @@ models:
 - name: cmg_stb_assay_file_id
   description: Model for cmg_stb_assay_file_id.
   columns:
-  - name: Assay_assay_id
+  - name: assay_assay_id
     description: '{{ doc("cmg_stb_assay_file_id_assay_assay_id") }}'
   - name: file_id_file_id
     description: '{{ doc("cmg_stb_assay_file_id_file_id_file_id") }}'
 - name: cmg_stb_virtualbiorepository_external_id
   description: Model for cmg_stb_virtualbiorepository_external_id.
   columns:
-  - name: VirtualBiorepository_vbr_id
+  - name: virtualbiorepository_vbr_id
     description: '{{ doc("cmg_stb_virtualbiorepository_external_id_virtualbio_1994eab6")
       }}'
   - name: external_id
@@ -742,7 +742,7 @@ models:
 - name: cmg_stb_encounterdefinition_external_id
   description: Model for cmg_stb_encounterdefinition_external_id.
   columns:
-  - name: EncounterDefinition_encounter_definition_id
+  - name: encounterdefinition_encounter_definition_id
     description: '{{ doc("cmg_stb_encounterdefinition_external_id_encounterde_080beb72")
       }}'
   - name: external_id
@@ -750,7 +750,7 @@ models:
 - name: cmg_stb_doi_external_id
   description: Model for cmg_stb_doi_external_id.
   columns:
-  - name: DOI_do_id
+  - name: doi_do_id
     description: '{{ doc("cmg_stb_doi_external_id_doi_do_id") }}'
   - name: external_id
     description: '{{ doc("cmg_stb_doi_external_id_external_id") }}'
@@ -768,14 +768,14 @@ models:
 - name: cmg_stb_file_external_id
   description: Model for cmg_stb_file_external_id.
   columns:
-  - name: File_file_id
+  - name: file_file_id
     description: '{{ doc("cmg_stb_file_external_id_file_file_id") }}'
   - name: external_id
     description: '{{ doc("cmg_stb_file_external_id_external_id") }}'
 - name: cmg_stb_sample_external_id
   description: Model for cmg_stb_sample_external_id.
   columns:
-  - name: Sample_sample_id
+  - name: sample_sample_id
     description: '{{ doc("cmg_stb_sample_external_id_sample_sample_id") }}'
   - name: external_id
     description: '{{ doc("cmg_stb_sample_external_id_external_id") }}'
@@ -797,14 +797,14 @@ models:
 - name: cmg_stb_demographics_race
   description: Model for cmg_stb_demographics_race.
   columns:
-  - name: Demographics_subject_id
+  - name: demographics_subject_id
     description: '{{ doc("cmg_stb_demographics_race_demographics_subject_id") }}'
   - name: race_concept_curie
     description: '{{ doc("cmg_stb_demographics_race_race_concept_curie") }}'
 - name: cmg_stb_studymetadata_participant_lifespan_stage
   description: Model for cmg_stb_studymetadata_participant_lifespan_stage.
   columns:
-  - name: StudyMetadata_study_id
+  - name: studymetadata_study_id
     description: '{{ doc("cmg_stb_studymetadata_participant_lifespan_stage_st_a00ea2cd")
       }}'
   - name: participant_lifespan_stage
@@ -851,14 +851,14 @@ models:
 - name: cmg_stb_study_contact
   description: Model for cmg_stb_study_contact.
   columns:
-  - name: Study_study_id
+  - name: study_study_id
     description: '{{ doc("cmg_stb_study_contact_study_study_id") }}'
   - name: contact_id
     description: '{{ doc("cmg_stb_study_contact_contact_id") }}'
 - name: cmg_stb_file_subject_id
   description: Model for cmg_stb_file_subject_id.
   columns:
-  - name: File_file_id
+  - name: file_file_id
     description: '{{ doc("cmg_stb_file_subject_id_file_file_id") }}'
   - name: subject_id_subject_id
     description: '{{ doc("cmg_stb_file_subject_id_subject_id_subject_id") }}'

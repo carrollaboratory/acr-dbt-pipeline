@@ -1,6 +1,9 @@
+{{ config(materialized='table') }}
+
 select
-    id::integer as "id",
-    concept_curie::text as "concept_curie",
-    display::text as "display",
-    display_type::text as "display_type",
-    language::text as "language"
+  null::text as "id",
+  null::text as "concept_curie",
+  null::text as "display",
+  null::text as "display_type",
+  null::text as "language"
+where 1 = 0

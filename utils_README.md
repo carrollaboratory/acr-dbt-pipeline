@@ -121,21 +121,26 @@ just -f justfile.acr generate-all-stages
 
 This writes `_models.yml`, `_column_descriptions.md`, and one
 `cmg_stb_<table>.sql` per ACR DD into `acr_dbt_pipeline/models/cmg/stb`.
-Model YAML column names are normalized to lowercase to match the generated SQL
-aliases; for example, `VirtualBiorepository_vbr_id` becomes
-`virtualbiorepository_vbr_id`.
 
-Generated SQL is scaffolding that casts each DD column to its type:
+Generated STB SQL is an empty table scaffold. Each DD column is emitted as a
+typed NULL, and `where 1 = 0` ensures the model has no rows until harmonized:
 
 ```sql
+{{ config(materialized='table') }}
+
 select
-  subject_id::text as "subject_id",
-  subject_type::text as "subject_type",
-  ...
+  null::text as "subject_id",
+  null::text as "subject_type"
+where 1 = 0
 ```
 
-By default there is no FROM clause, so models do not reference INT models that
-may not exist yet. To select from same-named INT models instead:
+`generate-stage stb` overwrites SQL models in the STB output directory. Save
+harmonized SQL models elsewhere before regenerating; moving them to `hold_stb`
+keeps them outside the generated stage directory.
+
+By default, the empty STB scaffold does not reference INT models. To select
+from same-named INT models instead, set `STB_FROM_CLAUSE_TEMPLATE`; this
+restores generated column projections and adds the FROM clause:
 
 ```bash
 just -f justfile.acr \
@@ -143,10 +148,8 @@ just -f justfile.acr \
   generate-stage stb
 ```
 
-`{base_name}` is the table name without the STB prefix; `{table_name}`
-includes it and would make a model reference itself. Either way, implement the
-INT-to-STB mappings before building the pipeline. Generation alone does not
-establish valid transformations.
+Either way, implement the INT-to-STB mappings before building the pipeline.
+Generation alone does not establish valid transformations.
 
 To regenerate only part of the bundle:
 

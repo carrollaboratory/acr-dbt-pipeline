@@ -3,6 +3,7 @@
 .user.yml
 .R*
 *.Rproj
+utils_resources/
 
 # Jupyter stuff
 .ipynb_checkpoints

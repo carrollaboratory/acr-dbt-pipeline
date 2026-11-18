@@ -1,3 +1,6 @@
+{{ config(materialized='table') }}
+
 select
-    doi_do_id::text as "doi_do_id",
-    external_id::text as "external_id"
+  null::text as "doi_do_id",
+  null::text as "external_id"
+where 1 = 0

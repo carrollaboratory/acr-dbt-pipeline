@@ -1,10 +1,13 @@
+{{ config(materialized='table') }}
+
 select
-    biospecimen_collection_id::text as "biospecimen_collection_id",
-    age_at_collection::text as "age_at_collection",
-    method::text as "method",
-    site::text as "site",
-    spatial_qualifier::text as "spatial_qualifier",
-    laterality::text as "laterality",
-    encounter_id::text as "encounter_id",
-    access_policy_id::text as "access_policy_id",
-    study_id::text as "study_id"
+  null::text as "biospecimen_collection_id",
+  null::text as "age_at_collection",
+  null::text as "method",
+  null::text as "site",
+  null::text as "spatial_qualifier",
+  null::text as "laterality",
+  null::text as "encounter_id",
+  null::text as "access_policy_id",
+  null::text as "study_id"
+where 1 = 0

@@ -1,3 +1,6 @@
+{{ config(materialized='table') }}
+
 select
-    studymetadata_study_id::text as "studymetadata_study_id",
-    clinical_data_source_type::text as "clinical_data_source_type"
+  null::text as "studymetadata_study_id",
+  null::text as "clinical_data_source_type"
+where 1 = 0

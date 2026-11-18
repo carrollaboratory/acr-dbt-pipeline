@@ -1,10 +1,13 @@
+{{ config(materialized='table') }}
+
 select
-    aliquot_id::text as "aliquot_id",
-    sample_id::text as "sample_id",
-    availability_status::text as "availability_status",
-    quantity_number::text as "quantity_number",
-    quantity_unit::text as "quantity_unit",
-    concentration_number::text as "concentration_number",
-    concentration_unit::text as "concentration_unit",
-    access_policy_id::text as "access_policy_id",
-    study_id::text as "study_id"
+  null::text as "aliquot_id",
+  null::text as "sample_id",
+  null::text as "availability_status",
+  null::text as "quantity_number",
+  null::text as "quantity_unit",
+  null::text as "concentration_number",
+  null::text as "concentration_unit",
+  null::text as "access_policy_id",
+  null::text as "study_id"
+where 1 = 0

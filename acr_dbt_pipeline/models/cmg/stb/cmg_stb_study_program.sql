@@ -1,3 +1,6 @@
+{{ config(materialized='table') }}
+
 select
-    study_study_id::text as "study_study_id",
-    program::text as "program"
+  null::text as "study_study_id",
+  null::text as "program"
+where 1 = 0
