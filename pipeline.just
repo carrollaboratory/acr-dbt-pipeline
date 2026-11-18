@@ -13,6 +13,7 @@ help:
         '  just -f {{file_name(justfile())}} generate-all-stages' \
         '  just -f {{file_name(justfile())}} PIPELINE_STAGES="<stage> ..." generate-all-stages' \
         '  just -f {{file_name(justfile())}} refresh-releases' \
+        '  just -f {{file_name(justfile())}} import-stage-tests <stage>' \
         '' 'Setup, stages, and configuration: utils_README.md'
 
 # Nested profile calls must retain explicit settings rather than reload defaults.
@@ -37,7 +38,7 @@ _stage_args := '
     done
 '
 
-_resolve_stage_env := '
+_resolve_stage_location := '
     stage="${STAGE_INPUT:-}"
     study_id="${STUDY_ID:-}"
 
@@ -91,6 +92,15 @@ _resolve_stage_env := '
             ;;
     esac
 
+    default_stage_dir="${MODELS_STAGE_ROOT:-}/$study_id/$stage"
+    stage_dir="${stage_dir_override:-$default_stage_dir}"
+    stage_models_yml="$stage_dir/_models.yml"
+
+    default_stage_table_prefix="${PROGRAM_ID:-}_${study_id}_${stage}"
+    stage_table_prefix="${stage_table_prefix_override:-$default_stage_table_prefix}"
+'
+
+_resolve_stage_env := _resolve_stage_location + '
     if [[ -z "$stage_dd_dir" && -z "$stage_release_assets" ]]; then
         echo "Set ${stage^^}_DD_DIR or ${stage^^}_RELEASE_ASSETS before running stage $stage." >&2
         exit 2
@@ -120,17 +130,6 @@ _resolve_stage_env := '
         fi
     fi
 
-    default_stage_dir="${MODELS_STAGE_ROOT:-}/$study_id/$stage"
-    stage_dir="${stage_dir_override:-$default_stage_dir}"
-
-    default_stage_table_prefix="${PROGRAM_ID:-}_${study_id}_${stage}"
-    if [[ -n "$stage_table_prefix_override" ]]; then
-        stage_table_prefix="$stage_table_prefix_override"
-    else
-        stage_table_prefix="$default_stage_table_prefix"
-    fi
-
-    stage_models_yml="$stage_dir/_models.yml"
     stage_models_docs="$stage_dir/_column_descriptions.md"
     stage_sources_yml="$stage_dir/_sources.yml"
     stage_sources_docs="$stage_dir/_column_descriptions.md"
@@ -211,6 +210,21 @@ generate-model-sql:
 
 generate-src-sql:
     just -f common.just _gen_src_sql
+
+# Copy model and column tests from a local release dbt YAML into an existing stage.
+import-stage-tests stage:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    STAGE_INPUT={{quote(stage)}}
+    {{ _resolve_stage_location }}
+    if [[ -z "${RELEASE_MODELS_YML:-}" ]]; then
+        echo "Set RELEASE_MODELS_YML to the extracted release dbt YAML file." >&2
+        exit 2
+    fi
+    prefix="${TEST_MATCH_PREFIX:-$stage_table_prefix}"
+    if [[ "$prefix" == none ]]; then prefix=""; fi
+    python scripts/import_stage_tests.py "$RELEASE_MODELS_YML" \
+        "${MODELS_YML:-$stage_models_yml}" --prefix="$prefix"
 
 generate-stage-models-yml stage:
     #!/usr/bin/env bash

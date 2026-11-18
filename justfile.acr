@@ -49,6 +49,9 @@ RELEASE_ARTIFACT := "project-artifacts.zip"
 DD_INTERNAL_PATH := "project/data-dictionary"
 DBT_INTERNAL_PATH := "project/dbt"
 PROGRAM_REFRESH_DIR := "utils_resources/data_dictionaries/acr"
+# Local dbt YAML from refresh-releases, and an optional matching prefix override.
+RELEASE_MODELS_YML := PROGRAM_REFRESH_DIR / "dbt" / (PROGRAM_ID + "_harmonized_data_model.yml")
+TEST_MATCH_PREFIX := ""
 RELEASE_REPO := PROGRAM_RELEASE_REPO
 RELEASE_INTERNAL_PATH := ""
 RELEASE_OUTPUT_PATH := ""
