@@ -75,6 +75,7 @@ models:
       - name: snapshot_url
         data_type: varchar
         description: ""
+
   - name: consent_mapping_disease_mesh
     description: ""
     columns:
@@ -144,7 +145,7 @@ models:
       - name: status
         data_type: varchar
         description: ""
-        
+
   - name: mapdragon_annotations_talon
     description: ""
     columns:
@@ -219,18 +220,18 @@ models:
       - name: ignore
         data_type: varchar
         description: ""
-        
+
   - name: uwash_split_text_mapping_disease_and_phenotype
     description: ""
     columns:
       - name: original_text
         data_type: varchar
         description: "The original text found in the source data. Not split."
-
+        
       - name: split_text
         data_type: varchar
         description: "The text in MapDragon for each disease_description or phenotype_description, split or not, that require a mapping."
-
+        
       - name: was_split
         data_type: boolean
         description: "TRUE=The disease_description or phenotype_description in the source data needed to be split and mapped separately. FALSE=The description as a whole will get a single mapping"
