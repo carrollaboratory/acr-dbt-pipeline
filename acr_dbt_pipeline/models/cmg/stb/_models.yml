@@ -546,6 +546,11 @@ models:
     tests:
     - not_null
     - curie_format
+    - relationships:
+        arguments:
+          to: source('acr_harmonized_data_model', 'concept')
+          field: '"concept_curie"'
+          column_name: '"value_concept_concept_curie"'
   tests:
   - dbt_utils.unique_combination_of_columns:
       arguments:

@@ -97,3 +97,29 @@ models:
         description: Code system for the mapped concept.
       - name: mapping_table_id
         description: MapDragon table identifier for the matched mapping.
+
+  - name: cmg_int_subject_assertions
+    description: >-
+      Subject-level assertions keyed by subject, study, concept, and value
+      concept when supplied. Unmapped concepts use normalized/raw source
+      values for identity; repeated mapped assertions select a deterministic
+      representative source text and mapping provenance. Leaves unknown
+      asserter and source types NULL rather than inferring them.
+    columns:
+      - name: assertion_id
+        description: Stable disease or observation assertion identifier.
+        tests:
+          - not_null
+          - unique
+      - name: subject_id
+        description: Global subject identifier from cmg_int_subject.
+        tests:
+          - not_null
+      - name: source_column
+        description: CMG source field that supplied the assertion.
+      - name: concept_source
+        description: Source text used to map the assertion concept, when available.
+      - name: concept_curie
+        description: Mapped concept CURIE; NULL when the source value is unmapped.
+      - name: value_concept_curie
+        description: LOINC affected/unaffected value CURIE for HPO present/absent fields.
