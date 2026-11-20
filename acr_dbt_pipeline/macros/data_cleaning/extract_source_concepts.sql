@@ -11,7 +11,7 @@
         {{ exceptions.raise_compiler_error('extract_source_concepts: each column configuration must be a dictionary.') }}
       {% endif %}
       {% for key, value in field.items() %}
-        {% if key not in ['text_column', 'concept_column', 'text_delimiter', 'concept_delimiter', 'concept_strip_chars'] %}
+        {% if key not in ['text_column', 'concept_column', 'text_delimiter', 'concept_delimiter', 'concept_strip_chars', 'dataset_column'] %}
           {{ exceptions.raise_compiler_error('extract_source_concepts: unknown option ' ~ key) }}
         {% endif %}
         {% if value is not string or value | length == 0 %}
@@ -35,15 +35,30 @@ with
     {% for field in fields %}
       {% set field_id = table_index ~ '_' ~ loop.index %}
 raw_{{ field_id }} as (
-    select distinct
+    select
         {% if field.get('text_column') %}cast({{ adapter.quote(field['text_column']) }} as text){% else %}cast(null as text){% endif %} as raw_text,
-        {% if field.get('concept_column') %}cast({{ adapter.quote(field['concept_column']) }} as text){% else %}cast(null as text){% endif %} as raw_concept
+        {% if field.get('concept_column') %}cast({{ adapter.quote(field['concept_column']) }} as text){% else %}cast(null as text){% endif %} as raw_concept,
+        {% if field.get('dataset_column') %}
+        coalesce(
+            list_sort(
+                list_distinct(
+                    list(cast({{ adapter.quote(field['dataset_column']) }} as text))
+                        filter (where {{ adapter.quote(field['dataset_column']) }} is not null)
+                )
+            ),
+            []::text[]
+        ) as source_datasets
+        {% else %}
+        null::text[] as source_datasets
+        {% endif %}
     from {{ relation }}
+    group by 1, 2
 ),
 split_{{ field_id }} as (
     select
         raw_text,
         raw_concept,
+        source_datasets,
         {% if field.get('text_delimiter') %}string_split(raw_text, '{{ field["text_delimiter"] | replace("'", "''") }}'){% else %}[raw_text]{% endif %} as text_tokens,
         {% if field.get('concept_delimiter') %}string_split(raw_concept, '{{ field["concept_delimiter"] | replace("'", "''") }}'){% else %}[raw_concept]{% endif %} as concept_tokens
     from raw_{{ field_id }}
@@ -52,6 +67,7 @@ paired_{{ field_id }} as (
     select
         raw_text,
         raw_concept,
+        source_datasets,
         -- Use the longer list; missing partners stay NULL, without a Cartesian product.
         unnest(range(1, greatest(len(text_tokens), len(concept_tokens)) + 1)) as token_position,
         list_extract(text_tokens, token_position) as text_token,
@@ -66,7 +82,12 @@ normalized as (
     {% set last_table = loop.last %}
     {% for field in fields %}
     select
+        {% if relation.identifier is defined %}
+        '{{ relation.identifier | replace("'", "''") }}'::text as table_ref,
+        {% else %}
         '{{ relation | string | replace("'", "''") }}'::text as table_ref,
+        {% endif %}
+        source_datasets,
         raw_text,
         raw_concept,
         nullif(trim(regexp_replace(text_token, '\s+', ' ', 'g')), '') as normalized_text,

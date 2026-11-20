@@ -5,11 +5,16 @@ models:
     description: >-
       Distinct source text/code inventory for vocabulary review. Delimited
       pairs are aligned by position, with unmatched partners retained as NULL.
+      Dataset membership is aggregated into a list, avoiding rows per dataset.
       Configure the field dictionary in the model; this is not automatic
       ontology-field discovery or one row per subject.
     columns:
       - name: table_ref
-        description: Rendered reference to the source relation.
+        description: Source table name without database or schema.
+      - name: source_datasets
+        description: >-
+          Distinct sorted source_snapshot names where this raw cell pair occurs;
+          NULL when no dataset column is configured for the source table.
       - name: raw_text
         description: Original full text cell, repeated for each split position.
       - name: raw_concept
@@ -41,6 +46,11 @@ models:
         description: Site token parsed from the source snapshot name.
       - name: consent_group
         description: Consent group joined through the source snapshot.
+      - name: source_datasets
+        description: >-
+          Sorted dataset names containing the original inventory text/code pair.
+          On UWash split rows, this describes the unsplit input, not where the
+          split mapping was applied. Use source_snapshot for that provenance.
       - name: source_relation
         description: Relation that supplied the source value.
       - name: source_column
