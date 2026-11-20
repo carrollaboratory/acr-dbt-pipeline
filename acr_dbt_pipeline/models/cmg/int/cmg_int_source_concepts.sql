@@ -12,10 +12,6 @@
         {
             'concept_column': 'hpo_present',
             'concept_delimiter': '|'
-        },
-        {
-            'concept_column': 'hpo_absent',
-            'concept_delimiter': '|'
         }
     ],
     ref('mapdragon_annotations_talon'): [

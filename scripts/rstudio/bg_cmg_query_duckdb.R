@@ -24,7 +24,7 @@ drv <- duckdb(dbdir = "~/pipelines/data/acr_dbt_pipeline.duckdb")
 con <- dbConnect(drv)
 # dbDisconnect(con)
 
-execute <- function(query, max_rows = 50, max_width = 50, format = "rst") {
+execute <- function(query, max_rows = 50, max_width = 40, format = "rst") {
   result <- dbGetQuery(con, query)
   total_rows <- nrow(result)
   if (total_rows == 0) {
@@ -81,20 +81,64 @@ save_csv <- function(df, file = "r_query_result.csv", dir = "~/pipelines/data/an
 
 # Example query with valid SQL syntax
 r <- execute("
-  SELECT *
-  FROM main_cmg.cmg_main_family s
-  WHERE pedigree_detail IS NOT NULL
-  LIMIT 50
+  SELECT
+  distinct *
+  FROM main_cmg.distinct_list_of_ontologies
 ")
+save_csv(r, "curie_list.csv", dir = "~/pipelines/data/analysis/cmg")
 
 # Analysis ------------------------------------------
 # --------------------------------------------------
 # --------------------------------------------------
 # --------------------------------------------------
+
+r <- execute("
+  SELECT *
+  FROM main_cmg.cmg_int_source_concepts s
+")
 # --------------------------------------------------
+
+r <- execute("
+with parents as (
+  select subject_id, source_snapshot, source_snapshot_id, unnest([maternal_id, paternal_id]) as parent_id
+  from main_cmg.cmg_int_subject
+)
+select p.source_snapshot,
+       count(*) filter (where p.parent_id is not null) as n_parent_links,
+       count(*) filter (where p.parent_id is not null and s.subject_id is null) as n_parent_not_found
+from parents p
+left join main_cmg.cmg_int_subject s
+  on s.subject_id = p.parent_id and s.source_snapshot_id = p.source_snapshot_id
+group by all
+order by 1
+")
 # --------------------------------------------------
+
+r <- execute("
+select ancestry, ancestry_mapped_code, count(*) as n_subjects
+from main_cmg.cmg_int_subject
+group by all
+order by n_subjects desc
+")
 # --------------------------------------------------
+r <- execute("
+select family_id, count(distinct source_snapshot_id) as n_snapshots,
+       string_agg(distinct source_snapshot, ', ') as snapshots
+from main_cmg.cmg_int_family
+where family_id is not null
+group by family_id
+having n_snapshots > 1
+")
+
 # --------------------------------------------------
+r <- execute("
+select registered_identifier, consent_group,
+       count(distinct (data_use_permission_duo_code, data_use_modifier_duo_codes, disease_limitation)) as n_versions,
+       string_agg(source_snapshot, ', ') as snapshots
+from main_cmg.cmg_int_anvil_dataset
+group by all
+having n_versions > 1
+")
 # --------------------------------------------------
 r <- execute("
 select source_system, source_text,
