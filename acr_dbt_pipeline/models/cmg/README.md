@@ -122,6 +122,46 @@ Select a snapshot for a run with `enabled_srcs`:
 dbt run --profiles-dir . --vars '{"enabled_srcs": ["cmg_uwash_gru_irb"]}'
 ```
 
+## Main-stage unions
+
+The main stage contains one `union all by name` model for each source domain:
+
+```text
+cmg_main_anvil_dataset
+cmg_main_family
+cmg_main_file_inventory
+cmg_main_sample
+cmg_main_sequencing
+cmg_main_subject
+cmg_main_workspace_attributes
+```
+
+By default, each main model unions that domain across every snapshot in
+`enabled_srcs` that exports the table. Narrow all source and main models to a
+site with `site_filters`:
+
+```bash
+dbt run --profiles-dir . --select +tag:main \
+  --vars '{"site_filters": ["cmg_yale"]}'
+```
+
+Narrow by the configured consent value with `consent_filters`:
+
+```bash
+dbt run --profiles-dir . --select +tag:main \
+  --vars '{"consent_filters": ["ds_rd"]}'
+```
+
+The filters can be combined and are applied as an intersection:
+
+```bash
+dbt run --profiles-dir . --select +tag:main \
+  --vars '{"site_filters": ["cmg_yale"], "consent_filters": ["ds_rd"]}'
+```
+
+Consent filters use the exact `consent` value configured for each snapshot.
+Changing that metadata to a `consentCode` does not change source model names.
+
 ## Disabling tables that were not exported
 
 Not every snapshot exports every table. Because `ref()` resolves at parse time,

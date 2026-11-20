@@ -1,5 +1,0 @@
-study_id,src_format,code,curie,display,inactive,description
-cmg_yale,present,known_present,SNOMED_CT:410515003,Known Present,,
-cmg_yale,unknown,unknown,SNOMED:261665006,Unknown,,
-cmg_yale,suspected,suspected,SNOMED_CT:415684004,Suspected,,
-cmg_yale,none suspected,not_suspected,SNOMED_CT:428263003,Not suspected,,

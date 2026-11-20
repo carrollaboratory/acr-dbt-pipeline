@@ -6,3 +6,5 @@ anvil_duckdb:
       path: "{{ env_var('DBT_DUCKDB_PATH', '/home/rstudio/pipelines/data/acr_dbt_pipeline.duckdb') }}"
       schema: main
       threads: 4
+      config:
+        storage_compatibility_version: 'v1.3.0'

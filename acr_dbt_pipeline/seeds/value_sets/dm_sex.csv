@@ -1,5 +1,0 @@
-study_id,src_format,code,curie,display,inactive,description
-cmg_yale,female,female,SNOMED:248152002,Female,,
-cmg_yale,male,male,SNOMED:248153007,Male,,
-cmg_yale,unknown,unknown,SNOMED:261665006,Unknown,,
-cmg_yale,intersex,intersex,SNOMED:32570691000036108,Intersex,,

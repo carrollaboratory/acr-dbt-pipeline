@@ -1,7 +1,0 @@
-study_id,src_format,code,curie,display,inactive,description
-,control_only,control_only,,Control Only,,
-,duo,duo,,Duo,,
-,proband_only,proband_only,,Proband Only,,
-,trio,trio,,Trio (2 parents and affected child),,
-,trio_plus,trio_plus,,2 Parents and 2 or more children,,
-,other,other,,Other,,

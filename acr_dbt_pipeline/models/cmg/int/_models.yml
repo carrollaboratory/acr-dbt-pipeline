@@ -1,0 +1,125 @@
+version: 2
+
+models:
+  - name: cmg_int_source_concepts
+    description: >-
+      Distinct source text/code inventory for vocabulary review. Delimited
+      pairs are aligned by position, with unmatched partners retained as NULL.
+      Configure the field dictionary in the model; this is not automatic
+      ontology-field discovery or one row per subject.
+    columns:
+      - name: table_ref
+        description: Rendered reference to the source relation.
+      - name: raw_text
+        description: Original full text cell, repeated for each split position.
+      - name: raw_concept
+        description: Original full code cell, repeated for each split position.
+      - name: normalized_text
+        description: Text token with whitespace normalized; NULL when absent or blank.
+      - name: normalized_concept
+        description: Code token after configured character removal and whitespace normalization.
+      - name: text_column
+        description: Name of the source label column; NULL for code-only fields.
+      - name: concept_column
+        description: Name of the source code column; NULL for text-only fields.
+      - name: token_position
+        description: Original 1-based position in the paired token lists.
+
+  - name: cmg_int_mappings
+    description: >-
+      Distinct source concept/text links with source snapshot and field
+      provenance, UWash split-text provenance, and matching MapDragon mappings.
+      UWash split texts are separate text-only rows because their lookup has no
+      token-position metadata. Source values without a matching mapping are
+      retained with NULL mapping columns.
+    columns:
+      - name: source_snapshot
+        description: Source snapshot name that supplied the value.
+      - name: source_snapshot_id
+        description: TDR snapshot identifier for the source value.
+      - name: source_site
+        description: Site token parsed from the source snapshot name.
+      - name: consent_group
+        description: Consent group joined through the source snapshot.
+      - name: source_relation
+        description: Relation that supplied the source value.
+      - name: source_column
+        description: Source field being mapped, such as disease_description or hpo_absent.
+      - name: text_column
+        description: Text field in the source concept inventory, NULL for code-only values.
+      - name: concept_column
+        description: Code field in the source concept inventory, NULL for text-only values.
+      - name: raw_text
+        description: Full original text cell from the source data, if present.
+      - name: normalized_text
+        description: >-
+          Tokenized source text or UWash split text with whitespace normalized,
+          if present.
+      - name: raw_concept
+        description: >-
+          Full original concept cell from the source data, if present; NULL on
+          separate UWash split-text rows.
+      - name: normalized_concept
+        description: >-
+          Tokenized source concept with whitespace normalized, if present; NULL
+          on separate UWash split-text rows.
+      - name: token_position
+        description: >-
+          Original 1-based position in source text/concept cells; NULL on
+          separate UWash split-text rows.
+      - name: uwash_original_text
+        description: >-
+          Original text key matched in the UWash split lookup, on separate
+          text-only rows.
+      - name: uwash_split_text
+        description: >-
+          Text from the UWash split lookup used for MapDragon matching on a
+          separate text-only row; no positional concept pairing is inferred.
+      - name: uwash_was_split
+        description: >-
+          Whether the UWash lookup split the original text, on separate
+          text-only rows.
+      - name: uwash_mapping_relation
+        description: Relation that supplied the UWash text mapping, NULL when unmatched.
+      - name: mapping_lookup_value
+        description: Text or code value used to find the MapDragon mapping.
+      - name: mapping_relation
+        description: Mapping relation, NULL when no MapDragon record matched.
+      - name: mapping_source_system
+        description: MapDragon source_system used for the field-specific mapping.
+      - name: mapping_source_text
+        description: Source text/code in the matching MapDragon record.
+      - name: mapped_code
+        description: Mapped concept code from MapDragon.
+      - name: mapped_display
+        description: Display label for the mapped concept.
+      - name: mapped_system
+        description: Code system for the mapped concept.
+      - name: mapping_table_id
+        description: MapDragon table identifier for the matched mapping.
+
+  - name: cmg_int_subject_assertions
+    description: >-
+      Subject-level assertions keyed by subject, study, concept, and value
+      concept when supplied. Unmapped concepts use normalized/raw source
+      values for identity; repeated mapped assertions select a deterministic
+      representative source text and mapping provenance. Leaves unknown
+      asserter and source types NULL rather than inferring them.
+    columns:
+      - name: assertion_id
+        description: Stable disease or observation assertion identifier.
+        tests:
+          - not_null
+          - unique
+      - name: subject_id
+        description: Global subject identifier from cmg_int_subject.
+        tests:
+          - not_null
+      - name: source_column
+        description: CMG source field that supplied the assertion.
+      - name: concept_source
+        description: Source text used to map the assertion concept, when available.
+      - name: concept_curie
+        description: Mapped concept CURIE; NULL when the source value is unmapped.
+      - name: value_concept_curie
+        description: LOINC affected/unaffected value CURIE for HPO present/absent fields.

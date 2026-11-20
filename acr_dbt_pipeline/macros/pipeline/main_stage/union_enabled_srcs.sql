@@ -1,11 +1,18 @@
 {#-
-  Architecture-owned: stacks one table across vars.enabled_srcs.
+  Architecture-owned: stacks one table across the selected snapshots.
 
-  UNION ALL BY NAME matches columns by name and fills missing columns with
-  NULL. Every selected snapshot must have a
-  `<site>_src_<consent>_<table>` model because ref() resolves at parse time.
+  Site and consent filters are applied via src_enabled(), allowing the same
+  macro to union all snapshots, a single site, or a specific consent cohort.
+  UNION ALL BY NAME matches columns by name and fills missing columns with NULL.
+
+  except: optional column name or list of column names to drop, e.g.
+  union_enabled_srcs('subject', except=['notes', 'raw_payload']). It is applied
+  once as DuckDB EXCLUDE around the union; DuckDB pushes the projection into
+  every source scan, so excluded columns are not read. Each excluded column
+  must exist in at least one unioned source.
 -#}
-{%- macro union_enabled_srcs(table_name) -%}
+{%- macro union_enabled_srcs(table_name, except=none) -%}
+  {%- set except_cols = [except] if except is string else (except or []) -%}
   {%- set names = enabled_srcs() -%}
   {%- set active_names = [] -%}
   {%- for name in names -%}
@@ -15,9 +22,17 @@
   {%- endfor -%}
   {%- if active_names | length == 0 -%}
     {{- exceptions.raise_compiler_error(
-      "No enabled source models for table '" ~ table_name ~ "'. Check"
-      ~ " vars.enabled_srcs and vars.disabled_src_tables."
+      "No enabled source models for table '" ~ table_name ~ "' after applying"
+      ~ " vars.enabled_srcs, vars.site_filters, vars.consent_filters, and"
+      ~ " vars.disabled_src_tables."
     ) -}}
+  {%- endif -%}
+  {%- if except_cols | length > 0 %}
+select * exclude (
+  {%- for col in except_cols -%}
+    {{ adapter.quote(col) }}{{ ", " if not loop.last }}
+  {%- endfor -%}
+) from (
   {%- endif -%}
   {%- for name in active_names %}
 select * from {{ ref(src_model_name(name, table_name)) }}
@@ -25,4 +40,7 @@ select * from {{ ref(src_model_name(name, table_name)) }}
 union all by name
     {%- endif -%}
   {%- endfor -%}
+  {%- if except_cols | length > 0 %}
+)
+  {%- endif -%}
 {%- endmacro -%}

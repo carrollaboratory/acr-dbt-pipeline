@@ -1,0 +1,20 @@
+# Originally sourced from dbt_pipeline_utils (dbt-pipeline-utils repo: macros/uri_curie/).
+# Local copies, not imported; keep in sync by hand.
+version: 2
+
+macros:
+  - name: regex_match
+    description: |
+      Originally sourced from dbt_pipeline_utils.
+      Cross-adapter boolean regex match. Postgres uses `~`, DuckDB uses
+      regexp_matches(). Single quotes in the pattern are escaped for you.
+
+  - name: normalize_curie
+    description: |
+      Originally sourced from dbt_pipeline_utils (local default
+      prefix_seed='vocabulary_details').
+      SQL expression that trims a value and rewrites its prefix to the exact
+      canonical spelling in the seed (case-insensitive match on prefix or
+      alias_prefix). Full URIs and urn: values pass through. Unknown prefixes
+      pass through unchanged. With default_prefix='dbgap', bare phs ids get
+      the dbgap prefix.

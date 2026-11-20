@@ -1,0 +1,14 @@
+[sqlfluff]
+templater = jinja
+dialect = duckdb
+exclude_rules = L009,L033,L031,L016,L037,L042,L027,L035,L034,L029,L048,RF06,ST07
+verbose = 1
+
+[sqlfluff:indentation]
+tab_space_size = 2
+
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.identifiers]
+capitalisation_policy = lower
