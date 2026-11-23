@@ -1,6 +1,7 @@
 -- Fields are defined in cmg_int_source_concepts
 select
     table_ref,
+    source_datasets,
     raw_text,
     raw_concept,
     normalized_text,

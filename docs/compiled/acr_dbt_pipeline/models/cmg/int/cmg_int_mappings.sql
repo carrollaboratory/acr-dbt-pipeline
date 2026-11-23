@@ -73,7 +73,8 @@ source_concepts as (
         concept.raw_concept,
         concept.normalized_text,
         concept.normalized_concept,
-        concept.token_position
+        concept.token_position,
+        concept.source_datasets
     from source_values source
     inner join "acr_dbt_pipeline"."main_cmg"."cmg_int_source_concepts" concept
         on concept.text_column is not distinct from source.text_column
@@ -115,6 +116,7 @@ with mapping_inputs as (
         uwash.split_text::text as normalized_text,
         null::text as normalized_concept,
         null::bigint as token_position,
+        source.source_datasets,
         uwash.split_text::text as mapping_lookup_value,
         'uwash_split_text_mapping_disease_and_phenotype'::text as uwash_mapping_relation,
         uwash.original_text::text as uwash_original_text,
@@ -142,6 +144,7 @@ select distinct
     source.raw_concept,
     source.normalized_concept,
     source.token_position,
+    source.source_datasets,
     source.mapping_lookup_value,
     source.uwash_mapping_relation,
     source.uwash_original_text,

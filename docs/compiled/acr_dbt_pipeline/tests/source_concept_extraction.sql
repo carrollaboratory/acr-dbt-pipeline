@@ -117,15 +117,20 @@ with
     
       
 raw_1_1 as (
-    select distinct
+    select
         cast("label" as text) as raw_text,
-        cast("code" as text) as raw_concept
+        cast("code" as text) as raw_concept,
+        
+        null::text[] as source_datasets
+        
     from paired_fixture
+    group by 1, 2
 ),
 split_1_1 as (
     select
         raw_text,
         raw_concept,
+        source_datasets,
         string_split(raw_text, '|') as text_tokens,
         string_split(raw_concept, '|') as concept_tokens
     from raw_1_1
@@ -134,6 +139,7 @@ paired_1_1 as (
     select
         raw_text,
         raw_concept,
+        source_datasets,
         -- Use the longer list; missing partners stay NULL, without a Cartesian product.
         unnest(range(1, greatest(len(text_tokens), len(concept_tokens)) + 1)) as token_position,
         list_extract(text_tokens, token_position) as text_token,
@@ -146,15 +152,20 @@ paired_1_1 as (
     
       
 raw_2_1 as (
-    select distinct
+    select
         cast(null as text) as raw_text,
-        cast("code" as text) as raw_concept
+        cast("code" as text) as raw_concept,
+        
+        null::text[] as source_datasets
+        
     from code_fixture
+    group by 1, 2
 ),
 split_2_1 as (
     select
         raw_text,
         raw_concept,
+        source_datasets,
         [raw_text] as text_tokens,
         string_split(raw_concept, '|') as concept_tokens
     from raw_2_1
@@ -163,6 +174,7 @@ paired_2_1 as (
     select
         raw_text,
         raw_concept,
+        source_datasets,
         -- Use the longer list; missing partners stay NULL, without a Cartesian product.
         unnest(range(1, greatest(len(text_tokens), len(concept_tokens)) + 1)) as token_position,
         list_extract(text_tokens, token_position) as text_token,
@@ -175,15 +187,20 @@ paired_2_1 as (
     
       
 raw_3_1 as (
-    select distinct
+    select
         cast("label" as text) as raw_text,
-        cast(null as text) as raw_concept
+        cast(null as text) as raw_concept,
+        
+        null::text[] as source_datasets
+        
     from text_fixture
+    group by 1, 2
 ),
 split_3_1 as (
     select
         raw_text,
         raw_concept,
+        source_datasets,
         [raw_text] as text_tokens,
         [raw_concept] as concept_tokens
     from raw_3_1
@@ -192,6 +209,7 @@ paired_3_1 as (
     select
         raw_text,
         raw_concept,
+        source_datasets,
         -- Use the longer list; missing partners stay NULL, without a Cartesian product.
         unnest(range(1, greatest(len(text_tokens), len(concept_tokens)) + 1)) as token_position,
         list_extract(text_tokens, token_position) as text_token,
@@ -204,15 +222,20 @@ paired_3_1 as (
     
       
 raw_4_1 as (
-    select distinct
+    select
         cast("label" as text) as raw_text,
-        cast("code" as text) as raw_concept
+        cast("code" as text) as raw_concept,
+        
+        null::text[] as source_datasets
+        
     from alternate_fixture
+    group by 1, 2
 ),
 split_4_1 as (
     select
         raw_text,
         raw_concept,
+        source_datasets,
         string_split(raw_text, ';') as text_tokens,
         string_split(raw_concept, '::') as concept_tokens
     from raw_4_1
@@ -221,6 +244,7 @@ paired_4_1 as (
     select
         raw_text,
         raw_concept,
+        source_datasets,
         -- Use the longer list; missing partners stay NULL, without a Cartesian product.
         unnest(range(1, greatest(len(text_tokens), len(concept_tokens)) + 1)) as token_position,
         list_extract(text_tokens, token_position) as text_token,
@@ -235,7 +259,10 @@ normalized as (
     
     
     select
+        
         'paired_fixture'::text as table_ref,
+        
+        source_datasets,
         raw_text,
         raw_concept,
         nullif(trim(regexp_replace(text_token, '\s+', ' ', 'g')), '') as normalized_text,
@@ -257,7 +284,10 @@ normalized as (
     
     
     select
+        
         'code_fixture'::text as table_ref,
+        
+        source_datasets,
         raw_text,
         raw_concept,
         nullif(trim(regexp_replace(text_token, '\s+', ' ', 'g')), '') as normalized_text,
@@ -279,7 +309,10 @@ normalized as (
     
     
     select
+        
         'text_fixture'::text as table_ref,
+        
+        source_datasets,
         raw_text,
         raw_concept,
         nullif(trim(regexp_replace(text_token, '\s+', ' ', 'g')), '') as normalized_text,
@@ -301,7 +334,10 @@ normalized as (
     
     
     select
+        
         'alternate_fixture'::text as table_ref,
+        
+        source_datasets,
         raw_text,
         raw_concept,
         nullif(trim(regexp_replace(text_token, '\s+', ' ', 'g')), '') as normalized_text,
