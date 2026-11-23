@@ -1,3 +1,6 @@
+
+
 select
-    subjectassertion_assertion_id::text as "subjectassertion_assertion_id",
-    external_id::text as "external_id"
+  null::text as "subjectassertion_assertion_id",
+  null::text as "external_id"
+where 1 = 0

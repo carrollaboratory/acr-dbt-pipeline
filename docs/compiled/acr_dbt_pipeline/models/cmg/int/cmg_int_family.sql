@@ -1,4 +1,4 @@
-with base as ( -- join to dataset metadata (anvil_dataset)
+with base as (
 select
   f."datarepo_row_id",
   f."family_id",
@@ -23,23 +23,23 @@ left join "acr_dbt_pipeline"."main_cmg"."cmg_int_anvil_dataset" ad
 using(source_snapshot_id)
 ),
 consanguinity_mappings as (
-select 
-source_text::text as consanguinity,
-mapped_code::text as consanguinity_mapped_code
-from "acr_dbt_pipeline"."main_cmg"."mapdragon_annotations_talon"
-where source_system = 'https://anvilproject.org//consanguinity'
-),
+  select 
+    source_text::text as consanguinity,
+    mapped_code::text as consanguinity_mapped_code
+  from "acr_dbt_pipeline"."main_cmg"."mapdragon_annotations_talon"
+  where source_system = 'https://anvilproject.org//consanguinity'
+  ),
 family_history_mappings as (
-select 
-source_text::text as family_history,
-mapped_code::text as family_history_mapped_code
-from "acr_dbt_pipeline"."main_cmg"."mapdragon_annotations_talon"
-where source_system = 'https://anvilproject.org//family_history'
+  select 
+    source_text::text as family_history,
+    mapped_code::text as family_history_mapped_code
+  from "acr_dbt_pipeline"."main_cmg"."mapdragon_annotations_talon"
+  where source_system = 'https://anvilproject.org//family_history'
 )
 select -- join the annotations
-  base.*,
-  consanguinity_mapped_code::text as consanguinity_mapped_code,
-  family_history_mapped_code::text as family_history_mapped_code,
+    base.*,
+    consanguinity_mapped_code::text as consanguinity_mapped_code,
+    family_history_mapped_code::text as family_history_mapped_code,
   from base
   left join consanguinity_mappings
   using (consanguinity)

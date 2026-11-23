@@ -1,3 +1,6 @@
+
+
 select
-    study_study_id::text as "study_study_id",
-    funding_source::text as "funding_source"
+  null::text as "study_study_id",
+  null::text as "funding_source"
+where 1 = 0

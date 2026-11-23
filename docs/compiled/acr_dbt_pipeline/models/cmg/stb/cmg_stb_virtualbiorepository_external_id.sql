@@ -1,3 +1,6 @@
+
+
 select
-    virtualbiorepository_vbr_id::text as "virtualbiorepository_vbr_id",
-    external_id::text as "external_id"
+  null::text as "virtualbiorepository_vbr_id",
+  null::text as "external_id"
+where 1 = 0

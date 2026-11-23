@@ -1,3 +1,6 @@
-select
-    file_file_id::text as "file_file_id",
-    sample_id_sample_id::text as "sample_id_sample_id"
+select distinct
+    file_gid::text as "file_file_id",
+    sample_gid::text as "sample_id_sample_id"
+from "acr_dbt_pipeline"."main_cmg"."cmg_int_file_inventory"
+where file_id is not null
+and sample_id is not null

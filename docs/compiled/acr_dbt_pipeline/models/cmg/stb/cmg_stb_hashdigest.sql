@@ -1,4 +1,7 @@
+
+
 select
-    id::integer as "id",
-    hash_type::text as "hash_type",
-    hash_value::text as "hash_value"
+  null::text as "id",
+  null::text as "hash_type",
+  null::text as "hash_value"
+where 1 = 0

@@ -1,4 +1,4 @@
--- Files carry no sample/sequencing id; sample and sequencing rows point at file_inventory.file_ref.
+-- Common columns in the links ctes-- Necessary columns from anvil_dataset, used to join the consent, study, etc gids.-- This cte handles cleaning file refs within the sequencing table.
 with sequencing_links as (
   select
     source_snapshot_id,
@@ -34,6 +34,8 @@ with sequencing_links as (
   from "acr_dbt_pipeline"."main_cmg"."cmg_int_sequencing"
   where seq_filename is not null
 ),
+-- This cte handles cleaning file refs within the sample table.
+-- links identify the sample/subject but cannot identify a sequencing assay.
 sample_links as (
   select
     source_snapshot_id,
@@ -86,9 +88,11 @@ sample_links as (
   from "acr_dbt_pipeline"."main_cmg"."cmg_int_sample"
   where bam is not null
 ),
--- a sequencing link already carries the sample/subject, so sample links only fill files sequencing doesn't reach
+-- Prefer sequencing links because they also identify the assay. Use a sample
+-- link only when that file has no sequencing link in the same snapshot.
 links as (
-  select * from sequencing_links
+  select * 
+  from sequencing_links
   union all
   select sl.*
   from sample_links sl
@@ -99,6 +103,7 @@ links as (
   )
 ),
 
+-- Keep every file ref, even when it has no matching sample/sequencing row.
 base as (
 select
   fi."datarepo_row_id",

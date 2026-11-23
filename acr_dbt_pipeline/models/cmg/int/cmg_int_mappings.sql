@@ -7,8 +7,7 @@ with source_context as (
         s.disease_description::text as disease_description,
         s.disease_id::text as disease_id,
         s.phenotype_description::text as phenotype_description,
-        s.hpo_present::text as hpo_present,
-        s.hpo_absent::text as hpo_absent
+        s.hpo_present::text as hpo_present
     from {{ ref('cmg_main_subject') }} s
     left join {{ ref('cmg_int_anvil_dataset') }} ad
         using (source_snapshot_id)
@@ -59,22 +58,6 @@ source_values as (
         hpo_present as raw_concept
     from source_context
     where hpo_present is not null
-
-    union all
-
-    select distinct
-        source_snapshot,
-        source_snapshot_id,
-        source_site,
-        consent_group,
-        'cmg_main_subject'::text as source_relation,
-        'hpo_absent'::text as source_column,
-        null::text as text_column,
-        'hpo_absent'::text as concept_column,
-        null::text as raw_text,
-        hpo_absent as raw_concept
-    from source_context
-    where hpo_absent is not null
 ),
 source_concepts as (
     select distinct

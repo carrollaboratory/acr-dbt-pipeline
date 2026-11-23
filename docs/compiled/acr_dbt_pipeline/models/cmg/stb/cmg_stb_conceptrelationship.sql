@@ -1,5 +1,8 @@
+
+
 select
-    id::integer as "id",
-    concept_curie::text as "concept_curie",
-    target_concept_curie::text as "target_concept_curie",
-    relationship_curie::text as "relationship_curie"
+  null::text as "id",
+  null::text as "concept_curie",
+  null::text as "target_concept_curie",
+  null::text as "relationship_curie"
+where 1 = 0

@@ -1,3 +1,6 @@
+
+
 select
-    aliquot_aliquot_id::text as "aliquot_aliquot_id",
-    external_id::text as "external_id"
+  null::text as "aliquot_aliquot_id",
+  null::text as "external_id"
+where 1 = 0

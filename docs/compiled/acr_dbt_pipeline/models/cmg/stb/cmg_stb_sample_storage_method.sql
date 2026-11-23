@@ -1,3 +1,6 @@
+
+
 select
-    sample_sample_id::text as "sample_sample_id",
-    storage_method::text as "storage_method"
+  null::text as "sample_sample_id",
+  null::text as "storage_method"
+where 1 = 0

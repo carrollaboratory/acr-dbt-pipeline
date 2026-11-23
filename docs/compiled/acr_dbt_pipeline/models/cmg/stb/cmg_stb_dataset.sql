@@ -1,9 +1,11 @@
-select
-    dataset_id::text as "dataset_id",
-    name::text as "name",
-    description::text as "description",
-    do_id::text as "do_id",
-    data_collection_start::text as "data_collection_start",
-    data_collection_end::text as "data_collection_end",
-    access_policy_id::text as "access_policy_id",
-    study_id::text as "study_id"
+select distinct
+    dataset_gid::text as "dataset_id",
+    dataset_title::text as "name",
+    cast(null as text) as "description",
+    cast(null as text) as "do_id",
+    cast(null as text) as "data_collection_start",
+    cast(null as text) as "data_collection_end",
+    access_policy_gid::text as "access_policy_id",
+    study_gid::text as "study_id"
+from "acr_dbt_pipeline"."main_cmg"."cmg_int_anvil_dataset"
+where source_snapshot_id is not null

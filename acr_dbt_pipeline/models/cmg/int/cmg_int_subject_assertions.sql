@@ -47,10 +47,6 @@ with matched_source_values as (
                 mapping.source_column = 'hpo_present'
                 and mapping.raw_concept::text is not distinct from subject.hpo_present::text
             )
-            or (
-                mapping.source_column = 'hpo_absent'
-                and mapping.raw_concept::text is not distinct from subject.hpo_absent::text
-            )
         )
     where subject.subject_id is not null
 ),
@@ -79,7 +75,6 @@ subject_assertion_candidates as (
         concept_curie,
         case source_column
             when 'hpo_present' then 'loinc:LA9633-4'
-            when 'hpo_absent' then 'loinc:LA9634-2'
         end::text as value_concept_curie,
         raw_text,
         raw_concept,

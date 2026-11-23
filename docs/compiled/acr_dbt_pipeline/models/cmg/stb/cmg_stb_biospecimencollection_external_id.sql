@@ -1,3 +1,6 @@
+
+
 select
-    biospecimencollection_biospecimen_collection_id::text as "biospecimencollection_biospecimen_collection_id",
-    external_id::text as "external_id"
+  null::text as "biospecimencollection_biospecimen_collection_id",
+  null::text as "external_id"
+where 1 = 0

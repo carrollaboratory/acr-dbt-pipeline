@@ -1,3 +1,6 @@
+
+
 select
-    sample_sample_id::text as "sample_sample_id",
-    processing::text as "processing"
+  null::text as "sample_sample_id",
+  null::text as "processing"
+where 1 = 0
