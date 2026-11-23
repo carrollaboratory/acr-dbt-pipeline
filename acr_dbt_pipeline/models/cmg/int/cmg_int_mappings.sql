@@ -73,7 +73,8 @@ source_concepts as (
         concept.raw_concept,
         concept.normalized_text,
         concept.normalized_concept,
-        concept.token_position
+        concept.token_position,
+        concept.source_datasets
     from source_values source
     inner join {{ ref('cmg_int_source_concepts') }} concept
         on concept.text_column is not distinct from source.text_column

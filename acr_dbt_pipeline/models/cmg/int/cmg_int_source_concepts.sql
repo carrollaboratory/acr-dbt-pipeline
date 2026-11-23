@@ -4,14 +4,22 @@
             'text_column': 'disease_description',
             'concept_column': 'disease_id',
             'text_delimiter': '|',
-            'concept_delimiter': '|'
+            'concept_delimiter': '|',
+            'dataset_column': 'source_snapshot'
         },
         {
-            'text_column': 'phenotype_description'
+            'text_column': 'phenotype_description',
+            'dataset_column': 'source_snapshot'
         },
         {
             'concept_column': 'hpo_present',
-            'concept_delimiter': '|'
+            'concept_delimiter': '|',
+            'dataset_column': 'source_snapshot'
+        },
+        {
+            'concept_column': 'hpo_absent',
+            'concept_delimiter': '|',
+            'dataset_column': 'source_snapshot'
         }
     ],
     ref('mapdragon_annotations_talon'): [
