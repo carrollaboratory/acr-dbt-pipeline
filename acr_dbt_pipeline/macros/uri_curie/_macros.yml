@@ -9,6 +9,17 @@ macros:
       Cross-adapter boolean regex match. Postgres uses `~`, DuckDB uses
       regexp_matches(). Single quotes in the pattern are escaped for you.
 
+  - name: uri_curie_patterns
+    description: |
+      Originally sourced from dbt_pipeline_utils.
+      Shared basic format patterns for URI, HTTP(S) URI, bare DOI, CURIE, and
+      CURIE prefix validation. URI means a lowercase scheme://host form or
+      urn: value, without whitespace; rootless prefix:id forms are CURIEs.
+      A CURIE prefix starts with a letter or underscore, followed by letters,
+      digits, underscores, dots, or hyphens. Its reference is non-empty,
+      contains no whitespace, and does not start with a slash.
+      These are format checks, not full RFC validation or prefix registration.
+
   - name: normalize_curie
     description: |
       Originally sourced from dbt_pipeline_utils (local default
@@ -18,3 +29,43 @@ macros:
       alias_prefix). Full URIs and urn: values pass through. Unknown prefixes
       pass through unchanged. With default_prefix='dbgap', bare phs ids get
       the dbgap prefix.
+
+  - name: normalize_http_uri
+    description: |
+      Originally sourced from dbt_pipeline_utils.
+      Trims a web address, lowercases its HTTP(S) scheme, and adds
+      default_scheme (default https) only to values shaped like host.tld/path.
+      Blank values become NULL; unrecognized values pass through for validation.
+
+  - name: normalize_doi
+    description: |
+      Originally sourced from dbt_pipeline_utils.
+      Trims surrounding whitespace and converts blank values to NULL.
+      Preserves a bare DOI and its case; does not add doi: or a resolver URL.
+
+  - name: test_valid_uri_format
+    description: |
+      Fails non-null values that are not a scheme://host URI or urn: value.
+      Use for vocabulary_uri and fhir_system, including non-HTTP schemes.
+
+  - name: test_valid_http_uri
+    description: |
+      Fails non-null values that are not a lowercase http:// or https:// URL
+      with a non-empty host and no whitespace. Use for website columns.
+
+  - name: test_valid_doi_format
+    description: |
+      Fails non-null values that are not bare DOI names: 10. followed by
+      4-9 registrant digits, a slash, and a non-empty whitespace-free suffix.
+      Use for do_id; resolver URLs and doi: prefixes do not pass.
+
+  - name: test_curie_format
+    description: |
+      Fails non-null values that are not prefix:reference CURIEs.
+      Does not require the prefix to be present in vocabulary_details.
+
+  - name: test_uri_or_curie_format
+    description: |
+      Fails non-null values that are neither a URI nor a CURIE.
+      Use for external_id and other URI-or-CURIE columns. Blank strings fail;
+      NULLs are left to separate not_null tests, as with all format tests.

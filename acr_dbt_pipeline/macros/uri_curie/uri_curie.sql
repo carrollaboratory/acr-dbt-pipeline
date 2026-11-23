@@ -1,7 +1,7 @@
 {#-
   Originally sourced from dbt_pipeline_utils (dbt-pipeline-utils repo:
   macros/uri_curie/uri_curie.sql). Copied locally, not imported; keep in sync
-  by hand. Only normalize_curie and its regex_match helper are copied.
+  by hand. Related format tests and normalization helpers are in separate files.
   Local changes: regex_match dispatches in the acr_dbt_pipeline namespace,
   and normalize_curie defaults prefix_seed to ACR's 'vocabulary_details' seed.
 -#}

@@ -477,7 +477,7 @@ models:
   - name: website
     description: '{{ doc("cmg_stb_virtualbiorepository_website") }}'
     tests:
-    - valid_uri_format
+    - valid_http_uri
   - name: vbr_readme
     description: '{{ doc("cmg_stb_virtualbiorepository_vbr_readme") }}'
   - name: access_policy_id
@@ -822,7 +822,7 @@ models:
   - name: website
     description: '{{ doc("cmg_stb_study_website") }}'
     tests:
-    - valid_uri_format
+    - valid_http_uri
   - name: acknowledgments
     description: '{{ doc("cmg_stb_study_acknowledgments") }}'
   - name: citation_statement
@@ -937,7 +937,7 @@ models:
   - name: website
     description: '{{ doc("cmg_stb_publication_website") }}'
     tests:
-    - valid_uri_format
+    - valid_http_uri
   - name: access_policy_id
     description: '{{ doc("cmg_stb_publication_access_policy_id") }}'
     tests:
@@ -4799,7 +4799,7 @@ models:
   - name: website
     description: '{{ doc("cmg_stb_accesspolicy_website") }}'
     tests:
-    - valid_uri_format
+    - valid_http_uri
 - name: cmg_stb_encounterdefinition
   description: Model for cmg_stb_encounterdefinition.
   columns:
@@ -5700,7 +5700,7 @@ models:
     tests:
     - not_null
     - unique
-    - valid_uri_format
+    - valid_doi_format
   - name: bibliographic_reference
     description: '{{ doc("cmg_stb_doi_bibliographic_reference") }}'
   - name: access_policy_id
