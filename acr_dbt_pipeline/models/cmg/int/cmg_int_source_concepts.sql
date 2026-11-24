@@ -37,4 +37,12 @@
     ]
 } -%}
 
-{{ extract_source_concepts(concept_sources) }}
+with source_inventory as (
+    {{ extract_source_concepts(concept_sources) }}
+)
+select
+    inventory.*,
+    metadata.* exclude (source_concept)
+from source_inventory as inventory
+left join {{ ref('cmg_int_concept_metadata') }} as metadata
+    on metadata.source_concept = inventory.normalized_concept

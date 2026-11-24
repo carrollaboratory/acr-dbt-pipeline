@@ -1,3 +1,9 @@
+{%- set mapping_fields = ['consanguinity', 'family_history'] -%}
+{%- set metadata_columns = [
+  'concept_curie', 'concept_display', 'concept_definition', 'vocabulary_prefix',
+  'fhir_system', 'concept_uri_or_curie'
+] -%}
+
 with base as (
 select
   {{ dbt_utils.star(ref('cmg_main_family'), relation_alias='f') }},
@@ -8,27 +14,28 @@ from {{ ref('cmg_main_family') }} f
 left join {{ ref("cmg_int_anvil_dataset")}} ad
 using(source_snapshot_id)
 ),
-consanguinity_mappings as (
-  select 
-    source_text::text as consanguinity,
-    mapped_code::text as consanguinity_mapped_code
-  from {{ ref("mapdragon_annotations_talon") }}
-  where source_system = 'https://anvilproject.org//consanguinity'
-  ),
-family_history_mappings as (
-  select 
-    source_text::text as family_history,
-    mapped_code::text as family_history_mapped_code
-  from {{ ref("mapdragon_annotations_talon") }}
-  where source_system = 'https://anvilproject.org//family_history'
-)
+{% for field in mapping_fields %}
+{{ field }}_mappings as (
+  select
+    source_text::text as {{ field }},
+    mapped_code::text as {{ field }}_mapped_code,
+    {% for column in metadata_columns %}
+    {{ column }} as {{ field }}_{{ column }}{{ ',' if not loop.last }}
+    {% endfor %}
+  from {{ ref('cmg_int_mapdragon_annotations') }}
+  where source_system = 'https://anvilproject.org//{{ field }}'
+){{ ',' if not loop.last }}
+{% endfor %}
 select -- join the annotations
     base.*,
-    consanguinity_mapped_code::text as consanguinity_mapped_code,
-    family_history_mapped_code::text as family_history_mapped_code,
+    {% for field in mapping_fields %}
+    {{ field }}_mapped_code,
+    {% for column in metadata_columns %}
+    {{ field }}_{{ column }},
+    {% endfor %}
+    {% endfor %}
   from base
-  left join consanguinity_mappings
-  using (consanguinity)
-  left join family_history_mappings
-  using (family_history)
-
+  {% for field in mapping_fields %}
+  left join {{ field }}_mappings
+  using ({{ field }})
+  {% endfor %}

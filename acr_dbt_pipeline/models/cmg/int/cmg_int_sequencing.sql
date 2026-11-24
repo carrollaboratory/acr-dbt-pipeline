@@ -6,6 +6,13 @@
   'access_policy_gid', 'access_policy_descriptor',
   'consent_group', 'sequencing_center'
 ] -%}
+{%- set mapping_fields = [
+  'analyte_type', 'sequencing_assay', 'functional_equivalence_standard'
+] -%}
+{%- set metadata_columns = [
+  'concept_curie', 'concept_display', 'concept_definition', 'vocabulary_prefix',
+  'fhir_system', 'concept_uri_or_curie'
+] -%}
 
 with base as (
 select
@@ -24,34 +31,29 @@ select distinct
 from {{ ref("cmg_int_sample") }} ) sa
 using (sample_id, source_snapshot_id)
 ),
-analyte_type_mappings as (
-  select 
-  source_text::text as analyte_type,
-  mapped_code::text as analyte_type_mapped_code
-  from {{ ref("mapdragon_annotations_talon") }}
-  where source_system = 'https://anvilproject.org//analyte_type' -- none as of 11/2026
-),
-sequencing_assay_mappings as (
-  select 
-  source_text::text as sequencing_assay,
-  mapped_code::text as sequencing_assay_mapped_code
-  from {{ ref("mapdragon_annotations_talon") }}
-  where source_system = 'https://anvilproject.org//sequencing_assay' -- none as of 11/2026
-),
-functional_equivalence_standard_mappings as (
-  select 
-  source_text::text as functional_equivalence_standard,
-  mapped_code::text as functional_equivalence_standard_mapped_code
-  from {{ ref("mapdragon_annotations_talon") }}
-  where source_system = 'https://anvilproject.org//functional_equivalence_standard' -- none as of 11/2026
-  )
+{% for field in mapping_fields %}
+{{ field }}_mappings as (
+  select
+    source_text::text as {{ field }},
+    mapped_code::text as {{ field }}_mapped_code,
+    {% for column in metadata_columns %}
+    {{ column }} as {{ field }}_{{ column }}{{ ',' if not loop.last }}
+    {% endfor %}
+  from {{ ref('cmg_int_mapdragon_annotations') }}
+  where source_system = 'https://anvilproject.org//{{ field }}'
+){{ ',' if not loop.last }}
+{% endfor %}
   
 select -- join the annotations
-  base.*
+  base.*,
+  {% for field in mapping_fields %}
+  {{ field }}_mapped_code,
+  {% for column in metadata_columns %}
+  {{ field }}_{{ column }},
+  {% endfor %}
+  {% endfor %}
 from base
-left join analyte_type_mappings
-using (analyte_type)
-left join sequencing_assay_mappings
-using (sequencing_assay)
-left join functional_equivalence_standard_mappings
-using (functional_equivalence_standard)
+{% for field in mapping_fields %}
+left join {{ field }}_mappings
+using ({{ field }})
+{% endfor %}

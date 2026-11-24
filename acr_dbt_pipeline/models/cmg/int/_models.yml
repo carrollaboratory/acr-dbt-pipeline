@@ -1,13 +1,134 @@
 version: 2
 
 models:
+  - name: cmg_int_concepts
+    description: >-
+      Unified concept table. model_enums is the authoritative source for
+      concepts declared by the access model; tt_concepts supplies other
+      extracted ontology concepts. Model-enum display and definition metadata
+      take precedence. Explicit hardcoded defaults absent from both sources
+      have identifier-only rows with NULL metadata. Concept URIs are constructed
+      from unambiguous vocabulary templates; concept_uri_or_curie uses the
+      CURIE when no usable template is available.
+    columns:
+      - name: concept_curie
+        description: Canonical CURIE key for metadata joins and CURIE-restricted STB references.
+        tests:
+          - not_null
+          - unique
+          - curie_format
+      - name: concept_uri
+        description: Concept URI constructed from its vocabulary URI template, when available.
+      - name: concept_uri_or_curie
+        description: URI when the vocabulary URI template is known; otherwise the canonical CURIE.
+      - name: display
+        description: Model-enum title where supplied, otherwise its model display value.
+      - name: definition
+        description: Model-enum display value or term-trawler definition.
+
+  - name: cmg_int_vocabulary
+    description: >-
+      Unified vocabulary metadata. Term Trawler values take precedence;
+      vocabulary_details fills missing details and prefixes. A URI can be
+      expanded only from a valid URI with a [code] template or an unambiguous
+      base URI.
+    columns:
+      - name: vocabulary_prefix
+        tests:
+          - not_null
+          - unique
+      - name: concept_uri_template
+        description: Expandable concept URI template, or NULL when no unambiguous template is known.
+
+  - name: cmg_int_concept_metadata
+    description: >-
+      Early source-code lookup using the supplied term-trawler crosswalk and
+      exact canonical Concept keys. Left joins the unified Concept and
+      Vocabulary metadata without guessing or repairing source codes. Exact
+      model-enum keys take precedence over crosswalk remappings; canonical keys
+      absent from the crosswalk are included directly. When a crosswalk target
+      is missing, an existing exact source key can still supply metadata.
+    columns:
+      - name: source_concept
+        description: Exact source/mapping code or canonical CURIE used as a lookup key.
+        tests:
+          - not_null
+          - unique
+      - name: harmonized_curie
+        description: Lookup key supplied by the crosswalk, not proof of a Concept match.
+      - name: concept_curie
+        description: Canonical Concept key from the unified concept table, or NULL if unmatched.
+      - name: concept_display
+        description: Model-enum or ontology display label, not the original MapDragon label.
+      - name: concept_definition
+        description: Model-enum or ontology definition.
+      - name: concept_uri
+        description: URI generated from the concept's vocabulary URI template, when available.
+      - name: concept_uri_or_curie
+        description: URI when available; otherwise the canonical Concept CURIE.
+      - name: vocabulary_prefix
+        description: Vocabulary key from the matched Concept.
+      - name: fhir_system
+        description: FHIR system from the matched Concept's Vocabulary.
+
+  - name: cmg_int_mapdragon_annotations
+    description: >-
+      MapDragon rows enriched once with Concept and Vocabulary metadata.
+      Original mapped_code, mapped_display, mapped_system, and source fields
+      are preserved. Missing metadata stays NULL and does not remove mappings.
+
+  - name: cmg_int_family_relationships
+    description: >-
+      Parent-to-child relationships resolved within a source snapshot.
+      Keeps the original KIN relation_source and existing source-derived IDs.
+      relation_concept_curie and related metadata are NULL when no Concept exists.
+    columns:
+      - name: relation_source
+        description: Original intended KIN code, retained even without ontology metadata.
+      - name: relation_concept_curie
+        description: Matched canonical Concept key used by STB; NULL when unmatched.
+
+  - name: cmg_int_anvil_dataset
+    description: >-
+      Dataset, consent, and stable identifiers with early DUO metadata links.
+      Original permission/modifier code cells are retained. The corresponding
+      concept_curie columns contain only unified Concept matches; composite
+      modifier cells are not split or repaired.
+
+  - name: cmg_int_subject
+    description: >-
+      Subject data with original field values and MapDragon mapped_code columns
+      preserved. Field-specific concept_curie, concept_display,
+      concept_definition, vocabulary_prefix, and fhir_system columns come from
+      the shared metadata lookup. subject_type_source and organism_type_source
+      preserve intended default codes separately from matched Concept values.
+
+  - name: cmg_int_family
+    description: >-
+      Family data and source-derived identifiers with consanguinity and
+      family-history mappings plus nullable ontology metadata. Original mapped
+      codes are preserved separately from matched concept_curie columns.
+
+  - name: cmg_int_sample
+    description: >-
+      Sample data and subject/study links with the original sample-source
+      mapping and nullable sample_source concept and vocabulary metadata.
+
+  - name: cmg_int_sequencing
+    description: >-
+      Sequencing data and sample/subject links with original analyte, assay,
+      and equivalence-standard mappings plus nullable ontology metadata.
+      The assay source text remains separate from its matched Concept key.
+
   - name: cmg_int_source_concepts
     description: >-
       Distinct source text/code inventory for vocabulary review. Delimited
       pairs are aligned by position, with unmatched partners retained as NULL.
       Dataset membership is aggregated into a list, avoiding rows per dataset.
       Configure the field dictionary in the model; this is not automatic
-      ontology-field discovery or one row per subject.
+      ontology-field discovery or one row per subject. Original raw and
+      normalized values remain unchanged; nullable Concept/Vocabulary metadata
+      is joined on each normalized code token.
     columns:
       - name: table_ref
         description: Source table name without database or schema.
@@ -36,7 +157,9 @@ models:
       provenance, UWash split-text provenance, and matching MapDragon mappings.
       UWash split texts are separate text-only rows because their lookup has no
       token-position metadata. Source values without a matching mapping are
-      retained with NULL mapping columns.
+      retained with NULL mapping columns. Metadata lookup prefers the original
+      MapDragon mapped_code, or the normalized source concept when no mapping
+      code exists. It never substitutes source metadata for a bad mapped code.
     columns:
       - name: source_snapshot
         description: Source snapshot name that supplied the value.
@@ -107,6 +230,16 @@ models:
         description: Code system for the mapped concept.
       - name: mapping_table_id
         description: MapDragon table identifier for the matched mapping.
+      - name: concept_lookup_source
+        description: Original mapped code, or normalized source code when no mapped code exists.
+      - name: concept_curie
+        description: Matched canonical tt_concepts key; NULL when metadata is unavailable.
+      - name: concept_display
+        description: Display from the matched ontology Concept, not MapDragon.
+      - name: concept_definition
+        description: Definition from the matched ontology Concept.
+      - name: fhir_system
+        description: FHIR system from the matched Concept's Vocabulary.
 
   - name: cmg_int_subject_assertions
     description: >-
@@ -114,7 +247,10 @@ models:
       concept when supplied. Unmapped concepts use normalized/raw source
       values for identity; repeated mapped assertions select a deterministic
       representative source text and mapping provenance. Leaves unknown
-      asserter and source types NULL rather than inferring them.
+      asserter and source types NULL rather than inferring them. Concept and
+      value-concept fields contain only matched tt_concepts keys; original
+      codes remain in source/provenance fields. Identity continues to use the
+      original mapping/source keys so metadata availability does not change IDs.
     columns:
       - name: assertion_id
         description: Stable disease or observation assertion identifier.
@@ -130,6 +266,10 @@ models:
       - name: concept_source
         description: Source text used to map the assertion concept, when available.
       - name: concept_curie
-        description: Mapped concept CURIE; NULL when the source value is unmapped.
+        description: Matched canonical Concept CURIE; NULL when ontology metadata is missing.
+      - name: mapped_code
+        description: Original MapDragon code, unchanged even when no metadata matches.
+      - name: value_concept_source
+        description: Original intended value code, retained whether or not its metadata exists.
       - name: value_concept_curie
-        description: LOINC affected/unaffected value CURIE for HPO present/absent fields.
+        description: Matched value Concept CURIE; NULL when its metadata is missing.

@@ -81,10 +81,18 @@ source_concepts as (
         and concept.concept_column is not distinct from source.concept_column
         and concept.raw_text is not distinct from source.raw_text
         and concept.raw_concept is not distinct from source.raw_concept
+),
+mapped_source_concepts as (
+    {{ map_cmg_source_concepts(
+        'source_concepts',
+        ref('mapdragon_annotations_talon'),
+        ref('uwash_split_text_mapping_disease_and_phenotype')
+    ) }}
 )
-
-{{ map_cmg_source_concepts(
-    'source_concepts',
-    ref('mapdragon_annotations_talon'),
-    ref('uwash_split_text_mapping_disease_and_phenotype')
-) }}
+select
+    mapping.*,
+    coalesce(mapping.mapped_code, mapping.normalized_concept) as concept_lookup_source,
+    metadata.* exclude (source_concept)
+from mapped_source_concepts as mapping
+left join {{ ref('cmg_int_concept_metadata') }} as metadata
+    on metadata.source_concept = coalesce(mapping.mapped_code, mapping.normalized_concept)

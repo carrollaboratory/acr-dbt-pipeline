@@ -1,6 +1,51 @@
 version: 2
 
 models:
+  - name: tt_concepts
+    description: >-
+      Term-trawler Concept export, already shaped for cmg_stb_concept.
+      Ontology labels, definitions, and canonical CURIEs are used as supplied.
+    columns:
+      - name: concept_curie
+        description: Canonical concept key supplied by term-trawler.
+        tests:
+          - not_null
+          - unique
+      - name: vocabulary_prefix
+        description: Exact vocabulary key supplied by term-trawler.
+        tests:
+          - relationships:
+              arguments:
+                to: ref('tt_vocabulary')
+                field: vocabulary_prefix
+
+  - name: tt_vocabulary
+    description: Term-trawler Vocabulary export, already shaped for cmg_stb_vocabulary.
+    columns:
+      - name: vocabulary_prefix
+        description: Canonical vocabulary key used by the Concept export.
+        tests:
+          - not_null
+          - unique
+
+  - name: tt_curie_harmonization
+    description: >-
+      Supplied source-to-canonical CURIE crosswalk. Used only for metadata
+      lookup; original source codes are retained and no repairs are inferred.
+    columns:
+      - name: curie
+        description: Original source or mapping code.
+        tests:
+          - not_null
+          - unique
+      - name: harmonized_curie
+        description: Supplied lookup key; may still have no matching tt_concepts row.
+
+  - name: tt_unmatched_curies
+    description: >-
+      Term-trawler report of source codes for which metadata was not retrieved.
+      Retained for review, not used to repair source data or exclude source rows.
+
   - name: consent_mapping_datasets
     description: ""
     columns:

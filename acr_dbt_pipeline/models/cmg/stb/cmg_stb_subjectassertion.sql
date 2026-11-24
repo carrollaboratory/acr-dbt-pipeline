@@ -11,7 +11,7 @@ select
     null::integer as "age_at_resolution",
     concept_source::text as "concept_source",
     null::numeric as "value_number",
-    null::text as "value_source",
+    value_concept_source::text as "value_source",
     null::text as "value_unit",
     null::text as "value_unit_source",
     access_policy_id::text as "access_policy_id",

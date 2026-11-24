@@ -2,7 +2,7 @@
     'subject_id',
     'study_id',
     'assertion_concept_key',
-    'value_concept_curie'
+    'value_concept_source'
 ] -%}
 with matched_source_values as (
     select distinct
@@ -25,7 +25,13 @@ with matched_source_values as (
         mapping.mapping_source_system::text as mapping_source_system,
         mapping.mapping_source_text::text as mapping_source_text,
         mapping.mapping_lookup_value::text as mapping_lookup_value,
-        mapping.mapped_code::text as concept_curie
+        mapping.mapped_code::text as mapped_code,
+        mapping.concept_curie::text as concept_curie,
+        mapping.concept_uri_or_curie::text as concept_uri_or_curie,
+        mapping.concept_display::text as concept_display,
+        mapping.concept_definition::text as concept_definition,
+        mapping.vocabulary_prefix::text as vocabulary_prefix,
+        mapping.fhir_system::text as fhir_system
     from {{ ref('cmg_int_subject') }} as subject
     inner join {{ ref('cmg_int_mappings') }} as mapping
         on mapping.source_snapshot_id::text = subject.source_snapshot_id::text
@@ -61,7 +67,7 @@ subject_assertion_candidates as (
         access_policy_id,
         study_id,
         coalesce(
-            concept_curie,
+            mapped_code,
             normalized_concept,
             uwash_split_text,
             normalized_text,
@@ -70,12 +76,19 @@ subject_assertion_candidates as (
         )::text as assertion_concept_key,
         case
             when source_column in ('disease_description', 'phenotype_description')
-                then coalesce(uwash_split_text, normalized_text, raw_text)
+                then coalesce(uwash_split_text, normalized_text, raw_text, raw_concept)
+            else raw_concept
         end::text as concept_source,
+        mapped_code,
         concept_curie,
+        concept_uri_or_curie,
+        concept_display,
+        concept_definition,
+        vocabulary_prefix,
+        fhir_system,
         case source_column
-            when 'hpo_present' then 'loinc:LA9633-4'
-        end::text as value_concept_curie,
+            when 'hpo_present' then {{ hardcoded_concept('hpo_present_value') }}
+        end::text as value_concept_source,
         raw_text,
         raw_concept,
         normalized_text,
@@ -98,9 +111,9 @@ ranked_subject_assertions as (
                 study_id,
                 (source_column = 'disease_description'),
                 assertion_concept_key,
-                value_concept_curie
+                value_concept_source
             order by
-                case when concept_curie is not null then 0 else 1 end,
+                case when mapped_code is not null then 0 else 1 end,
                 concept_source nulls last,
                 source_column,
                 raw_text nulls last,
@@ -145,8 +158,14 @@ subject_assertions as (
         access_policy_id,
         study_id,
         concept_source,
+        mapped_code,
         concept_curie,
-        value_concept_curie,
+        concept_uri_or_curie,
+        concept_display,
+        concept_definition,
+        vocabulary_prefix,
+        fhir_system,
+        value_concept_source,
         raw_text,
         raw_concept,
         normalized_text,
@@ -161,5 +180,14 @@ subject_assertions as (
     from ranked_subject_assertions
     where assertion_source_rank = 1
 )
-select *
-from subject_assertions
+select
+    assertion.*,
+    metadata.concept_curie as value_concept_curie,
+    metadata.concept_uri_or_curie as value_concept_uri_or_curie,
+    metadata.concept_display as value_concept_display,
+    metadata.concept_definition as value_concept_definition,
+    metadata.vocabulary_prefix as value_vocabulary_prefix,
+    metadata.fhir_system as value_fhir_system
+from subject_assertions as assertion
+left join {{ ref('cmg_int_concept_metadata') }} as metadata
+    on metadata.source_concept = assertion.value_concept_source

@@ -1,0 +1,64 @@
+version: 2
+
+seeds:
+  - name: model_enums
+    description: >-
+      Required LinkML enumeration export supplied externally. Authoritative
+      concept codes, titles, and definitions for model enumerations, including
+      optional fields. Duplicate uses of a code across fields are expected.
+    config:
+      column_types:
+        table_name: varchar
+        variable_name: varchar
+        enumeration_code: varchar
+        enumeration_title: varchar
+        enumeration_display: varchar
+        enumeration_meaning: varchar
+        enumeration_system: varchar
+        enumeration_group: varchar
+    columns:
+      - name: table_name
+        description: Access Model table using the enumeration.
+        tests:
+          - not_null
+      - name: variable_name
+        description: Access Model field using the enumeration.
+        tests:
+          - not_null
+      - name: enumeration_code
+        description: Authoritative model concept CURIE.
+        tests:
+          - not_null
+          - curie_format
+      - name: enumeration_display
+        description: Model-supplied definition or description of the value.
+        tests:
+          - not_null
+      - name: enumeration_title
+        description: Model-supplied short label, when present.
+      - name: enumeration_meaning
+        description: LinkML meaning value, when present.
+      - name: enumeration_system
+        description: Model enumeration URI; not the ontology concept's FHIR system.
+      - name: enumeration_group
+        description: Model enumeration group; a concept may belong to multiple groups.
+
+  - name: hardcoded_concepts
+    description: >-
+      Non-enumeration concept defaults used by transformations. Their metadata
+      comes from model_enums or tt_concepts, not from this seed.
+    config:
+      column_types:
+        model_variable: varchar
+        concept_curie: varchar
+    columns:
+      - name: model_variable
+        description: Stable model-use key; one row is required for each model use.
+        tests:
+          - not_null
+          - unique
+      - name: concept_curie
+        description: Exact intended concept identifier.
+        tests:
+          - not_null
+          - curie_format

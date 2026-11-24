@@ -1,26 +1,37 @@
 with base as (
-  select
-    normalized_concept as curie,
-    NULL as prefix
+  select normalized_concept as curie
   from {{ ref('cmg_int_source_concepts') }}
-  where normalized_concept is not null
-  order by normalized_concept
-)
 
-,split_alias as (
-  select UNNEST(string_split(synonym, ',')) as viable_ontos
-  from {{ ref('vocabulary_details') }}
+  union
+
+  select data_use_permission_duo_code as curie
+  from {{ ref('cmg_int_anvil_dataset') }}
+
+  union
+
+  select data_use_modifier_duo_codes as curie
+  from {{ ref('cmg_int_anvil_dataset') }}
+
+  union
+
+  select enumeration_code as curie
+  from {{ ref('model_enums') }}
+
+  union
+
+  select concept_curie as curie
+  from {{ ref('hardcoded_concepts') }}
 )
 
 select distinct
     curie,
-    case 
-        when viable_ontos is not null then viable_ontos
+    case
+        when {{ regex_match('curie', uri_curie_patterns()['curie']) }}
+          then split_part(curie, ':', 1)
         when starts_with(curie, 'MTH') then 'OMIM'
         when starts_with(curie, 'PS') then 'OMIM'
         else null
     end as prefix
 from base
-left join split_alias 
-    on starts_with(curie, viable_ontos)
+where curie is not null
 order by prefix, curie
