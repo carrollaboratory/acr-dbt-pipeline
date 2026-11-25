@@ -28,6 +28,6 @@ select
                 then details.uri
         end
     )::text as concept_uri_template
-from {{ ref('tt_vocabulary') }} as ontology
+from {{ source('enrichment', 'tt_vocabulary') }} as ontology
 full outer join {{ ref('vocabulary_details') }} as details
     on details.prefix = ontology.vocabulary_prefix

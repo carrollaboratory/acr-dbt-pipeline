@@ -1,0 +1,200 @@
+version: 2
+
+sources:
+  - name: enrichment
+    description: >-
+      CSV files that enrich the study source data (consent and DUO mappings,
+      MapDragon annotations, term-trawler ontology exports). They are read in
+      place and are kept separate from the study source tables.
+    tags: ["enrichment"]
+    tables:
+      - name: tt_concepts
+        meta:
+          external_location: "read_csv('../../data/src_supplements/term_trawler/concepts.csv')"
+        description: >-
+          Term-trawler Concept export, already shaped for cmg_stb_concept.
+          Ontology labels, definitions, and canonical CURIEs are used as supplied.
+        columns:
+          - name: concept_curie
+            description: Canonical concept key supplied by term-trawler.
+            tests:
+              - not_null
+              - unique
+          - name: vocabulary_prefix
+            description: Exact vocabulary key supplied by term-trawler.
+            tests:
+              - relationships:
+                  arguments:
+                    to: source('enrichment', 'tt_vocabulary')
+                    field: vocabulary_prefix
+
+      - name: tt_vocabulary
+        meta:
+          external_location: "read_csv('../../data/src_supplements/term_trawler/vocabulary.csv')"
+        description: Term-trawler Vocabulary export, already shaped for cmg_stb_vocabulary.
+        columns:
+          - name: vocabulary_prefix
+            description: Canonical vocabulary key used by the Concept export.
+            tests:
+              - not_null
+              - unique
+
+      - name: tt_curie_harmonization
+        meta:
+          external_location: "read_csv('../../data/src_supplements/term_trawler/curie_harmonization.csv')"
+        description: >-
+          Supplied source-to-canonical CURIE crosswalk. Used only for metadata
+          lookup; original source codes are retained and no repairs are inferred.
+        columns:
+          - name: curie
+            description: Original source or mapping code.
+            tests:
+              - not_null
+              - unique
+          - name: harmonized_curie
+            description: Supplied lookup key; may still have no matching tt_concepts row.
+
+      - name: tt_unmatched_curies
+        meta:
+          external_location: "read_csv('../../data/src_supplements/term_trawler/unmatched_curies.csv')"
+        description: >-
+          Term-trawler report of source codes for which metadata was not retrieved.
+          Retained for review, not used to repair source data or exclude source rows.
+
+      - name: consent_mapping_datasets
+        meta:
+          external_location: "read_csv('../../data/src_supplements/AnVIL CMG Consent, DUO and MeSH Mapping - Datasets 20261104.csv')"
+        columns:
+          - name: institution
+            data_type: varchar
+          - name: dataset_name
+            data_type: varchar
+          - name: consent_group
+            data_type: varchar
+          - name: data_use_permission
+            data_type: varchar
+          - name: data_use_permission_duo_code
+            data_type: varchar
+          - name: disease_shortcode
+            data_type: varchar
+          - name: disease_limitation
+            data_type: varchar
+          - name: related_disorders_included
+            data_type: boolean
+          - name: age_restriction
+            data_type: varchar
+          - name: mesh_terms
+            data_type: varchar
+          - name: mesh_ids
+            data_type: varchar
+          - name: mesh_match_type
+            data_type: varchar
+          - name: data_use_modifier
+            data_type: varchar
+          - name: data_use_modifier_duo_codes
+            data_type: varchar
+          - name: is_irb_required
+            data_type: boolean
+          - name: review_notes
+            data_type: varchar
+          - name: duos_id
+            data_type: varchar
+          - name: snapshot_url
+            data_type: varchar
+
+      - name: consent_mapping_disease_mesh
+        meta:
+          external_location: "read_csv('../../data/src_supplements/AnVIL CMG Consent, DUO and MeSH Mapping - Disease_MeSH 20261104.csv')"
+        columns:
+          - name: disease_shortcode
+            data_type: varchar
+          - name: disease_name
+            data_type: varchar
+          - name: age_restriction
+            data_type: varchar
+          - name: mesh_term
+            data_type: varchar
+          - name: mesh_id
+            data_type: varchar
+          - name: mesh_record_type
+            data_type: varchar
+          - name: match_type
+            data_type: varchar
+          - name: in_dataset_list
+            data_type: boolean
+          - name: datasets_using
+            data_type: bigint
+          - name: mesh_url
+            data_type: varchar
+          - name: notes
+            data_type: varchar
+
+      - name: consent_mapping_modifiers
+        meta:
+          external_location: "read_csv('../../data/src_supplements/AnVIL CMG Consent, DUO and MeSH Mapping - Modifiers  20261104.csv')"
+        columns:
+          - name: modifier
+            data_type: varchar
+          - name: meaning
+            data_type: varchar
+          - name: duo_code
+            data_type: varchar
+          - name: duo_title
+            data_type: varchar
+          - name: status
+            data_type: varchar
+
+      - name: mapdragon_annotations_talon
+        meta:
+          external_location: "read_csv('../../data/src_supplements/mapdragon_annotations_talon.csv')"
+        columns:
+          - name: table_id
+            data_type: varchar
+          - name: source_text
+            data_type: varchar
+          - name: source_system
+            data_type: varchar
+          - name: mapped_code
+            data_type: varchar
+          - name: mapped_display
+            data_type: varchar
+          - name: mapped_system
+            data_type: varchar
+          - name: study_title
+            data_type: varchar
+          - name: study_name
+            data_type: varchar
+          - name: study_id
+            data_type: varchar
+          - name: dd_name
+            data_type: varchar
+          - name: dd_id
+            data_type: varchar
+          - name: version
+            data_type: date
+          - name: source_description
+            data_type: varchar
+          - name: source_domain
+            data_type: varchar
+          - name: parent_varname
+            data_type: varchar
+          - name: mapping_relationship
+            data_type: varchar
+          - name: comment
+            data_type: varchar
+          - name: ignore
+            data_type: varchar
+
+      - name: uwash_split_text_mapping_disease_and_phenotype
+        meta:
+          external_location: "read_csv('../../data/src_supplements/uwash_split_text_mapping_disease_and_phenotype.csv')"
+        columns:
+          - name: original_text
+            data_type: varchar
+            description: "The original text found in the source data. Not split."
+          - name: split_text
+            data_type: varchar
+            description: "The text in MapDragon for each disease_description or phenotype_description, split or not, that require a mapping."
+          - name: was_split
+            data_type: boolean
+            description: "TRUE=The disease_description or phenotype_description in the source data needed to be split and mapped separately. FALSE=The description as a whole will get a single mapping"

@@ -17,7 +17,7 @@
             'dataset_column': 'source_snapshot'
         }
     ],
-    ref('mapdragon_annotations_talon'): [
+    source('enrichment', 'mapdragon_annotations_talon'): [
         {
             'text_column': 'source_text',
             'concept_column': 'mapped_code',

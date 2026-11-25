@@ -22,7 +22,7 @@ concepts as (
         concept.display::text as display,
         concept.definition::text as definition
     from model_concepts as concept
-    left join {{ ref('tt_concepts') }} as ontology
+    left join {{ source('enrichment', 'tt_concepts') }} as ontology
         on ontology.concept_curie = concept.concept_curie
 
     union all
@@ -34,7 +34,7 @@ concepts as (
         ontology.concept_code::text as concept_code,
         ontology.display::text as display,
         ontology.definition::text as definition
-    from {{ ref('tt_concepts') }} as ontology
+    from {{ source('enrichment', 'tt_concepts') }} as ontology
     where not exists (
         select 1
         from model_concepts as model
@@ -58,7 +58,7 @@ concepts as (
     )
     and not exists (
         select 1
-        from {{ ref('tt_concepts') }} as ontology
+        from {{ source('enrichment', 'tt_concepts') }} as ontology
         where ontology.concept_curie = hardcoded.concept_curie
     )
 ),

@@ -12,7 +12,7 @@ concept_keys as (
             direct.concept_curie,
             harmonization.harmonized_curie
         )::text as concept_lookup_curie
-    from {{ ref('tt_curie_harmonization') }} as harmonization
+    from {{ source('enrichment', 'tt_curie_harmonization') }} as harmonization
     left join model_keys as model
         on model.concept_curie = harmonization.curie
     left join {{ ref('cmg_int_concepts') }} as canonical
@@ -29,7 +29,7 @@ concept_keys as (
     from {{ ref('cmg_int_concepts') }} as concept
     where not exists (
         select 1
-        from {{ ref('tt_curie_harmonization') }} as harmonization
+        from {{ source('enrichment', 'tt_curie_harmonization') }} as harmonization
         where harmonization.curie = concept.concept_curie
     )
 )

@@ -470,9 +470,6 @@ models:
       src:
         +materialized: table
         +tags: ["src"]
-      src_supplements:
-        +materialized: table
-        +tags: ["sup"]
       main:
         +materialized: table
         +tags: ["main"]

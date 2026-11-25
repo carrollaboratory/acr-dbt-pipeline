@@ -85,8 +85,8 @@ source_concepts as (
 mapped_source_concepts as (
     {{ map_cmg_source_concepts(
         'source_concepts',
-        ref('mapdragon_annotations_talon'),
-        ref('uwash_split_text_mapping_disease_and_phenotype')
+        source('enrichment', 'mapdragon_annotations_talon'),
+        source('enrichment', 'uwash_split_text_mapping_disease_and_phenotype')
     ) }}
 )
 select

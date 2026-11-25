@@ -271,6 +271,7 @@ models:
     description: 'The approach used to collect the biospecimen.'
     tests:
     - accepted_values:
+        name: accepted_values_cmg_stb_biospecimencollection_method
         arguments:
           values:
           - snomedct:1048003
@@ -615,6 +616,7 @@ models:
     tests:
     - not_null
     - accepted_values:
+        name: accepted_values_cmg_stb_subject_subject_type
         arguments:
           values:
           - CAMO:0000024
@@ -1119,6 +1121,7 @@ models:
     description: 'The type of data within this file.'
     tests:
     - accepted_values:
+        name: accepted_values_cmg_stb_file_data_type
         arguments:
           values:
           - edam:data_0582
@@ -2074,6 +2077,7 @@ models:
     description: 'The format of the file.'
     tests:
     - accepted_values:
+        name: accepted_values_cmg_stb_file_format
         arguments:
           values:
           - edam:format_1196
@@ -2728,6 +2732,7 @@ models:
     description: 'Is or was this file available to users?'
     tests:
     - accepted_values:
+        name: accepted_values_cmg_stb_file_availability
         arguments:
           values:
           - snomedct:103328004
@@ -2789,6 +2794,7 @@ models:
     tests:
     - not_null
     - accepted_values:
+        name: accepted_values_cmg_stb_assay_assay_type
         arguments:
           values:
           - OBI:0000070
@@ -4721,6 +4727,7 @@ models:
     description: 'The original asserter of this information'
     tests:
     - accepted_values:
+        name: accepted_values_cmg_stb_subjectassertion_asserter_type
         arguments:
           values:
           - CAMO:0000016
@@ -4733,6 +4740,7 @@ models:
     description: 'The source of this assertion from the original data'
     tests:
     - accepted_values:
+        name: accepted_values_cmg_stb_subjectassertion_assertion_source_type
         arguments:
           values:
           - CAMO:0000014
@@ -4829,6 +4837,7 @@ models:
     tests:
     - not_null
     - accepted_values:
+        name: accepted_values_cmg_stb_accesspolicy_data_use_permission
         arguments:
           values:
           - DUO:0000004
@@ -4840,6 +4849,7 @@ models:
     description: 'Additional modifiers that limit data use.'
     tests:
     - accepted_values:
+        name: accepted_values_cmg_stb_accesspolicy_data_use_modifier
         arguments:
           values:
           - DUO:00000044
@@ -5012,6 +5022,7 @@ models:
     description: 'Can this Sample be requested for further analysis?'
     tests:
     - accepted_values:
+        name: accepted_values_cmg_stb_aliquot_availability_status
         arguments:
           values:
           - snomedct:103328004
@@ -5123,6 +5134,7 @@ models:
     description: 'The type of file hash, eg, md5'
     tests:
     - accepted_values:
+        name: accepted_values_cmg_stb_hashdigest_hash_type
         arguments:
           values:
           - MS:1000568
@@ -5298,6 +5310,7 @@ models:
     tests:
     - not_null
     - accepted_values:
+        name: accepted_values_cmg_stb_demographics_sex
         arguments:
           values:
           - snomedct:248152002
@@ -5309,6 +5322,7 @@ models:
     tests:
     - not_null
     - accepted_values:
+        name: accepted_values_cmg_stb_demographics_ethnicity
         arguments:
           values:
           - CDCREC:2135-2
@@ -5321,6 +5335,7 @@ models:
     description: 'Whether participant is alive or dead'
     tests:
     - accepted_values:
+        name: accepted_values_cmg_stb_demographics_vital_status
         arguments:
           values:
           - snomedct:419099009
@@ -5429,6 +5444,7 @@ models:
     description: 'Describes the ''type'' of study family, eg, trio.'
     tests:
     - accepted_values:
+        name: accepted_values_cmg_stb_family_family_type
         arguments:
           values:
           - CAMO:0000002
@@ -5445,6 +5461,7 @@ models:
     description: 'Is there known or suspected consanguinity in this study family?'
     tests:
     - accepted_values:
+        name: accepted_values_cmg_stb_family_consanguinity
         arguments:
           values:
           - snomedct:410515003
@@ -5657,6 +5674,8 @@ models:
     tests:
     - not_null
     - accepted_values:
+        name: 
+          accepted_values_cmg_stb_studymetadata_clinical_data_source_type_clinical_data_source_type
         arguments:
           values:
           - CAMO:0000014
@@ -5926,6 +5945,7 @@ models:
     tests:
     - not_null
     - accepted_values:
+        name: accepted_values_cmg_stb_demographics_race_race_concept_curie
         arguments:
           values:
           - CDCREC:1002-5
@@ -5959,6 +5979,8 @@ models:
     tests:
     - not_null
     - accepted_values:
+        name: 
+          accepted_values_cmg_stb_studymetadata_participant_lifespan_stage_participant_lifespan_stage
         arguments:
           values:
           - NCIT:C176390
@@ -6028,6 +6050,7 @@ models:
     description: 'Can this Sample be requested for further analysis?'
     tests:
     - accepted_values:
+        name: accepted_values_cmg_stb_sample_availability_status
         arguments:
           values:
           - snomedct:103328004
@@ -6091,6 +6114,7 @@ models:
     tests:
     - not_null
     - accepted_values:
+        name: accepted_values_cmg_stb_familyrelationship_relation
         arguments:
           values:
           - KIN:001
