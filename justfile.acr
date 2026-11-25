@@ -8,6 +8,7 @@ STUDY_ID := "cmg"
 PIPELINE_STAGES := "stb"
 # Stage folders resolve to MODELS_STAGE_ROOT/STUDY_ID/<stage>, e.g. models/cmg/stb.
 MODELS_STAGE_ROOT := "acr_dbt_pipeline/models"
+SEEDS_DIR := "acr_dbt_pipeline/seeds/vocabulary"
 
 DD_FORMAT := "ftd_dd"
 # Optional DD version/hash log; blank disables it.

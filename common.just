@@ -114,6 +114,40 @@ _gen_src_sql:
     cp "${files[@]}" "$SRC_SQL_DIR/"
 
 [private]
+_sync_model_enums:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [[ -z "${ENUMS_SEED_PATH:-}" ]]; then
+        echo "Set ENUMS_SEED_PATH before syncing model enumerations." >&2
+        exit 2
+    fi
+    release_assets="${RELEASE_ASSETS:-}"
+    read -r -a releases <<< "${release_assets//$'\n'/ }"
+    if (( ${#releases[@]} != 1 )); then
+        echo "Enumeration seed extraction requires exactly one release for $ENUMS_SEED_PATH." >&2
+        exit 2
+    fi
+    release="${releases[0]}"
+    if [[ "$release" != *"|"* || -z "${release%%|*}" || -z "${release#*|}" || "${release#*|}" == *"|"* ]]; then
+        echo "Invalid release asset '$release' (expected repo|asset)." >&2
+        exit 2
+    fi
+    if [[ -d "$ENUMS_SEED_PATH" ]]; then
+        echo "Enumeration seed destination is a directory: $ENUMS_SEED_PATH" >&2
+        exit 2
+    fi
+    seed_dir="$(dirname "$ENUMS_SEED_PATH")"
+    mkdir -p "$seed_dir"
+    output_dir="$(mktemp -d "$seed_dir/.model-enums.XXXXXXXX")"
+    trap 'rm -f -- "$output_dir/model_enums.tmp"; rmdir -- "$output_dir"' EXIT
+    RELEASE_REPO="${release%%|*}" \
+    RELEASE_ARTIFACT="${release#*|}" \
+    RELEASE_INTERNAL_PATH="project/enumerations/model_enums.csv" \
+    RELEASE_OUTPUT_PATH="$output_dir/model_enums.tmp" \
+        just -f common.just _extract_release_file
+    mv -f -- "$output_dir/model_enums.tmp" "$ENUMS_SEED_PATH"
+
+[private]
 _extract_release_file:
     #!/usr/bin/env bash
     if [[ -z "${RELEASE_REPO:-}" ]]; then

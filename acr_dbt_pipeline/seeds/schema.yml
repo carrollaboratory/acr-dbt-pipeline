@@ -3,9 +3,10 @@ version: 2
 seeds:
   - name: model_enums
     description: >-
-      Required LinkML enumeration export supplied externally. Authoritative
-      concept codes, titles, and definitions for model enumerations, including
-      optional fields. Duplicate uses of a code across fields are expected.
+      Required LinkML enumeration export from the ACR model release.
+      Authoritative concept codes, titles, and definitions for model
+      enumerations, including optional fields. Duplicate uses of a code across
+      fields are expected.
     config:
       column_types:
         table_name: varchar

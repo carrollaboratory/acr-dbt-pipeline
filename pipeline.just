@@ -32,10 +32,18 @@ _stage_args := '
         SRC_TABLE_PREFIX_STAGE INT_TABLE_PREFIX_STAGE PROGRAM_TABLE_PREFIX_STAGE \
         COMMON_TABLE_PREFIX_STAGE STB_TABLE_PREFIX_STAGE \
         STUDIES_VAR COMMON_STUDIES_VAR \
-        ACCESS_MODELS_ROOT ACCESS_FROM_CLAUSE_TEMPLATE STB_FROM_CLAUSE_TEMPLATE
+        ACCESS_MODELS_ROOT ACCESS_FROM_CLAUSE_TEMPLATE STB_FROM_CLAUSE_TEMPLATE SEEDS_DIR
     do
         if value="$(printenv "$name")"; then stage_args+=("$name=$value"); fi
     done
+'
+
+_sync_stage_enums := '
+    if [[ "$stage" == stb && -n "$stage_release_assets" ]]; then
+        RELEASE_ASSETS="$stage_release_assets" \
+        ENUMS_SEED_PATH="${SEEDS_DIR:?Set SEEDS_DIR before syncing model enumerations}/model_enums.csv" \
+            just -f common.just _sync_model_enums
+    fi
 '
 
 _resolve_stage_location := '
@@ -238,6 +246,7 @@ generate-stage-models-yml stage:
     MODELS_DOCS="$stage_models_docs" \
     NORMALIZE_MODEL_COLUMNS="$stage_normalize_model_columns" \
     just -f common.just _gen_models
+    {{ _sync_stage_enums }}
 
 generate-stage-sources-yml stage:
     #!/usr/bin/env bash
@@ -266,6 +275,7 @@ generate-stage-model-sql stage:
     STUDIES_VAR="$stage_studies_var" \
     EMPTY_MODEL_SCAFFOLD="$stage_empty_model_scaffold" \
     just -f common.just "$stage_sql_recipe"
+    {{ _sync_stage_enums }}
 
 generate-stage-src-sql stage:
     #!/usr/bin/env bash
@@ -321,6 +331,7 @@ generate-stage stage:
         EMPTY_MODEL_SCAFFOLD="$stage_empty_model_scaffold" \
         just -f common.just "$stage_sql_recipe"
     fi
+    {{ _sync_stage_enums }}
 
 generate-all-stages:
     #!/usr/bin/env bash
@@ -368,6 +379,11 @@ refresh-releases bundle="all":
             just -f common.just _extract_release_file
         RELEASE_REPO="$repo" RELEASE_INTERNAL_PATH="$DBT_INTERNAL_PATH" RELEASE_OUTPUT_PATH="$out_dir/dbt" \
             just -f common.just _extract_release_file
+        if [[ "$bundle" == program ]]; then
+            RELEASE_ASSETS="$repo|$RELEASE_ARTIFACT" \
+            ENUMS_SEED_PATH="${SEEDS_DIR:?Set SEEDS_DIR before syncing model enumerations}/model_enums.csv" \
+                just -f common.just _sync_model_enums
+        fi
     done
 
 extract-release-file:
