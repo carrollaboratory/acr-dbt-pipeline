@@ -1,10 +1,10 @@
 models:
 - name: cmg_stb_virtualbiorepository_contact
-  description: Model for cmg_stb_virtualbiorepository_contact.
+  description: Linking table generated for a multivalued slot on 
+    VirtualBiorepository.
   columns:
   - name: virtualbiorepository_vbr_id
-    description: '{{ doc("cmg_stb_virtualbiorepository_contact_virtualbiorepo_33abb796")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -13,7 +13,7 @@ models:
           field: '"vbr_id"'
           column_name: '"VirtualBiorepository_vbr_id"'
   - name: contact_id
-    description: '{{ doc("cmg_stb_virtualbiorepository_contact_contact_id") }}'
+    description: 'The individual to contact with questions about this record.'
     tests:
     - not_null
     - relationships:
@@ -28,11 +28,11 @@ models:
         - '"VirtualBiorepository_vbr_id"'
         - '"contact_id"'
 - name: cmg_stb_encounterdefinition_activity_definition_id
-  description: Model for cmg_stb_encounterdefinition_activity_definition_id.
+  description: Linking table generated for a multivalued slot on 
+    EncounterDefinition.
   columns:
   - name: encounterdefinition_encounter_definition_id
-    description: '{{ doc("cmg_stb_encounterdefinition_activity_definition_id__364707a1")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -41,8 +41,7 @@ models:
           field: '"encounter_definition_id"'
           column_name: '"EncounterDefinition_encounter_definition_id"'
   - name: activity_definition_id_activity_definition_id
-    description: '{{ doc("cmg_stb_encounterdefinition_activity_definition_id__25dfe1dc")
-      }}'
+    description: 'Unique identifier for this Activity Definition.'
     tests:
     - not_null
     - relationships:
@@ -57,7 +56,7 @@ models:
         - '"EncounterDefinition_encounter_definition_id"'
         - '"activity_definition_id_activity_definition_id"'
 - name: cmg_stb_synonym
-  description: Model for cmg_stb_synonym.
+  description: Alternate display names for concepts.
   columns:
   - name: id
     description: '{{ doc("cmg_stb_synonym_id") }}'
@@ -65,24 +64,29 @@ models:
     - not_null
     - unique
   - name: concept_curie
-    description: '{{ doc("cmg_stb_synonym_concept_curie") }}'
+    description: 'The standardized curie for the term.'
     tests:
     - relationships:
         arguments:
           to: ref('cmg_stb_concept')
           field: '"concept_curie"'
           column_name: '"concept_curie"'
+    - relationships:
+        arguments:
+          to: source('acr_harmonized_data_model', 'concept')
+          field: '"concept_curie"'
+          column_name: '"concept_curie"'
   - name: display
-    description: '{{ doc("cmg_stb_synonym_display") }}'
+    description: 'The friendly display string of the coded term.'
   - name: display_type
-    description: '{{ doc("cmg_stb_synonym_display_type") }}'
+    description: 'The type of display name, eg, "Preferred".'
   - name: language
-    description: '{{ doc("cmg_stb_synonym_language") }}'
+    description: 'The ISO 639 language code of this entity.'
 - name: cmg_stb_dataset_publication
-  description: Model for cmg_stb_dataset_publication.
+  description: Linking table generated for a multivalued slot on Dataset.
   columns:
   - name: dataset_dataset_id
-    description: '{{ doc("cmg_stb_dataset_publication_dataset_dataset_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -91,7 +95,7 @@ models:
           field: '"dataset_id"'
           column_name: '"Dataset_dataset_id"'
   - name: publication_id
-    description: '{{ doc("cmg_stb_dataset_publication_publication_id") }}'
+    description: 'Publications associated with this Record.'
     tests:
     - not_null
     - relationships:
@@ -106,11 +110,11 @@ models:
         - '"Dataset_dataset_id"'
         - '"publication_id"'
 - name: cmg_stb_familyrelationship_external_id
-  description: Model for cmg_stb_familyrelationship_external_id.
+  description: Linking table generated for a multivalued slot on 
+    FamilyRelationship.
   columns:
   - name: familyrelationship_family_relationship_id
-    description: '{{ doc("cmg_stb_familyrelationship_external_id_familyrelati_2d597c3d")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -119,7 +123,8 @@ models:
           field: '"family_relationship_id"'
           column_name: '"FamilyRelationship_family_relationship_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_familyrelationship_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -130,10 +135,10 @@ models:
         - '"FamilyRelationship_family_relationship_id"'
         - '"external_id"'
 - name: cmg_stb_file_sample_id
-  description: Model for cmg_stb_file_sample_id.
+  description: Linking table generated for a multivalued slot on File.
   columns:
   - name: file_file_id
-    description: '{{ doc("cmg_stb_file_sample_id_file_file_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -142,7 +147,7 @@ models:
           field: '"file_id"'
           column_name: '"File_file_id"'
   - name: sample_id_sample_id
-    description: '{{ doc("cmg_stb_file_sample_id_sample_id_sample_id") }}'
+    description: 'The unique identifier for this Sample.'
     tests:
     - not_null
     - relationships:
@@ -157,11 +162,11 @@ models:
         - '"File_file_id"'
         - '"sample_id_sample_id"'
 - name: cmg_stb_subjectassertion_external_id
-  description: Model for cmg_stb_subjectassertion_external_id.
+  description: Linking table generated for a multivalued slot on 
+    SubjectAssertion.
   columns:
   - name: subjectassertion_assertion_id
-    description: '{{ doc("cmg_stb_subjectassertion_external_id_subjectasserti_dfb0d740")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -170,7 +175,8 @@ models:
           field: '"assertion_id"'
           column_name: '"SubjectAssertion_assertion_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_subjectassertion_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -181,10 +187,10 @@ models:
         - '"SubjectAssertion_assertion_id"'
         - '"external_id"'
 - name: cmg_stb_sample_processing
-  description: Model for cmg_stb_sample_processing.
+  description: Linking table generated for a multivalued slot on Sample.
   columns:
   - name: sample_sample_id
-    description: '{{ doc("cmg_stb_sample_processing_sample_sample_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -193,7 +199,8 @@ models:
           field: '"sample_id"'
           column_name: '"Sample_sample_id"'
   - name: processing
-    description: '{{ doc("cmg_stb_sample_processing_processing") }}'
+    description: 'Processing that was applied to the Parent Sample or from the Biospecimen
+      Collection that yielded this distinct sample. OBI is recommended.'
     tests:
     - not_null
     - uri_or_curie_format
@@ -204,15 +211,16 @@ models:
         - '"Sample_sample_id"'
         - '"processing"'
 - name: cmg_stb_encounter
-  description: Model for cmg_stb_encounter.
+  description: An event at which data was collected about a participant, an 
+    intervention was made, or information about a participant was recorded.
   columns:
   - name: encounter_id
-    description: '{{ doc("cmg_stb_encounter_encounter_id") }}'
+    description: 'Unique identifier for this Encounter.'
     tests:
     - not_null
     - unique
   - name: subject_id
-    description: '{{ doc("cmg_stb_encounter_subject_id") }}'
+    description: 'INCLUDE Global ID for the Subject'
     tests:
     - not_null
     - relationships:
@@ -221,7 +229,7 @@ models:
           field: '"subject_id"'
           column_name: '"subject_id"'
   - name: encounter_definition_id
-    description: '{{ doc("cmg_stb_encounter_encounter_definition_id") }}'
+    description: 'Unique identifier for this Encounter Definition.'
     tests:
     - relationships:
         arguments:
@@ -229,9 +237,11 @@ models:
           field: '"encounter_definition_id"'
           column_name: '"encounter_definition_id"'
   - name: age_at_event
-    description: '{{ doc("cmg_stb_encounter_age_at_event") }}'
+    description: 'The age in days of the Subject at the time point which the assertion
+      describes, eg, age of onset or when a measurement was performed.'
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_encounter_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -240,7 +250,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_encounter_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -249,18 +259,17 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_biospecimencollection
-  description: Model for cmg_stb_biospecimencollection.
+  description: A biospecimen collection event which yields one or more Samples.
   columns:
   - name: biospecimen_collection_id
-    description: '{{ doc("cmg_stb_biospecimencollection_biospecimen_collection_id")
-      }}'
+    description: 'Unique identifier for this Biospecimen Collection.'
     tests:
     - not_null
     - unique
   - name: age_at_collection
-    description: '{{ doc("cmg_stb_biospecimencollection_age_at_collection") }}'
+    description: 'The age at which this biospecimen was collected in decimal years.'
   - name: method
-    description: '{{ doc("cmg_stb_biospecimencollection_method") }}'
+    description: 'The approach used to collect the biospecimen.'
     tests:
     - accepted_values:
         arguments:
@@ -402,19 +411,21 @@ models:
           - snomedct:840566006
           - snomedct:86326008
   - name: site
-    description: '{{ doc("cmg_stb_biospecimencollection_site") }}'
+    description: 'The location of the specimen collection.'
     tests:
     - curie_format
   - name: spatial_qualifier
-    description: '{{ doc("cmg_stb_biospecimencollection_spatial_qualifier") }}'
+    description: 'Qualifier that further refine the specific location of biospecimen
+      collection'
     tests:
     - curie_format
   - name: laterality
-    description: '{{ doc("cmg_stb_biospecimencollection_laterality") }}'
+    description: 'Laterality that further refine the specific location of biospecimen
+      collection'
     tests:
     - curie_format
   - name: encounter_id
-    description: '{{ doc("cmg_stb_biospecimencollection_encounter_id") }}'
+    description: 'Unique identifier for this Encounter.'
     tests:
     - relationships:
         arguments:
@@ -422,7 +433,8 @@ models:
           field: '"encounter_id"'
           column_name: '"encounter_id"'
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_biospecimencollection_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -431,7 +443,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_biospecimencollection_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -440,10 +452,10 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_encounter_external_id
-  description: Model for cmg_stb_encounter_external_id.
+  description: Linking table generated for a multivalued slot on Encounter.
   columns:
   - name: encounter_encounter_id
-    description: '{{ doc("cmg_stb_encounter_external_id_encounter_encounter_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -452,7 +464,8 @@ models:
           field: '"encounter_id"'
           column_name: '"Encounter_encounter_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_encounter_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -463,25 +476,29 @@ models:
         - '"Encounter_encounter_id"'
         - '"external_id"'
 - name: cmg_stb_virtualbiorepository
-  description: Model for cmg_stb_virtualbiorepository.
+  description: An organization that can provide access to specimen for further 
+    analysis.
   columns:
   - name: vbr_id
-    description: '{{ doc("cmg_stb_virtualbiorepository_vbr_id") }}'
+    description: 'Information about the study''s Virtual Biorepository, if participating'
     tests:
     - not_null
     - unique
   - name: name
-    description: '{{ doc("cmg_stb_virtualbiorepository_name") }}'
+    description: 'Name of the entity.'
   - name: institution
-    description: '{{ doc("cmg_stb_virtualbiorepository_institution") }}'
+    description: 'Name of the institution this record is associated with.'
   - name: website
-    description: '{{ doc("cmg_stb_virtualbiorepository_website") }}'
+    description: 'Website with more information about this entity.'
     tests:
     - valid_http_uri
+    - valid_uri_format
   - name: vbr_readme
-    description: '{{ doc("cmg_stb_virtualbiorepository_vbr_readme") }}'
+    description: 'Instructions for contacting or requesting samples from Virtual Biorepository,
+      if participating'
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_virtualbiorepository_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -490,7 +507,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_virtualbiorepository_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -499,11 +516,11 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_subjectassertion_concept
-  description: Model for cmg_stb_subjectassertion_concept.
+  description: Linking table generated for a multivalued slot on 
+    SubjectAssertion.
   columns:
   - name: subjectassertion_assertion_id
-    description: '{{ doc("cmg_stb_subjectassertion_concept_subjectassertion_a_472aac74")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -512,13 +529,17 @@ models:
           field: '"assertion_id"'
           column_name: '"SubjectAssertion_assertion_id"'
   - name: concept_concept_curie
-    description: '{{ doc("cmg_stb_subjectassertion_concept_concept_concept_curie")
-      }}'
+    description: 'The structured term defining the meaning of the assertion.'
     tests:
     - not_null
     - relationships:
         arguments:
           to: ref('cmg_stb_concept')
+          field: '"concept_curie"'
+          column_name: '"concept_concept_curie"'
+    - relationships:
+        arguments:
+          to: source('acr_harmonized_data_model', 'concept')
           field: '"concept_curie"'
           column_name: '"concept_concept_curie"'
   tests:
@@ -528,11 +549,11 @@ models:
         - '"SubjectAssertion_assertion_id"'
         - '"concept_concept_curie"'
 - name: cmg_stb_subjectassertion_value_concept
-  description: Model for cmg_stb_subjectassertion_value_concept.
+  description: Linking table generated for a multivalued slot on 
+    SubjectAssertion.
   columns:
   - name: subjectassertion_assertion_id
-    description: '{{ doc("cmg_stb_subjectassertion_value_concept_subjectasser_19a46100")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -541,8 +562,7 @@ models:
           field: '"assertion_id"'
           column_name: '"SubjectAssertion_assertion_id"'
   - name: value_concept_concept_curie
-    description: '{{ doc("cmg_stb_subjectassertion_value_concept_value_concep_87b17341")
-      }}'
+    description: 'The structured term defining the value of the assertion.'
     tests:
     - not_null
     - curie_format
@@ -558,10 +578,10 @@ models:
         - '"SubjectAssertion_assertion_id"'
         - '"value_concept_concept_curie"'
 - name: cmg_stb_aliquot_external_id
-  description: Model for cmg_stb_aliquot_external_id.
+  description: Linking table generated for a multivalued slot on Aliquot.
   columns:
   - name: aliquot_aliquot_id
-    description: '{{ doc("cmg_stb_aliquot_external_id_aliquot_aliquot_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -570,7 +590,8 @@ models:
           field: '"aliquot_id"'
           column_name: '"Aliquot_aliquot_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_aliquot_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -581,15 +602,17 @@ models:
         - '"Aliquot_aliquot_id"'
         - '"external_id"'
 - name: cmg_stb_subject
-  description: Model for cmg_stb_subject.
+  description: This entity is the subject about which data or references are 
+    recorded. This includes the idea of a human participant in a study, a cell 
+    line, an animal model, or any other similar entity.
   columns:
   - name: subject_id
-    description: '{{ doc("cmg_stb_subject_subject_id") }}'
+    description: 'INCLUDE Global ID for the Subject'
     tests:
     - not_null
     - unique
   - name: subject_type
-    description: '{{ doc("cmg_stb_subject_subject_type") }}'
+    description: 'Type of entity this record represents'
     tests:
     - not_null
     - accepted_values:
@@ -603,11 +626,12 @@ models:
           - snomedct:261665006
           - snomedct:74964007
   - name: organism_type
-    description: '{{ doc("cmg_stb_subject_organism_type") }}'
+    description: 'Organism Type, typically from NCBITaxon.'
     tests:
     - uri_or_curie_format
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_subject_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -616,7 +640,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_subject_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -625,42 +649,46 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_vocabulary
-  description: Model for cmg_stb_vocabulary.
+  description: Flat table containing each of the ontologies used for dataset 
+    annotations
   columns:
   - name: vocabulary_prefix
-    description: '{{ doc("cmg_stb_vocabulary_vocabulary_prefix") }}'
+    description: 'The authoritative namespace prefix allocated to the vocabulary.
+      Used to resolve compact identifiers (CURIEs) to their full semantic URIs or
+      FHIR system URLs.'
     tests:
     - not_null
     - unique
   - name: name
-    description: '{{ doc("cmg_stb_vocabulary_name") }}'
+    description: 'Name of the entity.'
   - name: vocabulary_uri
-    description: '{{ doc("cmg_stb_vocabulary_vocabulary_uri") }}'
+    description: 'Official URI associated with the vocabulary'
     tests:
     - not_null
     - valid_uri_format
   - name: vocabulary_id
-    description: '{{ doc("cmg_stb_vocabulary_vocabulary_id") }}'
+    description: 'The OMOP Vocabulary ID associated with the vocabulary, if applicable'
   - name: fhir_system
-    description: '{{ doc("cmg_stb_vocabulary_fhir_system") }}'
+    description: 'System used within FHIR valuesets and codings'
     tests:
     - not_null
     - valid_uri_format
   - name: description
-    description: '{{ doc("cmg_stb_vocabulary_description") }}'
+    description: 'Description for this entity.'
   - name: version
-    description: '{{ doc("cmg_stb_vocabulary_version") }}'
+    description: 'Version associated with the current vocabulary content'
   - name: vocabulary_source
-    description: '{{ doc("cmg_stb_vocabulary_vocabulary_source") }}'
+    description: 'Source used for accessing the vocabulary''s content'
 - name: cmg_stb_record_external_id
-  description: Model for cmg_stb_record_external_id.
+  description: Linking table generated for a multivalued slot on Record.
   columns:
   - name: record_id
-    description: '{{ doc("cmg_stb_record_external_id_record_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
   - name: external_id
-    description: '{{ doc("cmg_stb_record_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -671,10 +699,10 @@ models:
         - '"Record_id"'
         - '"external_id"'
 - name: cmg_stb_study_external_id
-  description: Model for cmg_stb_study_external_id.
+  description: Linking table generated for a multivalued slot on Study.
   columns:
   - name: study_study_id
-    description: '{{ doc("cmg_stb_study_external_id_study_study_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -683,7 +711,8 @@ models:
           field: '"study_id"'
           column_name: '"Study_study_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_study_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -694,10 +723,10 @@ models:
         - '"Study_study_id"'
         - '"external_id"'
 - name: cmg_stb_file_hash
-  description: Model for cmg_stb_file_hash.
+  description: Linking table generated for a multivalued slot on File.
   columns:
   - name: file_file_id
-    description: '{{ doc("cmg_stb_file_hash_file_file_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -706,7 +735,7 @@ models:
           field: '"file_id"'
           column_name: '"File_file_id"'
   - name: hash_id
-    description: '{{ doc("cmg_stb_file_hash_hash_id") }}'
+    description: 'File hash information'
     tests:
     - not_null
     - relationships:
@@ -721,10 +750,10 @@ models:
         - '"File_file_id"'
         - '"hash_id"'
 - name: cmg_stb_person_subject_id
-  description: Model for cmg_stb_person_subject_id.
+  description: Linking table generated for a multivalued slot on Person.
   columns:
   - name: person_person_id
-    description: '{{ doc("cmg_stb_person_subject_id_person_person_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -733,7 +762,7 @@ models:
           field: '"person_id"'
           column_name: '"Person_person_id"'
   - name: subject_id_subject_id
-    description: '{{ doc("cmg_stb_person_subject_id_subject_id_subject_id") }}'
+    description: 'INCLUDE Global ID for the Subject'
     tests:
     - not_null
     - relationships:
@@ -748,11 +777,11 @@ models:
         - '"Person_person_id"'
         - '"subject_id_subject_id"'
 - name: cmg_stb_activitydefinition_external_id
-  description: Model for cmg_stb_activitydefinition_external_id.
+  description: Linking table generated for a multivalued slot on 
+    ActivityDefinition.
   columns:
   - name: activitydefinition_activity_definition_id
-    description: '{{ doc("cmg_stb_activitydefinition_external_id_activitydefi_29a46a9b")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -761,7 +790,8 @@ models:
           field: '"activity_definition_id"'
           column_name: '"ActivityDefinition_activity_definition_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_activitydefinition_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -772,10 +802,10 @@ models:
         - '"ActivityDefinition_activity_definition_id"'
         - '"external_id"'
 - name: cmg_stb_family_external_id
-  description: Model for cmg_stb_family_external_id.
+  description: Linking table generated for a multivalued slot on Family.
   columns:
   - name: family_family_id
-    description: '{{ doc("cmg_stb_family_external_id_family_family_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -784,7 +814,8 @@ models:
           field: '"family_id"'
           column_name: '"Family_family_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_family_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -795,10 +826,10 @@ models:
         - '"Family_family_id"'
         - '"external_id"'
 - name: cmg_stb_study
-  description: Model for cmg_stb_study.
+  description: Study Metadata
   columns:
   - name: parent_study
-    description: '{{ doc("cmg_stb_study_parent_study") }}'
+    description: 'The parent study for this study, if it is a nested study.'
     tests:
     - relationships:
         arguments:
@@ -806,29 +837,35 @@ models:
           field: '"study_id"'
           column_name: '"parent_study"'
   - name: study_title
-    description: '{{ doc("cmg_stb_study_study_title") }}'
+    description: 'Full Study Title'
     tests:
     - not_null
   - name: study_code
-    description: '{{ doc("cmg_stb_study_study_code") }}'
+    description: 'Unique identifier for the study (generally a short acronym)'
     tests:
     - not_null
   - name: study_short_name
-    description: '{{ doc("cmg_stb_study_study_short_name") }}'
+    description: 'Short name for the study'
   - name: study_description
-    description: '{{ doc("cmg_stb_study_study_description") }}'
+    description: 'Brief description of the study (2-4 sentences)'
     tests:
     - not_null
   - name: website
-    description: '{{ doc("cmg_stb_study_website") }}'
+    description: 'Website with more information about this entity.'
     tests:
     - valid_http_uri
+    - valid_uri_format
   - name: acknowledgments
-    description: '{{ doc("cmg_stb_study_acknowledgments") }}'
+    description: 'Funding statement and acknowledgments for this study'
   - name: citation_statement
-    description: '{{ doc("cmg_stb_study_citation_statement") }}'
+    description: 'Statement that secondary data users should use to acknowledge use
+      of this study or dataset. E.g., "The results analyzed and <published or shown>
+      here are based in whole or in part upon data generated by the INCLUDE (INvestigation
+      of Co-occurring conditions across the Lifespan to Understand Down syndromeE)
+      Project <insert accession number(s) and/or study DOI(s)>, and were accessed
+      from the INCLUDE Data Hub and <insert other database(s)>."'
   - name: do_id
-    description: '{{ doc("cmg_stb_study_do_id") }}'
+    description: 'Digital Object Identifier (DOI) for this Record.'
     tests:
     - relationships:
         arguments:
@@ -836,7 +873,8 @@ models:
           field: '"do_id"'
           column_name: '"do_id"'
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_study_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -845,15 +883,15 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_study_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - unique
 - name: cmg_stb_publication_external_id
-  description: Model for cmg_stb_publication_external_id.
+  description: Linking table generated for a multivalued slot on Publication.
   columns:
   - name: publication_id
-    description: '{{ doc("cmg_stb_publication_external_id_publication_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -862,7 +900,8 @@ models:
           field: '"id"'
           column_name: '"Publication_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_publication_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -873,7 +912,7 @@ models:
         - '"Publication_id"'
         - '"external_id"'
 - name: cmg_stb_conceptrelationship
-  description: Model for cmg_stb_conceptrelationship.
+  description: Relationships between two terms.
   columns:
   - name: id
     description: '{{ doc("cmg_stb_conceptrelationship_id") }}'
@@ -881,31 +920,42 @@ models:
     - not_null
     - unique
   - name: concept_curie
-    description: '{{ doc("cmg_stb_conceptrelationship_concept_curie") }}'
+    description: 'The standardized curie for the term.'
     tests:
     - relationships:
         arguments:
           to: ref('cmg_stb_concept')
           field: '"concept_curie"'
           column_name: '"concept_curie"'
+    - relationships:
+        arguments:
+          to: source('acr_harmonized_data_model', 'concept')
+          field: '"concept_curie"'
+          column_name: '"concept_curie"'
   - name: target_concept_curie
-    description: '{{ doc("cmg_stb_conceptrelationship_target_concept_curie") }}'
+    description: 'The concept to which this term relates'
     tests:
     - relationships:
         arguments:
           to: ref('cmg_stb_concept')
           field: '"concept_curie"'
           column_name: '"target_concept_curie"'
+    - relationships:
+        arguments:
+          to: source('acr_harmonized_data_model', 'concept')
+          field: '"concept_curie"'
+          column_name: '"target_concept_curie"'
   - name: relationship_curie
-    description: '{{ doc("cmg_stb_conceptrelationship_relationship_curie") }}'
+    description: 'The relationship between the subject (this term) and the object
+      (target_concept_id).'
     tests:
     - uri_or_curie_format
 - name: cmg_stb_familymembership_external_id
-  description: Model for cmg_stb_familymembership_external_id.
+  description: Linking table generated for a multivalued slot on 
+    FamilyMembership.
   columns:
   - name: familymembership_family_membership_id
-    description: '{{ doc("cmg_stb_familymembership_external_id_familymembersh_ea261b13")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -914,7 +964,8 @@ models:
           field: '"family_membership_id"'
           column_name: '"FamilyMembership_family_membership_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_familymembership_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -925,7 +976,7 @@ models:
         - '"FamilyMembership_family_membership_id"'
         - '"external_id"'
 - name: cmg_stb_publication
-  description: Model for cmg_stb_publication.
+  description: Information about a specific publication.
   columns:
   - name: id
     description: '{{ doc("cmg_stb_publication_id") }}'
@@ -933,13 +984,15 @@ models:
     - not_null
     - unique
   - name: bibliographic_reference
-    description: '{{ doc("cmg_stb_publication_bibliographic_reference") }}'
+    description: 'Text use to reference this Record.'
   - name: website
-    description: '{{ doc("cmg_stb_publication_website") }}'
+    description: 'Website with more information about this entity.'
     tests:
     - valid_http_uri
+    - valid_uri_format
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_publication_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -948,7 +1001,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_publication_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -957,10 +1010,10 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_study_funding_source
-  description: Model for cmg_stb_study_funding_source.
+  description: Linking table generated for a multivalued slot on Study.
   columns:
   - name: study_study_id
-    description: '{{ doc("cmg_stb_study_funding_source_study_study_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -969,7 +1022,7 @@ models:
           field: '"study_id"'
           column_name: '"Study_study_id"'
   - name: funding_source
-    description: '{{ doc("cmg_stb_study_funding_source_funding_source") }}'
+    description: 'The funding source(s) of the study.'
     tests:
     - not_null
   tests:
@@ -979,10 +1032,11 @@ models:
         - '"Study_study_id"'
         - '"funding_source"'
 - name: cmg_stb_studymetadata
-  description: Model for cmg_stb_studymetadata.
+  description: Additional features about studies that may not apply to all 
+    studies
   columns:
   - name: study_id
-    description: '{{ doc("cmg_stb_studymetadata_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - unique
@@ -992,9 +1046,10 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
   - name: selection_criteria
-    description: '{{ doc("cmg_stb_studymetadata_selection_criteria") }}'
+    description: 'Brief description of inclusion and/or exclusion criteria for the
+      study'
   - name: vbr_id
-    description: '{{ doc("cmg_stb_studymetadata_vbr_id") }}'
+    description: 'Information about the study''s Virtual Biorepository, if participating'
     tests:
     - relationships:
         arguments:
@@ -1002,16 +1057,16 @@ models:
           field: '"vbr_id"'
           column_name: '"vbr_id"'
   - name: expected_number_of_participants
-    description: '{{ doc("cmg_stb_studymetadata_expected_number_of_participants")
-      }}'
+    description: 'Total expected number of participants to be recruited.'
     tests:
     - not_null
   - name: actual_number_of_participants
-    description: '{{ doc("cmg_stb_studymetadata_actual_number_of_participants") }}'
+    description: 'Total participants included at this time.'
     tests:
     - not_null
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_studymetadata_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -1020,11 +1075,10 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
 - name: cmg_stb_studymetadata_external_id
-  description: Model for cmg_stb_studymetadata_external_id.
+  description: Linking table generated for a multivalued slot on StudyMetadata.
   columns:
   - name: studymetadata_study_id
-    description: '{{ doc("cmg_stb_studymetadata_external_id_studymetadata_study_id")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -1033,7 +1087,8 @@ models:
           field: '"study_id"'
           column_name: '"StudyMetadata_study_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_studymetadata_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -1044,25 +1099,27 @@ models:
         - '"StudyMetadata_study_id"'
         - '"external_id"'
 - name: cmg_stb_file
-  description: Model for cmg_stb_file.
+  description: File
   columns:
   - name: file_id
-    description: '{{ doc("cmg_stb_file_file_id") }}'
+    description: 'Unique identifier for this File.'
     tests:
     - not_null
     - unique
   - name: filename
-    description: '{{ doc("cmg_stb_file_filename") }}'
+    description: 'The name of the file.'
   - name: file_extension
-    description: '{{ doc("cmg_stb_file_file_extension") }}'
+    description: 'Typically a 3-4 letter code at the end of a filename that identifies
+      the file format. Empty string for no extension.'
     tests:
     - not_null
   - name: data_category
-    description: '{{ doc("cmg_stb_file_data_category") }}'
+    description: 'General category of data in this Record (e.g. Clinical, Genomics,
+      etc)'
     tests:
     - curie_format
   - name: data_type
-    description: '{{ doc("cmg_stb_file_data_type") }}'
+    description: 'The type of data within this file.'
     tests:
     - accepted_values:
         arguments:
@@ -2017,7 +2074,7 @@ models:
           - edam:data_4040
           - edam:data_4075
   - name: format
-    description: '{{ doc("cmg_stb_file_format") }}'
+    description: 'The format of the file.'
     tests:
     - accepted_values:
         arguments:
@@ -2655,23 +2712,23 @@ models:
           - edam:format_4072
           - edam:format_4073
   - name: size
-    description: '{{ doc("cmg_stb_file_size") }}'
+    description: 'Size of the file, in Bytes. May require BigInt or similar.'
   - name: internal_uri
-    description: '{{ doc("cmg_stb_file_internal_uri") }}'
+    description: 'URI/URL for internal access to the data. May be temporary.'
     tests:
     - uri_or_curie_format
   - name: release_uri
-    description: '{{ doc("cmg_stb_file_release_uri") }}'
+    description: 'URI/URL for controlled or open access to the data.'
     tests:
     - uri_or_curie_format
   - name: drs_uri
-    description: '{{ doc("cmg_stb_file_drs_uri") }}'
+    description: 'DRS location to access the data.'
     tests:
     - uri_or_curie_format
   - name: storage_class
-    description: '{{ doc("cmg_stb_file_storage_class") }}'
+    description: 'Storage class of the object, reflecting cost and access characteristics.'
   - name: availability
-    description: '{{ doc("cmg_stb_file_availability") }}'
+    description: 'Is or was this file available to users?'
     tests:
     - accepted_values:
         arguments:
@@ -2679,7 +2736,8 @@ models:
           - snomedct:103328004
           - snomedct:103329007
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_file_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -2688,7 +2746,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_file_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -2697,10 +2755,10 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_investigator_external_id
-  description: Model for cmg_stb_investigator_external_id.
+  description: Linking table generated for a multivalued slot on Investigator.
   columns:
   - name: investigator_id
-    description: '{{ doc("cmg_stb_investigator_external_id_investigator_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -2709,7 +2767,8 @@ models:
           field: '"id"'
           column_name: '"Investigator_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_investigator_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -2720,15 +2779,16 @@ models:
         - '"Investigator_id"'
         - '"external_id"'
 - name: cmg_stb_assay
-  description: Model for cmg_stb_assay.
+  description: A specific assay that was performed on given subject(s) or 
+    sample(s).
   columns:
   - name: assay_id
-    description: '{{ doc("cmg_stb_assay_assay_id") }}'
+    description: 'The unique identifier for the Assay.'
     tests:
     - not_null
     - unique
   - name: assay_type
-    description: '{{ doc("cmg_stb_assay_assay_type") }}'
+    description: 'The type of assay performed.'
     tests:
     - not_null
     - accepted_values:
@@ -4538,9 +4598,9 @@ models:
           - OBI:2100402
           - OBI:9999994
   - name: assay_source
-    description: '{{ doc("cmg_stb_assay_assay_source") }}'
+    description: 'The original description of the Assay performed.'
   - name: activity_definition_id
-    description: '{{ doc("cmg_stb_assay_activity_definition_id") }}'
+    description: 'Unique identifier for this Activity Definition.'
     tests:
     - relationships:
         arguments:
@@ -4548,7 +4608,8 @@ models:
           field: '"activity_definition_id"'
           column_name: '"activity_definition_id"'
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_assay_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -4557,7 +4618,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_assay_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -4566,10 +4627,10 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_study_principal_investigator
-  description: Model for cmg_stb_study_principal_investigator.
+  description: Linking table generated for a multivalued slot on Study.
   columns:
   - name: study_study_id
-    description: '{{ doc("cmg_stb_study_principal_investigator_study_study_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -4578,8 +4639,7 @@ models:
           field: '"study_id"'
           column_name: '"Study_study_id"'
   - name: principal_investigator_id
-    description: '{{ doc("cmg_stb_study_principal_investigator_principal_inve_23466e69")
-      }}'
+    description: 'The Principal Investigator(s) responsible for the study.'
     tests:
     - not_null
     - relationships:
@@ -4594,7 +4654,8 @@ models:
         - '"Study_study_id"'
         - '"principal_investigator_id"'
 - name: cmg_stb_investigator
-  description: Model for cmg_stb_investigator.
+  description: An individual who made contributions to the collection, analysis,
+    or sharing of data.
   columns:
   - name: id
     description: '{{ doc("cmg_stb_investigator_id") }}'
@@ -4602,15 +4663,16 @@ models:
     - not_null
     - unique
   - name: name
-    description: '{{ doc("cmg_stb_investigator_name") }}'
+    description: 'Name of the entity.'
   - name: institution
-    description: '{{ doc("cmg_stb_investigator_institution") }}'
+    description: 'Name of the institution this record is associated with.'
   - name: investigator_title
-    description: '{{ doc("cmg_stb_investigator_investigator_title") }}'
+    description: 'The title of the Investigator, eg, "Assistant Professor"'
   - name: email
-    description: '{{ doc("cmg_stb_investigator_email") }}'
+    description: 'An email address to reach the entity.'
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_investigator_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -4619,7 +4681,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_investigator_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -4628,10 +4690,11 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_subjectassertion
-  description: Model for cmg_stb_subjectassertion.
+  description: Assertion about a particular Subject. May include Conditions, 
+    Measurements, etc.
   columns:
   - name: assertion_id
-    description: '{{ doc("cmg_stb_subjectassertion_assertion_id") }}'
+    description: 'INCLUDE Global ID for the Assertion'
     tests:
     - not_null
     - unique
@@ -4642,7 +4705,7 @@ models:
           - ms-
           - ob-
   - name: subject_id
-    description: '{{ doc("cmg_stb_subjectassertion_subject_id") }}'
+    description: 'INCLUDE Global ID for the Subject'
     tests:
     - not_null
     - relationships:
@@ -4651,7 +4714,7 @@ models:
           field: '"subject_id"'
           column_name: '"subject_id"'
   - name: encounter_id
-    description: '{{ doc("cmg_stb_subjectassertion_encounter_id") }}'
+    description: 'Unique identifier for this Encounter.'
     tests:
     - relationships:
         arguments:
@@ -4659,7 +4722,7 @@ models:
           field: '"encounter_id"'
           column_name: '"encounter_id"'
   - name: asserter_type
-    description: '{{ doc("cmg_stb_subjectassertion_asserter_type") }}'
+    description: 'The original asserter of this information'
     tests:
     - accepted_values:
         arguments:
@@ -4671,7 +4734,7 @@ models:
           - CAMO:0000020
           - CAMO:0000021
   - name: assertion_source_type
-    description: '{{ doc("cmg_stb_subjectassertion_assertion_source_type") }}'
+    description: 'The source of this assertion from the original data'
     tests:
     - accepted_values:
         arguments:
@@ -4682,29 +4745,36 @@ models:
           - CAMO:0000012
           - CAMO:0000013
   - name: age_at_assertion
-    description: '{{ doc("cmg_stb_subjectassertion_age_at_assertion") }}'
+    description: 'The age in days of the Subject when the assertion was made.'
   - name: age_at_event
-    description: '{{ doc("cmg_stb_subjectassertion_age_at_event") }}'
+    description: 'The age in days of the Subject at the time point which the assertion
+      describes, eg, age of onset or when a measurement was performed.'
   - name: age_at_resolution
-    description: '{{ doc("cmg_stb_subjectassertion_age_at_resolution") }}'
+    description: 'The age in days of the Subject when the asserted state was resolved.'
   - name: concept_source
-    description: '{{ doc("cmg_stb_subjectassertion_concept_source") }}'
+    description: 'The source text yielding the standardized concept.'
   - name: value_number
-    description: '{{ doc("cmg_stb_subjectassertion_value_number") }}'
+    description: 'The numeric value of the assertion.'
   - name: value_source
-    description: '{{ doc("cmg_stb_subjectassertion_value_source") }}'
+    description: 'The source text yielding the value.'
   - name: value_unit
-    description: '{{ doc("cmg_stb_subjectassertion_value_unit") }}'
+    description: 'The structured term defining the units of the value.'
     tests:
     - relationships:
         arguments:
           to: ref('cmg_stb_concept')
           field: '"concept_curie"'
           column_name: '"value_unit"'
+    - relationships:
+        arguments:
+          to: source('acr_harmonized_data_model', 'concept')
+          field: '"concept_curie"'
+          column_name: '"value_unit"'
   - name: value_unit_source
-    description: '{{ doc("cmg_stb_subjectassertion_value_unit_source") }}'
+    description: 'The source text yielding the value''s units.'
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_subjectassertion_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -4713,7 +4783,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_subjectassertion_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -4722,10 +4792,10 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_sample_storage_method
-  description: Model for cmg_stb_sample_storage_method.
+  description: Linking table generated for a multivalued slot on Sample.
   columns:
   - name: sample_sample_id
-    description: '{{ doc("cmg_stb_sample_storage_method_sample_sample_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -4734,7 +4804,8 @@ models:
           field: '"sample_id"'
           column_name: '"Sample_sample_id"'
   - name: storage_method
-    description: '{{ doc("cmg_stb_sample_storage_method_storage_method") }}'
+    description: 'Sample storage method, eg, Frozen or with additives. OBI may be
+      suitable, or ChEBI for additives.'
     tests:
     - not_null
     - uri_or_curie_format
@@ -4745,19 +4816,20 @@ models:
         - '"Sample_sample_id"'
         - '"storage_method"'
 - name: cmg_stb_accesspolicy
-  description: Model for cmg_stb_accesspolicy.
+  description: The access policy that describes the controls around use of data
   columns:
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_accesspolicy_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - unique
   - name: data_use_accession
-    description: '{{ doc("cmg_stb_accesspolicy_data_use_accession") }}'
+    description: 'Accession used to provision access to the record, eg, a dbGaP phsID.'
     tests:
     - uri_or_curie_format
   - name: data_use_permission
-    description: '{{ doc("cmg_stb_accesspolicy_data_use_permission") }}'
+    description: 'Broad category of restrictions on data use.'
     tests:
     - not_null
     - accepted_values:
@@ -4769,7 +4841,7 @@ models:
           - DUO:0000011
           - DUO:0000042
   - name: data_use_modifier
-    description: '{{ doc("cmg_stb_accesspolicy_data_use_modifier") }}'
+    description: 'Additional modifiers that limit data use.'
     tests:
     - accepted_values:
         arguments:
@@ -4793,27 +4865,33 @@ models:
           - DUO:0000045
           - DUO:0000046
   - name: disease_limitation
-    description: '{{ doc("cmg_stb_accesspolicy_disease_limitation") }}'
+    description: 'If the access is limited to a specific disease purpose, it is specified
+      here.'
   - name: access_description
-    description: '{{ doc("cmg_stb_accesspolicy_access_description") }}'
+    description: 'Any additional information to support access requests.'
   - name: website
-    description: '{{ doc("cmg_stb_accesspolicy_website") }}'
+    description: 'Website with more information about this entity.'
     tests:
     - valid_http_uri
+    - valid_uri_format
 - name: cmg_stb_encounterdefinition
-  description: Model for cmg_stb_encounterdefinition.
+  description: A definition of an encounter type in this study, ie, an event at 
+    which data was collected about a participant, an intervention was made, or 
+    information about a participant was recorded. This may be something planned 
+    by a study or a type of data collection.
   columns:
   - name: encounter_definition_id
-    description: '{{ doc("cmg_stb_encounterdefinition_encounter_definition_id") }}'
+    description: 'Unique identifier for this Encounter Definition.'
     tests:
     - not_null
     - unique
   - name: name
-    description: '{{ doc("cmg_stb_encounterdefinition_name") }}'
+    description: 'Name of the entity.'
   - name: description
-    description: '{{ doc("cmg_stb_encounterdefinition_description") }}'
+    description: 'Description for this entity.'
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_encounterdefinition_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -4822,7 +4900,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_encounterdefinition_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -4831,10 +4909,10 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_subject_external_id
-  description: Model for cmg_stb_subject_external_id.
+  description: Linking table generated for a multivalued slot on Subject.
   columns:
   - name: subject_subject_id
-    description: '{{ doc("cmg_stb_subject_external_id_subject_subject_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -4843,7 +4921,8 @@ models:
           field: '"subject_id"'
           column_name: '"Subject_subject_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_subject_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -4854,7 +4933,7 @@ models:
         - '"Subject_subject_id"'
         - '"external_id"'
 - name: cmg_stb_any
-  description: Model for cmg_stb_any.
+  description: Table for Any
   columns:
   - name: id
     description: '{{ doc("cmg_stb_any_id") }}'
@@ -4862,10 +4941,10 @@ models:
     - not_null
     - unique
 - name: cmg_stb_assay_subject_id
-  description: Model for cmg_stb_assay_subject_id.
+  description: Linking table generated for a multivalued slot on Assay.
   columns:
   - name: assay_assay_id
-    description: '{{ doc("cmg_stb_assay_subject_id_assay_assay_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -4874,7 +4953,7 @@ models:
           field: '"assay_id"'
           column_name: '"Assay_assay_id"'
   - name: subject_id_subject_id
-    description: '{{ doc("cmg_stb_assay_subject_id_subject_id_subject_id") }}'
+    description: 'INCLUDE Global ID for the Subject'
     tests:
     - not_null
     - relationships:
@@ -4889,15 +4968,17 @@ models:
         - '"Assay_assay_id"'
         - '"subject_id_subject_id"'
 - name: cmg_stb_person
-  description: Model for cmg_stb_person.
+  description: Links Subjects across study contexts. All Subjects in a given 
+    person record are known to be the same individual.
   columns:
   - name: person_id
-    description: '{{ doc("cmg_stb_person_person_id") }}'
+    description: 'Global ID for the Person record'
     tests:
     - not_null
     - unique
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_person_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -4906,7 +4987,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_person_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -4915,15 +4996,16 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_aliquot
-  description: Model for cmg_stb_aliquot.
+  description: A specific tube or amount of a biospecimen associated with a 
+    Sample.
   columns:
   - name: aliquot_id
-    description: '{{ doc("cmg_stb_aliquot_aliquot_id") }}'
+    description: 'Unique identifier for an Aliquot.'
     tests:
     - not_null
     - unique
   - name: sample_id
-    description: '{{ doc("cmg_stb_aliquot_sample_id") }}'
+    description: 'The unique identifier for this Sample.'
     tests:
     - not_null
     - relationships:
@@ -4932,7 +5014,7 @@ models:
           field: '"sample_id"'
           column_name: '"sample_id"'
   - name: availability_status
-    description: '{{ doc("cmg_stb_aliquot_availability_status") }}'
+    description: 'Can this Sample be requested for further analysis?'
     tests:
     - accepted_values:
         arguments:
@@ -4940,27 +5022,38 @@ models:
           - snomedct:103328004
           - snomedct:103329007
   - name: quantity_number
-    description: '{{ doc("cmg_stb_aliquot_quantity_number") }}'
+    description: 'The total quantity of the specimen'
   - name: quantity_unit
-    description: '{{ doc("cmg_stb_aliquot_quantity_unit") }}'
+    description: 'The structured term defining the units of the quantity.'
     tests:
     - relationships:
         arguments:
           to: ref('cmg_stb_concept')
           field: '"concept_curie"'
           column_name: '"quantity_unit"'
+    - relationships:
+        arguments:
+          to: source('acr_harmonized_data_model', 'concept')
+          field: '"concept_curie"'
+          column_name: '"quantity_unit"'
   - name: concentration_number
-    description: '{{ doc("cmg_stb_aliquot_concentration_number") }}'
+    description: 'What is the concentration of the analyte in the Aliquot?'
   - name: concentration_unit
-    description: '{{ doc("cmg_stb_aliquot_concentration_unit") }}'
+    description: 'Units associated with the concentration of the analyte in the Aliquot.'
     tests:
     - relationships:
         arguments:
           to: ref('cmg_stb_concept')
           field: '"concept_curie"'
           column_name: '"concentration_unit"'
+    - relationships:
+        arguments:
+          to: source('acr_harmonized_data_model', 'concept')
+          field: '"concept_curie"'
+          column_name: '"concentration_unit"'
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_aliquot_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -4969,7 +5062,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_aliquot_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -4978,10 +5071,10 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_study_program
-  description: Model for cmg_stb_study_program.
+  description: Linking table generated for a multivalued slot on Study.
   columns:
   - name: study_study_id
-    description: '{{ doc("cmg_stb_study_program_study_study_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -4990,7 +5083,7 @@ models:
           field: '"study_id"'
           column_name: '"Study_study_id"'
   - name: program
-    description: '{{ doc("cmg_stb_study_program_program") }}'
+    description: 'Funding source(s) for the study'
     tests:
     - not_null
     - uri_or_curie_format
@@ -5001,10 +5094,10 @@ models:
         - '"Study_study_id"'
         - '"program"'
 - name: cmg_stb_dataset_external_id
-  description: Model for cmg_stb_dataset_external_id.
+  description: Linking table generated for a multivalued slot on Dataset.
   columns:
   - name: dataset_dataset_id
-    description: '{{ doc("cmg_stb_dataset_external_id_dataset_dataset_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5013,7 +5106,8 @@ models:
           field: '"dataset_id"'
           column_name: '"Dataset_dataset_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_dataset_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -5024,7 +5118,7 @@ models:
         - '"Dataset_dataset_id"'
         - '"external_id"'
 - name: cmg_stb_hashdigest
-  description: Model for cmg_stb_hashdigest.
+  description: Type and value of a file content hash.
   columns:
   - name: id
     description: '{{ doc("cmg_stb_hashdigest_id") }}'
@@ -5032,7 +5126,7 @@ models:
     - not_null
     - unique
   - name: hash_type
-    description: '{{ doc("cmg_stb_hashdigest_hash_type") }}'
+    description: 'The type of file hash, eg, md5'
     tests:
     - accepted_values:
         arguments:
@@ -5042,17 +5136,18 @@ models:
           - MS:1000569
           - MS:1003151
   - name: hash_value
-    description: '{{ doc("cmg_stb_hashdigest_hash_value") }}'
+    description: 'The value of the file hash'
 - name: cmg_stb_familymembership
-  description: Model for cmg_stb_familymembership.
+  description: Designates a Subject as a member of a family with a specified 
+    role.
   columns:
   - name: family_membership_id
-    description: '{{ doc("cmg_stb_familymembership_family_membership_id") }}'
+    description: 'ID for the Family Relationship'
     tests:
     - not_null
     - unique
   - name: family_id
-    description: '{{ doc("cmg_stb_familymembership_family_id") }}'
+    description: 'Global ID for the Family'
     tests:
     - not_null
     - relationships:
@@ -5061,7 +5156,7 @@ models:
           field: '"family_id"'
           column_name: '"family_id"'
   - name: subject_id
-    description: '{{ doc("cmg_stb_familymembership_subject_id") }}'
+    description: 'INCLUDE Global ID for the Subject'
     tests:
     - not_null
     - relationships:
@@ -5070,11 +5165,13 @@ models:
           field: '"subject_id"'
           column_name: '"subject_id"'
   - name: family_role
-    description: '{{ doc("cmg_stb_familymembership_family_role") }}'
+    description: 'The "role" of this individual in this family. Could include terms
+      like "proband", "mother", etc.'
     tests:
     - curie_format
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_familymembership_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -5083,7 +5180,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_familymembership_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -5092,11 +5189,10 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_studymetadata_research_domain
-  description: Model for cmg_stb_studymetadata_research_domain.
+  description: Linking table generated for a multivalued slot on StudyMetadata.
   columns:
   - name: studymetadata_study_id
-    description: '{{ doc("cmg_stb_studymetadata_research_domain_studymetadata_study_id")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5105,8 +5201,7 @@ models:
           field: '"study_id"'
           column_name: '"StudyMetadata_study_id"'
   - name: research_domain_concept_curie
-    description: '{{ doc("cmg_stb_studymetadata_research_domain_research_doma_ab404b4b")
-      }}'
+    description: 'Main research domain(s) of the study'
     tests:
     - not_null
     - curie_format
@@ -5117,11 +5212,10 @@ models:
         - '"StudyMetadata_study_id"'
         - '"research_domain_concept_curie"'
 - name: cmg_stb_studymetadata_study_design
-  description: Model for cmg_stb_studymetadata_study_design.
+  description: Linking table generated for a multivalued slot on StudyMetadata.
   columns:
   - name: studymetadata_study_id
-    description: '{{ doc("cmg_stb_studymetadata_study_design_studymetadata_study_id")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5130,8 +5224,8 @@ models:
           field: '"study_id"'
           column_name: '"StudyMetadata_study_id"'
   - name: study_design_concept_curie
-    description: '{{ doc("cmg_stb_studymetadata_study_design_study_design_con_5b4e43ef")
-      }}'
+    description: 'Overall design of study, including whether it is longitudinal and
+      whether family members/unrelated controls are also enrolled'
     tests:
     - not_null
     - curie_format
@@ -5142,10 +5236,10 @@ models:
         - '"StudyMetadata_study_id"'
         - '"study_design_concept_curie"'
 - name: cmg_stb_assay_external_id
-  description: Model for cmg_stb_assay_external_id.
+  description: Linking table generated for a multivalued slot on Assay.
   columns:
   - name: assay_assay_id
-    description: '{{ doc("cmg_stb_assay_external_id_assay_assay_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5154,7 +5248,8 @@ models:
           field: '"assay_id"'
           column_name: '"Assay_assay_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_assay_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -5165,10 +5260,10 @@ models:
         - '"Assay_assay_id"'
         - '"external_id"'
 - name: cmg_stb_assay_sample_id
-  description: Model for cmg_stb_assay_sample_id.
+  description: Linking table generated for a multivalued slot on Assay.
   columns:
   - name: assay_assay_id
-    description: '{{ doc("cmg_stb_assay_sample_id_assay_assay_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5177,7 +5272,7 @@ models:
           field: '"assay_id"'
           column_name: '"Assay_assay_id"'
   - name: sample_id_sample_id
-    description: '{{ doc("cmg_stb_assay_sample_id_sample_id_sample_id") }}'
+    description: 'The unique identifier for this Sample.'
     tests:
     - not_null
     - relationships:
@@ -5192,10 +5287,10 @@ models:
         - '"Assay_assay_id"'
         - '"sample_id_sample_id"'
 - name: cmg_stb_demographics
-  description: Model for cmg_stb_demographics.
+  description: Basic participant demographics summary
   columns:
   - name: subject_id
-    description: '{{ doc("cmg_stb_demographics_subject_id") }}'
+    description: 'INCLUDE Global ID for the Subject'
     tests:
     - not_null
     - unique
@@ -5205,7 +5300,7 @@ models:
           field: '"subject_id"'
           column_name: '"subject_id"'
   - name: sex
-    description: '{{ doc("cmg_stb_demographics_sex") }}'
+    description: 'Sex of Participant'
     tests:
     - not_null
     - accepted_values:
@@ -5216,7 +5311,7 @@ models:
           - snomedct:261665006
           - snomedct:74964007
   - name: ethnicity
-    description: '{{ doc("cmg_stb_demographics_ethnicity") }}'
+    description: 'Ethnicity of Participant'
     tests:
     - not_null
     - accepted_values:
@@ -5227,9 +5322,9 @@ models:
           - snomedct:261665006
           - snomedct:74964007
   - name: age_at_last_vital_status
-    description: '{{ doc("cmg_stb_demographics_age_at_last_vital_status") }}'
+    description: 'Age in days when participant''s vital status was last recorded'
   - name: vital_status
-    description: '{{ doc("cmg_stb_demographics_vital_status") }}'
+    description: 'Whether participant is alive or dead'
     tests:
     - accepted_values:
         arguments:
@@ -5238,9 +5333,12 @@ models:
           - snomedct:438949009
           - snomedct:261665006
   - name: age_at_first_engagement
-    description: '{{ doc("cmg_stb_demographics_age_at_first_engagement") }}'
+    description: 'Age in days of Participant at first recorded study event (enrollment,
+      visit, observation, sample collection, survey completion, etc.). Age at enrollment
+      is preferred, if available.'
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_demographics_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -5249,7 +5347,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_demographics_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -5258,19 +5356,19 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_dataset
-  description: Model for cmg_stb_dataset.
+  description: Set of files grouped together for release.
   columns:
   - name: dataset_id
-    description: '{{ doc("cmg_stb_dataset_dataset_id") }}'
+    description: 'Unique identifier for a Dataset.'
     tests:
     - not_null
     - unique
   - name: name
-    description: '{{ doc("cmg_stb_dataset_name") }}'
+    description: 'Name of the entity.'
   - name: description
-    description: '{{ doc("cmg_stb_dataset_description") }}'
+    description: 'Description for this entity.'
   - name: do_id
-    description: '{{ doc("cmg_stb_dataset_do_id") }}'
+    description: 'Digital Object Identifier (DOI) for this Record.'
     tests:
     - relationships:
         arguments:
@@ -5278,11 +5376,12 @@ models:
           field: '"do_id"'
           column_name: '"do_id"'
   - name: data_collection_start
-    description: '{{ doc("cmg_stb_dataset_data_collection_start") }}'
+    description: 'The date that data collection started. May include only a year.'
   - name: data_collection_end
-    description: '{{ doc("cmg_stb_dataset_data_collection_end") }}'
+    description: 'The date that data collection started. May include only a year.'
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_dataset_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -5291,7 +5390,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_dataset_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -5300,11 +5399,10 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_studymetadata_data_category
-  description: Model for cmg_stb_studymetadata_data_category.
+  description: Linking table generated for a multivalued slot on StudyMetadata.
   columns:
   - name: studymetadata_study_id
-    description: '{{ doc("cmg_stb_studymetadata_data_category_studymetadata_study_id")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5313,8 +5411,8 @@ models:
           field: '"study_id"'
           column_name: '"StudyMetadata_study_id"'
   - name: data_category_concept_curie
-    description: '{{ doc("cmg_stb_studymetadata_data_category_data_category_c_9869bf99")
-      }}'
+    description: 'General category of data in this Record (e.g. Clinical, Genomics,
+      etc)'
     tests:
     - not_null
     - curie_format
@@ -5325,15 +5423,16 @@ models:
         - '"StudyMetadata_study_id"'
         - '"data_category_concept_curie"'
 - name: cmg_stb_family
-  description: Model for cmg_stb_family.
+  description: A group of individuals of some relation who are grouped together 
+    in a study.
   columns:
   - name: family_id
-    description: '{{ doc("cmg_stb_family_family_id") }}'
+    description: 'Global ID for the Family'
     tests:
     - not_null
     - unique
   - name: family_type
-    description: '{{ doc("cmg_stb_family_family_type") }}'
+    description: 'Describes the ''type'' of study family, eg, trio.'
     tests:
     - accepted_values:
         arguments:
@@ -5346,9 +5445,10 @@ models:
           - CAMO:0000007
           - CAMO:0000008
   - name: family_description
-    description: '{{ doc("cmg_stb_family_family_description") }}'
+    description: 'Free text describing the study family, such as potential inheritance
+      or details about consanguinity'
   - name: consanguinity
-    description: '{{ doc("cmg_stb_family_consanguinity") }}'
+    description: 'Is there known or suspected consanguinity in this study family?'
     tests:
     - accepted_values:
         arguments:
@@ -5365,11 +5465,12 @@ models:
           - snomedct:428263003
           - snomedct:723511001
   - name: family_study_focus
-    description: '{{ doc("cmg_stb_family_family_study_focus") }}'
+    description: 'The specific focus of the investigation, eg, a condition.'
     tests:
     - uri_or_curie_format
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_family_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -5378,7 +5479,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_family_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -5387,11 +5488,11 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_biospecimencollection_external_id
-  description: Model for cmg_stb_biospecimencollection_external_id.
+  description: Linking table generated for a multivalued slot on 
+    BiospecimenCollection.
   columns:
   - name: biospecimencollection_biospecimen_collection_id
-    description: '{{ doc("cmg_stb_biospecimencollection_external_id_biospecim_b5c14341")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5400,8 +5501,8 @@ models:
           field: '"biospecimen_collection_id"'
           column_name: '"BiospecimenCollection_biospecimen_collection_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_biospecimencollection_external_id_external_id")
-      }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -5412,10 +5513,10 @@ models:
         - '"BiospecimenCollection_biospecimen_collection_id"'
         - '"external_id"'
 - name: cmg_stb_dataset_file_id
-  description: Model for cmg_stb_dataset_file_id.
+  description: Linking table generated for a multivalued slot on Dataset.
   columns:
   - name: dataset_dataset_id
-    description: '{{ doc("cmg_stb_dataset_file_id_dataset_dataset_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5424,7 +5525,7 @@ models:
           field: '"dataset_id"'
           column_name: '"Dataset_dataset_id"'
   - name: file_id_file_id
-    description: '{{ doc("cmg_stb_dataset_file_id_file_id_file_id") }}'
+    description: 'The list of files comprising this dataset.'
     tests:
     - not_null
     - relationships:
@@ -5439,10 +5540,10 @@ models:
         - '"Dataset_dataset_id"'
         - '"file_id_file_id"'
 - name: cmg_stb_person_external_id
-  description: Model for cmg_stb_person_external_id.
+  description: Linking table generated for a multivalued slot on Person.
   columns:
   - name: person_person_id
-    description: '{{ doc("cmg_stb_person_external_id_person_person_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5451,7 +5552,8 @@ models:
           field: '"person_id"'
           column_name: '"Person_person_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_person_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -5462,10 +5564,10 @@ models:
         - '"Person_person_id"'
         - '"external_id"'
 - name: cmg_stb_study_publication
-  description: Model for cmg_stb_study_publication.
+  description: Linking table generated for a multivalued slot on Study.
   columns:
   - name: study_study_id
-    description: '{{ doc("cmg_stb_study_publication_study_study_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5474,7 +5576,7 @@ models:
           field: '"study_id"'
           column_name: '"Study_study_id"'
   - name: publication_id
-    description: '{{ doc("cmg_stb_study_publication_publication_id") }}'
+    description: 'Publications associated with this Record.'
     tests:
     - not_null
     - relationships:
@@ -5489,19 +5591,21 @@ models:
         - '"Study_study_id"'
         - '"publication_id"'
 - name: cmg_stb_activitydefinition
-  description: Model for cmg_stb_activitydefinition.
+  description: A definition of an activity in this study, eg, a biospecimen 
+    collection, assay, intervention, survey, or assessment.
   columns:
   - name: activity_definition_id
-    description: '{{ doc("cmg_stb_activitydefinition_activity_definition_id") }}'
+    description: 'Unique identifier for this Activity Definition.'
     tests:
     - not_null
     - unique
   - name: name
-    description: '{{ doc("cmg_stb_activitydefinition_name") }}'
+    description: 'Name of the entity.'
   - name: description
-    description: '{{ doc("cmg_stb_activitydefinition_description") }}'
+    description: 'Description for this entity.'
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_activitydefinition_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -5510,7 +5614,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_activitydefinition_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -5519,7 +5623,7 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_deprecatedconcept
-  description: Model for cmg_stb_deprecatedconcept.
+  description: Identifies concepts that are not currently valid.
   columns:
   - name: id
     description: '{{ doc("cmg_stb_deprecatedconcept_id") }}'
@@ -5527,23 +5631,27 @@ models:
     - not_null
     - unique
   - name: concept_curie
-    description: '{{ doc("cmg_stb_deprecatedconcept_concept_curie") }}'
+    description: 'The standardized curie for the term.'
     tests:
     - relationships:
         arguments:
           to: ref('cmg_stb_concept')
           field: '"concept_curie"'
           column_name: '"concept_curie"'
+    - relationships:
+        arguments:
+          to: source('acr_harmonized_data_model', 'concept')
+          field: '"concept_curie"'
+          column_name: '"concept_curie"'
   - name: deprecation_type
-    description: '{{ doc("cmg_stb_deprecatedconcept_deprecation_type") }}'
+    description: 'The type of or reason for deprecation, if known.'
   - name: replacement_curie
-    description: '{{ doc("cmg_stb_deprecatedconcept_replacement_curie") }}'
+    description: 'A replacement curie for this deprecated concept, if applicable.'
 - name: cmg_stb_studymetadata_clinical_data_source_type
-  description: Model for cmg_stb_studymetadata_clinical_data_source_type.
+  description: Linking table generated for a multivalued slot on StudyMetadata.
   columns:
   - name: studymetadata_study_id
-    description: '{{ doc("cmg_stb_studymetadata_clinical_data_source_type_stu_d3878f65")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5552,8 +5660,7 @@ models:
           field: '"study_id"'
           column_name: '"StudyMetadata_study_id"'
   - name: clinical_data_source_type
-    description: '{{ doc("cmg_stb_studymetadata_clinical_data_source_type_cli_a3e411ae")
-      }}'
+    description: 'Source(s) of data collected from study participants'
     tests:
     - not_null
     - accepted_values:
@@ -5571,11 +5678,10 @@ models:
         - '"StudyMetadata_study_id"'
         - '"clinical_data_source_type"'
 - name: cmg_stb_demographics_external_id
-  description: Model for cmg_stb_demographics_external_id.
+  description: Linking table generated for a multivalued slot on Demographics.
   columns:
   - name: demographics_subject_id
-    description: '{{ doc("cmg_stb_demographics_external_id_demographics_subject_id")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5584,7 +5690,8 @@ models:
           field: '"subject_id"'
           column_name: '"Demographics_subject_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_demographics_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -5595,10 +5702,10 @@ models:
         - '"Demographics_subject_id"'
         - '"external_id"'
 - name: cmg_stb_assay_file_id
-  description: Model for cmg_stb_assay_file_id.
+  description: Linking table generated for a multivalued slot on Assay.
   columns:
   - name: assay_assay_id
-    description: '{{ doc("cmg_stb_assay_file_id_assay_assay_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5607,7 +5714,7 @@ models:
           field: '"assay_id"'
           column_name: '"Assay_assay_id"'
   - name: file_id_file_id
-    description: '{{ doc("cmg_stb_assay_file_id_file_id_file_id") }}'
+    description: 'Unique identifier for this File.'
     tests:
     - not_null
     - relationships:
@@ -5622,11 +5729,11 @@ models:
         - '"Assay_assay_id"'
         - '"file_id_file_id"'
 - name: cmg_stb_virtualbiorepository_external_id
-  description: Model for cmg_stb_virtualbiorepository_external_id.
+  description: Linking table generated for a multivalued slot on 
+    VirtualBiorepository.
   columns:
   - name: virtualbiorepository_vbr_id
-    description: '{{ doc("cmg_stb_virtualbiorepository_external_id_virtualbio_1994eab6")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5635,7 +5742,8 @@ models:
           field: '"vbr_id"'
           column_name: '"VirtualBiorepository_vbr_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_virtualbiorepository_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -5646,11 +5754,11 @@ models:
         - '"VirtualBiorepository_vbr_id"'
         - '"external_id"'
 - name: cmg_stb_encounterdefinition_external_id
-  description: Model for cmg_stb_encounterdefinition_external_id.
+  description: Linking table generated for a multivalued slot on 
+    EncounterDefinition.
   columns:
   - name: encounterdefinition_encounter_definition_id
-    description: '{{ doc("cmg_stb_encounterdefinition_external_id_encounterde_080beb72")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5659,7 +5767,8 @@ models:
           field: '"encounter_definition_id"'
           column_name: '"EncounterDefinition_encounter_definition_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_encounterdefinition_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -5670,10 +5779,10 @@ models:
         - '"EncounterDefinition_encounter_definition_id"'
         - '"external_id"'
 - name: cmg_stb_doi_external_id
-  description: Model for cmg_stb_doi_external_id.
+  description: Linking table generated for a multivalued slot on DOI.
   columns:
   - name: doi_do_id
-    description: '{{ doc("cmg_stb_doi_external_id_doi_do_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5682,7 +5791,8 @@ models:
           field: '"do_id"'
           column_name: '"DOI_do_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_doi_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -5693,18 +5803,21 @@ models:
         - '"DOI_do_id"'
         - '"external_id"'
 - name: cmg_stb_doi
-  description: Model for cmg_stb_doi.
+  description: A DOI is a permanent reference with metadata about a digital 
+    object.
   columns:
   - name: do_id
-    description: '{{ doc("cmg_stb_doi_do_id") }}'
+    description: 'Digital Object Identifier (DOI) for this Record.'
     tests:
     - not_null
     - unique
     - valid_doi_format
+    - valid_uri_format
   - name: bibliographic_reference
-    description: '{{ doc("cmg_stb_doi_bibliographic_reference") }}'
+    description: 'Text use to reference this Record.'
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_doi_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -5713,7 +5826,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_doi_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -5722,10 +5835,10 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_file_external_id
-  description: Model for cmg_stb_file_external_id.
+  description: Linking table generated for a multivalued slot on File.
   columns:
   - name: file_file_id
-    description: '{{ doc("cmg_stb_file_external_id_file_file_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5734,7 +5847,8 @@ models:
           field: '"file_id"'
           column_name: '"File_file_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_file_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -5745,10 +5859,10 @@ models:
         - '"File_file_id"'
         - '"external_id"'
 - name: cmg_stb_sample_external_id
-  description: Model for cmg_stb_sample_external_id.
+  description: Linking table generated for a multivalued slot on Sample.
   columns:
   - name: sample_sample_id
-    description: '{{ doc("cmg_stb_sample_external_id_sample_sample_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5757,7 +5871,8 @@ models:
           field: '"sample_id"'
           column_name: '"Sample_sample_id"'
   - name: external_id
-    description: '{{ doc("cmg_stb_sample_external_id_external_id") }}'
+    description: 'Other identifiers for this entity, eg, from the submitting study
+      or in systems like dbGaP'
     tests:
     - not_null
     - uri_or_curie_format
@@ -5768,37 +5883,44 @@ models:
         - '"Sample_sample_id"'
         - '"external_id"'
 - name: cmg_stb_concept
-  description: Model for cmg_stb_concept.
+  description: A standardized concept with display information.
   columns:
   - name: concept_curie
-    description: '{{ doc("cmg_stb_concept_concept_curie") }}'
+    description: 'The standardized curie for the term.'
     tests:
     - not_null
     - unique
     - uri_or_curie_format
   - name: concept_id
-    description: '{{ doc("cmg_stb_concept_concept_id") }}'
+    description: 'The OMOP Concept ID for the term, if applicable'
   - name: vocabulary_prefix
-    description: '{{ doc("cmg_stb_concept_vocabulary_prefix") }}'
+    description: 'The authoritative namespace prefix allocated to the vocabulary.
+      Used to resolve compact identifiers (CURIEs) to their full semantic URIs or
+      FHIR system URLs.'
     tests:
     - relationships:
         arguments:
           to: ref('cmg_stb_vocabulary')
           field: '"vocabulary_prefix"'
           column_name: '"vocabulary_prefix"'
+    - relationships:
+        arguments:
+          to: source('acr_harmonized_data_model', 'vocabulary')
+          field: '"vocabulary_prefix"'
+          column_name: '"vocabulary_prefix"'
   - name: concept_code
-    description: '{{ doc("cmg_stb_concept_concept_code") }}'
+    description: 'Identifier as it is defined within the ontology'
     tests:
     - not_null
   - name: display
-    description: '{{ doc("cmg_stb_concept_display") }}'
+    description: 'The friendly display string of the coded term.'
   - name: definition
-    description: '{{ doc("cmg_stb_concept_definition") }}'
+    description: 'Detailed definition or description for the term'
 - name: cmg_stb_demographics_race
-  description: Model for cmg_stb_demographics_race.
+  description: Linking table generated for a multivalued slot on Demographics.
   columns:
   - name: demographics_subject_id
-    description: '{{ doc("cmg_stb_demographics_race_demographics_subject_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5807,7 +5929,7 @@ models:
           field: '"subject_id"'
           column_name: '"Demographics_subject_id"'
   - name: race_concept_curie
-    description: '{{ doc("cmg_stb_demographics_race_race_concept_curie") }}'
+    description: 'Race of Participant'
     tests:
     - not_null
     - accepted_values:
@@ -5828,11 +5950,10 @@ models:
         - '"Demographics_subject_id"'
         - '"race_concept_curie"'
 - name: cmg_stb_studymetadata_participant_lifespan_stage
-  description: Model for cmg_stb_studymetadata_participant_lifespan_stage.
+  description: Linking table generated for a multivalued slot on StudyMetadata.
   columns:
   - name: studymetadata_study_id
-    description: '{{ doc("cmg_stb_studymetadata_participant_lifespan_stage_st_a00ea2cd")
-      }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -5841,8 +5962,7 @@ models:
           field: '"study_id"'
           column_name: '"StudyMetadata_study_id"'
   - name: participant_lifespan_stage
-    description: '{{ doc("cmg_stb_studymetadata_participant_lifespan_stage_pa_53f03172")
-      }}'
+    description: 'Focus age group(s) of the study population'
     tests:
     - not_null
     - accepted_values:
@@ -5873,15 +5993,16 @@ models:
         - '"StudyMetadata_study_id"'
         - '"participant_lifespan_stage"'
 - name: cmg_stb_sample
-  description: Model for cmg_stb_sample.
+  description: A functionally equivalent specimen taken from a participant or 
+    processed from such a sample.
   columns:
   - name: sample_id
-    description: '{{ doc("cmg_stb_sample_sample_id") }}'
+    description: 'The unique identifier for this Sample.'
     tests:
     - not_null
     - unique
   - name: biospecimen_collection_id
-    description: '{{ doc("cmg_stb_sample_biospecimen_collection_id") }}'
+    description: 'Biospecimen Collection during which this sample was generated.'
     tests:
     - relationships:
         arguments:
@@ -5889,7 +6010,7 @@ models:
           field: '"biospecimen_collection_id"'
           column_name: '"biospecimen_collection_id"'
   - name: parent_sample_id
-    description: '{{ doc("cmg_stb_sample_parent_sample_id") }}'
+    description: 'Sample from which this sample is derived'
     tests:
     - relationships:
         arguments:
@@ -5897,12 +6018,12 @@ models:
           field: '"sample_id"'
           column_name: '"parent_sample_id"'
   - name: sample_type
-    description: '{{ doc("cmg_stb_sample_sample_type") }}'
+    description: 'Type of material of which this Sample is comprised. UBERON is recommended.'
     tests:
     - not_null
     - uri_or_curie_format
   - name: subject_id
-    description: '{{ doc("cmg_stb_sample_subject_id") }}'
+    description: 'INCLUDE Global ID for the Subject'
     tests:
     - not_null
     - relationships:
@@ -5911,7 +6032,7 @@ models:
           field: '"subject_id"'
           column_name: '"subject_id"'
   - name: availability_status
-    description: '{{ doc("cmg_stb_sample_availability_status") }}'
+    description: 'Can this Sample be requested for further analysis?'
     tests:
     - accepted_values:
         arguments:
@@ -5919,17 +6040,23 @@ models:
           - snomedct:103328004
           - snomedct:103329007
   - name: quantity_number
-    description: '{{ doc("cmg_stb_sample_quantity_number") }}'
+    description: 'The total quantity of the specimen'
   - name: quantity_unit
-    description: '{{ doc("cmg_stb_sample_quantity_unit") }}'
+    description: 'The structured term defining the units of the quantity.'
     tests:
     - relationships:
         arguments:
           to: ref('cmg_stb_concept')
           field: '"concept_curie"'
           column_name: '"quantity_unit"'
+    - relationships:
+        arguments:
+          to: source('acr_harmonized_data_model', 'concept')
+          field: '"concept_curie"'
+          column_name: '"quantity_unit"'
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_sample_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -5938,7 +6065,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_sample_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -5947,15 +6074,17 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_familyrelationship
-  description: Model for cmg_stb_familyrelationship.
+  description: A relationship between two Subjects. Directed as follows 
+    <family_member_id> <relationship> <subject_id> <Mother's id> <KIN:027 
+    "isBiologicalMotherOf"> <subject_id>
   columns:
   - name: family_relationship_id
-    description: '{{ doc("cmg_stb_familyrelationship_family_relationship_id") }}'
+    description: 'Global ID for the Family Relationship'
     tests:
     - not_null
     - unique
   - name: family_member_id
-    description: '{{ doc("cmg_stb_familyrelationship_family_member_id") }}'
+    description: 'The family member Subject who is the relationship "subject".'
     tests:
     - not_null
     - relationships:
@@ -5964,7 +6093,8 @@ models:
           field: '"subject_id"'
           column_name: '"family_member_id"'
   - name: relation
-    description: '{{ doc("cmg_stb_familyrelationship_relation") }}'
+    description: 'Code definting the relationship predicate. Relationship of the "Family
+      Member" to the "Subject", eg, mother of. Ideally uses KIN ontology.'
     tests:
     - not_null
     - accepted_values:
@@ -6020,7 +6150,7 @@ models:
           - KIN:054
           - snomedct:261665006
   - name: subject_id
-    description: '{{ doc("cmg_stb_familyrelationship_subject_id") }}'
+    description: 'The family member Subject who is the relationship "object".'
     tests:
     - not_null
     - relationships:
@@ -6029,7 +6159,8 @@ models:
           field: '"subject_id"'
           column_name: '"subject_id"'
   - name: access_policy_id
-    description: '{{ doc("cmg_stb_familyrelationship_access_policy_id") }}'
+    description: 'Global identifier for the access policy that applies to this row
+      of data.'
     tests:
     - not_null
     - relationships:
@@ -6038,7 +6169,7 @@ models:
           field: '"access_policy_id"'
           column_name: '"access_policy_id"'
   - name: study_id
-    description: '{{ doc("cmg_stb_familyrelationship_study_id") }}'
+    description: 'INCLUDE Global ID for the study'
     tests:
     - not_null
     - relationships:
@@ -6047,10 +6178,10 @@ models:
           field: '"study_id"'
           column_name: '"study_id"'
 - name: cmg_stb_study_contact
-  description: Model for cmg_stb_study_contact.
+  description: Linking table generated for a multivalued slot on Study.
   columns:
   - name: study_study_id
-    description: '{{ doc("cmg_stb_study_contact_study_study_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -6059,7 +6190,7 @@ models:
           field: '"study_id"'
           column_name: '"Study_study_id"'
   - name: contact_id
-    description: '{{ doc("cmg_stb_study_contact_contact_id") }}'
+    description: 'The individual to contact with questions about this record.'
     tests:
     - not_null
     - relationships:
@@ -6074,10 +6205,10 @@ models:
         - '"Study_study_id"'
         - '"contact_id"'
 - name: cmg_stb_file_subject_id
-  description: Model for cmg_stb_file_subject_id.
+  description: Linking table generated for a multivalued slot on File.
   columns:
   - name: file_file_id
-    description: '{{ doc("cmg_stb_file_subject_id_file_file_id") }}'
+    description: 'Autocreated FK slot'
     tests:
     - not_null
     - relationships:
@@ -6086,7 +6217,7 @@ models:
           field: '"file_id"'
           column_name: '"File_file_id"'
   - name: subject_id_subject_id
-    description: '{{ doc("cmg_stb_file_subject_id_subject_id_subject_id") }}'
+    description: 'INCLUDE Global ID for the Subject'
     tests:
     - not_null
     - relationships:
