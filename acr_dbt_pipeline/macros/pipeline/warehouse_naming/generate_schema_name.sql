@@ -1,29 +1,27 @@
-{# Architecture-owned dbt schema naming override. #}
+{#-
+  Originally sourced from dbt_pipeline_utils (dbt-pipeline-utils repo:
+  macros/warehouse_naming/schema_name_from_path.sql), inlined here as ACR's
+  dbt schema naming override. Copied locally, not imported; keep in sync by hand.
+
+  - explicit +schema config wins: <target.schema>_<custom_schema_name>
+  - seeds: <target.schema>
+  - models/<a>/x.sql: <target.schema>_<a>
+  - models/<a>/<b>/.../<layer>/x.sql: <target.schema>_<a>_<b>... (last folder dropped)
+    e.g. models/cmg/int/x.sql -> main_cmg
+-#}
 {% macro generate_schema_name(custom_schema_name, node) -%}
-
-    {%- set default_schema = target.schema -%}
-
-    {# Always honor explicit schema config first (e.g. +schema in dbt_project.yml). #}
+    {%- set default_schema = target.schema | trim -%}
     {%- if custom_schema_name is not none and custom_schema_name | trim != '' -%}
-        {{ default_schema | trim }}_{{ custom_schema_name | trim }}
-    {%- elif node.resource_type == 'seed' -%}
-        {{ default_schema | trim }}
-    {%- else -%}
-        {# Fallback path-based behavior only when schema is not explicitly configured. #}
-        {%- set fqn_parts = node.fqn[1:-1] -%}
-
-        {%- if fqn_parts | length == 1 -%}
-            {{ default_schema }}_{{ fqn_parts[0] }}
-        {%- elif fqn_parts | length > 1 -%}
-            {%- if fqn_parts[0] == 'include' -%}
-                {%- set schema_path = (['inc'] + fqn_parts[1:-1]) | join('_') -%}
-            {%- else -%}
-                {%- set schema_path = fqn_parts[:-1] | join('_') -%}
-            {%- endif -%}
-            {{ default_schema }}_{{ schema_path }}
-        {%- else -%}
-            {{ default_schema }}
-        {%- endif -%}
+        {{ return(default_schema ~ '_' ~ (custom_schema_name | trim)) }}
+    {%- endif -%}
+    {%- if node.resource_type == 'seed' -%}
+        {{ return(default_schema) }}
     {%- endif -%}
 
+    {%- set folders = node.fqn[1:-1] -%}
+    {%- if folders | length == 0 -%}
+        {{ return(default_schema) }}
+    {%- endif -%}
+    {%- set parts = folders if folders | length == 1 else folders[:-1] -%}
+    {{ return(default_schema ~ '_' ~ (parts | join('_'))) }}
 {%- endmacro %}

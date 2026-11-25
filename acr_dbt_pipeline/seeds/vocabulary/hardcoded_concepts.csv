@@ -1,0 +1,3 @@
+model_variable,concept_curie
+organism_type,NCBITaxon:9606
+hpo_present_value,loinc:LA9633-4

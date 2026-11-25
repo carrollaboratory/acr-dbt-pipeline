@@ -1,0 +1,20 @@
+
+    
+
+    create  table
+      "acr_dbt_pipeline"."main_cmg"."cmg_stb_assay__dbt_tmp"
+  
+    
+    as (
+      select distinct
+    assay_gid::text as "assay_id",
+    sequencing_assay_concept_curie::text as "assay_type",
+    sequencing_assay::text as "assay_source",
+    cast(null as text) as "activity_definition_id",
+    access_policy_gid::text as "access_policy_id",
+    study_gid::text as "study_id"
+from "acr_dbt_pipeline"."main_cmg"."cmg_int_sequencing"
+where sequencing_id is not null
+    );
+    
+  

@@ -1,7 +1,0 @@
-variable_name,description,source,source_id,data_type,units,min,max,repeated_measure,required,comment,enumerations
-subject_id,Deidentified Subject/eMERGE ID,caDSR,2181644,String,NA,NA,NA,No,Yes,Non-enumerated value domain. Deidentified ID where the first two digits denote the origination site of the samples; site key:  Marshfield Clinic=16; Vanderbilt University=27; Group Health Cooperative=38; Mayo Clinic=49; Northwestern University=52,NA
-weight,Subject's weight at enrollment,caDSR,2179689,Decimal,Kilograms,0,300,Yes,No,Non-pregnant weights (do not include weights during pregnancy or 9 months after pregnancy),.=Missing value; NA=Not Accessed
-height,Subject's height at enrollment,caDSR,2179643,Decimal,cm,50,250,Yes,No,"One observation age corresponds  to one height.  If more than one height value is available for the same observation age, use the median value.",.=Missing value; NA=Not Accessed
-body_mass_index,Subject's BMI over time,caDSR,2006410,Decimal,kg/m2,0,72,Yes,Yes,1.Non-pregnant BMI (do not include BMIs during pregnancy or 9 months after pregnancy);,.=Missing value; NA=Not Accessed
-age_observation,Age when clinical event recorded in record,caDSR,2003852,Decimal,Years,0,89,Yes,Yes,With 2 decimal points if possible,.=Missing value; NA=Not Accessed
-visit_number,"A database generated unique key created for weight, height, BMI repeated values",NA,NA,Integer,Visit Number,0,1000000000,No,Yes,A unique key generated to distinguish between repeating sets of values.,.=Missing value; NA=Not Accessed
