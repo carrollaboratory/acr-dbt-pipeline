@@ -15,11 +15,6 @@
             'concept_column': 'hpo_present',
             'concept_delimiter': '|',
             'dataset_column': 'source_snapshot'
-        },
-        {
-            'concept_column': 'hpo_absent',
-            'concept_delimiter': '|',
-            'dataset_column': 'source_snapshot'
         }
     ],
     ref('mapdragon_annotations_talon'): [

@@ -55,34 +55,126 @@ select distinct
 from "acr_dbt_pipeline"."main_cmg"."cmg_int_sample" ) sa
 using (sample_id, source_snapshot_id)
 ),
+
 analyte_type_mappings as (
-  select 
-  source_text::text as analyte_type,
-  mapped_code::text as analyte_type_mapped_code
-  from "acr_dbt_pipeline"."main_cmg"."mapdragon_annotations_talon"
-  where source_system = 'https://anvilproject.org//analyte_type' -- none as of 11/2026
+  select
+    source_text::text as analyte_type,
+    mapped_code::text as analyte_type_mapped_code,
+    
+    concept_curie as analyte_type_concept_curie,
+    
+    concept_display as analyte_type_concept_display,
+    
+    concept_definition as analyte_type_concept_definition,
+    
+    vocabulary_prefix as analyte_type_vocabulary_prefix,
+    
+    fhir_system as analyte_type_fhir_system,
+    
+    concept_uri_or_curie as analyte_type_concept_uri_or_curie
+    
+  from "acr_dbt_pipeline"."main_cmg"."cmg_int_mapdragon_annotations"
+  where source_system = 'https://anvilproject.org//analyte_type'
 ),
+
 sequencing_assay_mappings as (
-  select 
-  source_text::text as sequencing_assay,
-  mapped_code::text as sequencing_assay_mapped_code
-  from "acr_dbt_pipeline"."main_cmg"."mapdragon_annotations_talon"
-  where source_system = 'https://anvilproject.org//sequencing_assay' -- none as of 11/2026
+  select
+    source_text::text as sequencing_assay,
+    mapped_code::text as sequencing_assay_mapped_code,
+    
+    concept_curie as sequencing_assay_concept_curie,
+    
+    concept_display as sequencing_assay_concept_display,
+    
+    concept_definition as sequencing_assay_concept_definition,
+    
+    vocabulary_prefix as sequencing_assay_vocabulary_prefix,
+    
+    fhir_system as sequencing_assay_fhir_system,
+    
+    concept_uri_or_curie as sequencing_assay_concept_uri_or_curie
+    
+  from "acr_dbt_pipeline"."main_cmg"."cmg_int_mapdragon_annotations"
+  where source_system = 'https://anvilproject.org//sequencing_assay'
 ),
+
 functional_equivalence_standard_mappings as (
-  select 
-  source_text::text as functional_equivalence_standard,
-  mapped_code::text as functional_equivalence_standard_mapped_code
-  from "acr_dbt_pipeline"."main_cmg"."mapdragon_annotations_talon"
-  where source_system = 'https://anvilproject.org//functional_equivalence_standard' -- none as of 11/2026
-  )
+  select
+    source_text::text as functional_equivalence_standard,
+    mapped_code::text as functional_equivalence_standard_mapped_code,
+    
+    concept_curie as functional_equivalence_standard_concept_curie,
+    
+    concept_display as functional_equivalence_standard_concept_display,
+    
+    concept_definition as functional_equivalence_standard_concept_definition,
+    
+    vocabulary_prefix as functional_equivalence_standard_vocabulary_prefix,
+    
+    fhir_system as functional_equivalence_standard_fhir_system,
+    
+    concept_uri_or_curie as functional_equivalence_standard_concept_uri_or_curie
+    
+  from "acr_dbt_pipeline"."main_cmg"."cmg_int_mapdragon_annotations"
+  where source_system = 'https://anvilproject.org//functional_equivalence_standard'
+)
+
   
 select -- join the annotations
-  base.*
+  base.*,
+  
+  analyte_type_mapped_code,
+  
+  analyte_type_concept_curie,
+  
+  analyte_type_concept_display,
+  
+  analyte_type_concept_definition,
+  
+  analyte_type_vocabulary_prefix,
+  
+  analyte_type_fhir_system,
+  
+  analyte_type_concept_uri_or_curie,
+  
+  
+  sequencing_assay_mapped_code,
+  
+  sequencing_assay_concept_curie,
+  
+  sequencing_assay_concept_display,
+  
+  sequencing_assay_concept_definition,
+  
+  sequencing_assay_vocabulary_prefix,
+  
+  sequencing_assay_fhir_system,
+  
+  sequencing_assay_concept_uri_or_curie,
+  
+  
+  functional_equivalence_standard_mapped_code,
+  
+  functional_equivalence_standard_concept_curie,
+  
+  functional_equivalence_standard_concept_display,
+  
+  functional_equivalence_standard_concept_definition,
+  
+  functional_equivalence_standard_vocabulary_prefix,
+  
+  functional_equivalence_standard_fhir_system,
+  
+  functional_equivalence_standard_concept_uri_or_curie,
+  
+  
 from base
+
 left join analyte_type_mappings
 using (analyte_type)
+
 left join sequencing_assay_mappings
 using (sequencing_assay)
+
 left join functional_equivalence_standard_mappings
 using (functional_equivalence_standard)

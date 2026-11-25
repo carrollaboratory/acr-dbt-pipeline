@@ -44,14 +44,26 @@ using (subject_id, source_snapshot_id)
 sample_source_mappings as (
   select 
   source_text::text as sample_source,
-  mapped_code::text as sample_source_mapped_code
-  from "acr_dbt_pipeline"."main_cmg"."mapdragon_annotations_talon"
+  mapped_code::text as sample_source_mapped_code,
+  concept_curie as sample_source_concept_curie,
+  concept_uri_or_curie as sample_source_concept_uri_or_curie,
+  concept_display as sample_source_concept_display,
+  concept_definition as sample_source_concept_definition,
+  vocabulary_prefix as sample_source_vocabulary_prefix,
+  fhir_system as sample_source_fhir_system
+  from "acr_dbt_pipeline"."main_cmg"."cmg_int_mapdragon_annotations"
   where source_system = 'https://anvilproject.org//sample_source'
   )
   
 select -- join the annotations
   base.*,
-  sample_source_mapped_code
+  sample_source_mapped_code,
+  sample_source_concept_curie,
+  sample_source_concept_uri_or_curie,
+  sample_source_concept_display,
+  sample_source_concept_definition,
+  sample_source_vocabulary_prefix,
+  sample_source_fhir_system
 from base
 left join sample_source_mappings
 using (sample_source)

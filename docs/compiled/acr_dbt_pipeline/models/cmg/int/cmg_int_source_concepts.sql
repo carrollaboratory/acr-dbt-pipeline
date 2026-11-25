@@ -1,4 +1,5 @@
-
+with source_inventory as (
+    
   
   
     
@@ -548,3 +549,11 @@ normalized as (
 select *
 from normalized
 where normalized_text is not null or normalized_concept is not null
+
+)
+select
+    inventory.*,
+    metadata.* exclude (source_concept)
+from source_inventory as inventory
+left join "acr_dbt_pipeline"."main_cmg"."cmg_int_concept_metadata" as metadata
+    on metadata.source_concept = inventory.normalized_concept
