@@ -16,7 +16,8 @@ select
   ad.title::text as dataset_title,
   sup.data_use_permission_duo_code::text as data_use_permission_duo_code,
   sup.data_use_modifier_duo_codes::text as data_use_modifier_duo_codes,
-  sup.disease_limitation::text as disease_limitation
+  sup.disease_limitation::text as disease_limitation,
+  sup.snapshot_url::text as snapshot_url
 from  {{ ref("cmg_main_anvil_dataset") }} as ad
 left join supplement_consent_data as sup
 on source_snapshot_id = source_snapshot_url_id
@@ -37,7 +38,8 @@ select
   dataset_title,
   data_use_permission_duo_code,
   data_use_modifier_duo_codes,
-  disease_limitation
+  disease_limitation,
+  snapshot_url
 from dataset
 )
 select

@@ -7,6 +7,8 @@
   'concept_curie', 'concept_display', 'concept_definition', 'vocabulary_prefix',
   'fhir_system', 'concept_uri_or_curie'
 ] -%}
+{%- set null_as = {'ancestry': 'Unknown'} -%}
+
 
 with base as ( -- join the base table to anvil_dataset
   select 
@@ -49,7 +51,11 @@ select -- join the annotations
 from base
 {% for field in mapping_fields %}
 left join {{ field }}_mappings
-using ({{ field }})
+  {%- if field in null_as %}
+  on {{ field }}_mappings.{{ field }} = coalesce(base.{{ field }}, '{{ null_as[field] }}')
+  {%- else %}
+  using ({{ field }})
+  {%- endif %}
 {% endfor %}
 left join {{ ref('cmg_int_concept_metadata') }} as subject_type
   on subject_type.source_concept = base.subject_type_source

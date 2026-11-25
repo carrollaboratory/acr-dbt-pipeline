@@ -1,4 +1,6 @@
 {%- set mapping_fields = ['consanguinity', 'family_history'] -%}
+{#- NULL source values are looked up as this text in the mapping annotations. -#}
+{%- set null_as = {'consanguinity': 'Unknown'} -%}
 {%- set metadata_columns = [
   'concept_curie', 'concept_display', 'concept_definition', 'vocabulary_prefix',
   'fhir_system', 'concept_uri_or_curie'
@@ -37,5 +39,9 @@ select -- join the annotations
   from base
   {% for field in mapping_fields %}
   left join {{ field }}_mappings
+  {%- if field in null_as %}
+  on {{ field }}_mappings.{{ field }} = coalesce(base.{{ field }}, '{{ null_as[field] }}')
+  {%- else %}
   using ({{ field }})
+  {%- endif %}
   {% endfor %}

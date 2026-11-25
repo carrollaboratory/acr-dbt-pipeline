@@ -2,8 +2,10 @@
 select distinct
     subject_gid::text as "subject_id",
     sex_concept_curie::text as "sex",
-    case when regexp_full_match(trim(ancestry_mapped_code), '(?i:CDCREC:)?(2135-2|2186-5)')
-        then ancestry_concept_curie end::text as "ethnicity",
+    case when ancestry_concept_curie in ('CDCREC:2135-2','CDCREC:2186-5','snomedct:261665006','snomedct:74964007')
+        then ancestry_concept_curie 
+        else 'snomedct:261665006' 
+        end::text as "ethnicity",
     cast(null as integer) as "age_at_last_vital_status",
     cast(null as text) as "vital_status",
     cast(null as integer) as "age_at_first_engagement",
