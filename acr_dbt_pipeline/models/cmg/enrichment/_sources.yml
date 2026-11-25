@@ -184,6 +184,47 @@ sources:
             data_type: varchar
           - name: ignore
             data_type: varchar
+            
+      - name: hardcoded_annotations
+        meta:
+          external_location: "read_csv('../../data/src_supplements/hardcoded_annotations.csv')"
+        columns:
+          - name: table_id
+            data_type: varchar
+          - name: source_text
+            data_type: varchar
+          - name: source_system
+            data_type: varchar
+          - name: mapped_code
+            data_type: varchar
+          - name: mapped_display
+            data_type: varchar
+          - name: mapped_system
+            data_type: varchar
+          - name: study_title
+            data_type: varchar
+          - name: study_name
+            data_type: varchar
+          - name: study_id
+            data_type: varchar
+          - name: dd_name
+            data_type: varchar
+          - name: dd_id
+            data_type: varchar
+          - name: version
+            data_type: date
+          - name: source_description
+            data_type: varchar
+          - name: source_domain
+            data_type: varchar
+          - name: parent_varname
+            data_type: varchar
+          - name: mapping_relationship
+            data_type: varchar
+          - name: comment
+            data_type: varchar
+          - name: ignore
+            data_type: varchar
 
       - name: uwash_split_text_mapping_disease_and_phenotype
         meta:

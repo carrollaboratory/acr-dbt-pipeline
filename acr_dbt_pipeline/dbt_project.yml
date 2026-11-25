@@ -470,6 +470,9 @@ models:
       src:
         +materialized: table
         +tags: ["src"]
+      enrichment:
+        +materialized: table
+        +tags: ["enrichment"]
       main:
         +materialized: table
         +tags: ["main"]
