@@ -59,7 +59,6 @@ models:
   description: Alternate display names for concepts.
   columns:
   - name: id
-    description: '{{ doc("cmg_stb_synonym_id") }}'
     tests:
     - not_null
     - unique
@@ -915,7 +914,6 @@ models:
   description: Relationships between two terms.
   columns:
   - name: id
-    description: '{{ doc("cmg_stb_conceptrelationship_id") }}'
     tests:
     - not_null
     - unique
@@ -979,7 +977,6 @@ models:
   description: Information about a specific publication.
   columns:
   - name: id
-    description: '{{ doc("cmg_stb_publication_id") }}'
     tests:
     - not_null
     - unique
@@ -4658,7 +4655,6 @@ models:
     or sharing of data.
   columns:
   - name: id
-    description: '{{ doc("cmg_stb_investigator_id") }}'
     tests:
     - not_null
     - unique
@@ -4936,7 +4932,6 @@ models:
   description: Table for Any
   columns:
   - name: id
-    description: '{{ doc("cmg_stb_any_id") }}'
     tests:
     - not_null
     - unique
@@ -5121,7 +5116,6 @@ models:
   description: Type and value of a file content hash.
   columns:
   - name: id
-    description: '{{ doc("cmg_stb_hashdigest_id") }}'
     tests:
     - not_null
     - unique
@@ -5626,7 +5620,6 @@ models:
   description: Identifies concepts that are not currently valid.
   columns:
   - name: id
-    description: '{{ doc("cmg_stb_deprecatedconcept_id") }}'
     tests:
     - not_null
     - unique
