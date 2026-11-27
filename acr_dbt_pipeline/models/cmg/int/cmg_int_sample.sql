@@ -51,5 +51,5 @@ select -- join the annotations
   sample_source_fhir_system
 from base
 left join sample_source_mappings
-using (sample_source)
+  on sample_source_mappings.sample_source = coalesce(base.sample_source, 'NA NULL')
 

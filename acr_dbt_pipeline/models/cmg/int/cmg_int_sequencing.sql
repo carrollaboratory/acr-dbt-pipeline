@@ -42,7 +42,9 @@ using (sample_id, source_snapshot_id)
     {{ column }} as {{ field }}_{{ column }}{{ ',' if not loop.last }}
     {% endfor %}
   from {{ ref('cmg_int_mapdragon_annotations') }}
-  where source_system = 'https://anvilproject.org//{{ field }}'
+  where source_system in (
+    'https://anvilproject.org//seq.sequencing_id','https://anvilproject.org//seq.sequencing_id'
+  )
 ){{ ',' if not loop.last }}
 {% endfor %}
   
