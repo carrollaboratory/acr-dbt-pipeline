@@ -1,6 +1,6 @@
 {%- set mapping_fields = ['consanguinity', 'family_history'] -%}
 {#- NULL source values are looked up as this text in the mapping annotations. -#}
-{%- set null_as = {'consanguinity': 'Unknown'} -%}
+{%- set null_as = {'consanguinity': 'NA NULL'} -%}
 {%- set metadata_columns = [
   'concept_curie', 'concept_display', 'concept_definition', 'vocabulary_prefix',
   'fhir_system', 'concept_uri_or_curie'

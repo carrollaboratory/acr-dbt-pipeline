@@ -7,7 +7,7 @@
   'concept_curie', 'concept_display', 'concept_definition', 'vocabulary_prefix',
   'fhir_system', 'concept_uri_or_curie'
 ] -%}
-{%- set null_as = {'ancestry': 'Unknown'} -%}
+{%- set null_as = {'ancestry': 'NA NULL'} -%}
 
 
 with base as ( -- join the base table to anvil_dataset

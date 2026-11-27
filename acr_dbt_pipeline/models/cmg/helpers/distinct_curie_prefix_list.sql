@@ -30,6 +30,7 @@ select distinct
           then split_part(curie, ':', 1)
         when starts_with(curie, 'MTH') then 'OMIM'
         when starts_with(curie, 'PS') then 'OMIM'
+        when curie in ('1002-5','2131-1', '2028-9', '2076-8', '2106-3', '2054-5', '2135-2') THEN 'CDCREC'
         else null
     end as prefix
 from base

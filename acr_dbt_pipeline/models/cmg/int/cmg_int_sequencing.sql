@@ -13,6 +13,8 @@
   'concept_curie', 'concept_display', 'concept_definition', 'vocabulary_prefix',
   'fhir_system', 'concept_uri_or_curie'
 ] -%}
+{#- NULL source values are looked up as this text in the mapping annotations. -#}
+{%- set null_as = {'sequencing_assay': 'NA NULL'} -%}
 
 with base as (
 select
@@ -55,5 +57,9 @@ select -- join the annotations
 from base
 {% for field in mapping_fields %}
 left join {{ field }}_mappings
-using ({{ field }})
+{%- if field in null_as %}
+  on {{ field }}_mappings.{{ field }} = coalesce(base.{{ field }}, '{{ null_as[field] }}')
+{%- else %}
+  using ({{ field }})
+{%- endif %}
 {% endfor %}
